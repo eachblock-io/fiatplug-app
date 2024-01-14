@@ -56,7 +56,7 @@ const LoginPage = () => {
         <Image src={Logo} width={150} height={150} alt="Logo" />
         <div className="mt-10 text-left mb-4">
           <h1 className="font-bold text-2xl text-gray-700">
-            Log In With Fiatplug!👋
+            Sign Up With Fiatplug!👋
           </h1>
         </div>
         <div className="rounded-sm p-3 flex justify-between items-center lg:flex-row md:flex-col flex-col lg:space-x-6 space-y-2 text-left mb-7 bg-green-50 border border-green-600">
@@ -85,7 +85,6 @@ const LoginPage = () => {
               <div className="mt-8">
                 <PasswordInput
                   label="Your Password"
-                  isLogin={true}
                   name="password"
                   placeholder="Password@347"
                   ariaLabel="password"
@@ -95,11 +94,11 @@ const LoginPage = () => {
                 <FormButton text="Login" type="submit" loading={isLoading} />
               </div>
               <p className="mt-3 text-left text-sm">
-                New to FiatPlug?{" "}
+                Already on FiatPlug?{" "}
                 <Link
-                  href="/signup"
+                  href="/"
                   className="text-sm font-medium text-green-700 sm:text-sm">
-                  Create an Account
+                  Login
                 </Link>
               </p>
             </Form>
