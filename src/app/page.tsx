@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import Logo from "@/public/logo2.svg";
+import Logo from "@/public/logo.png";
 import Image from "next/image";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -31,29 +31,35 @@ const LoginPage = () => {
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
+      router.push("/account");
       setIsLoading(true);
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_NEXT_API}/api/login`,
-        values
-      );
-      if (response.data?.data?.attributes.role === "creator administrator") {
-        toast.error("Something went wrong");
-      } else {
-        toast.success("Successfully");
-        router.push("/otp");
-        localStorage.setItem("userEmail", values?.email);
-      }
     } catch (error) {
-      toast.error("Invalid Credentials");
-    } finally {
-      setIsLoading(false);
+      console.log(error);
     }
+    // try {
+    //   setIsLoading(true);
+    //   const response = await axios.post(
+    //     `${process.env.NEXT_PUBLIC_NEXT_API}/api/login`,
+    //     values
+    //   );
+    //   if (response.data?.data?.attributes.role === "creator administrator") {
+    //     toast.error("Something went wrong");
+    //   } else {
+    //     toast.success("Successfully");
+    //     router.push("/otp");
+    //     localStorage.setItem("userEmail", values?.email);
+    //   }
+    // } catch (error) {
+    //   toast.error("Invalid Credentials");
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   return (
     <section className="flex items-center justify-center w-full h-screen bg-white">
       <div className="bg-white flex flex-col py-10 rounded-xl lg:w-4/12 md:w-5/12 w-10/12 md:px-4">
-        <Image src={Logo} width={150} height={150} alt="Logo" />
+        <Image src={Logo} width="200" alt="Logo" className="w-40" />
         <div className="mt-10 text-left mb-4">
           <h1 className="font-bold text-2xl text-gray-700">
             Log In With Fiatplug!👋

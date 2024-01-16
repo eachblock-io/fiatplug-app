@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import Logo from "@/public/logo2.svg";
+import Logo from "@/public/logo.png";
 import Image from "next/image";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -53,7 +53,7 @@ const LoginPage = () => {
   return (
     <section className="flex items-center justify-center w-full h-screen bg-white">
       <div className="bg-white flex flex-col py-10 rounded-xl lg:w-4/12 md:w-5/12 w-10/12 md:px-4">
-        <Image src={Logo} width={150} height={150} alt="Logo" />
+        <Image src={Logo} width="200" alt="Logo" className="w-40" />
         <div className="mt-10 text-left mb-4">
           <h1 className="font-bold text-2xl text-gray-700">
             Sign Up With Fiatplug!👋

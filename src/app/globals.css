@@ -65,6 +65,24 @@
     --ring: 212.7 26.8% 83.9%;
   }
 }
+
+.giftcard-card {
+  background-image: url('/startedbg.png');
+  background-position: center;
+  background-size: cover;
+}
+.crypto-card {
+  background-image: url('/startedbg.png'), linear-gradient(180deg, rgb(0, 68, 255) 0.04%, #7cbbef 170.42%);
+  background-position: center;
+  background-size: cover;
+}
+.card-bg {
+  background-image: url('/startedbg.png'), linear-gradient(180deg, rgb(233, 156, 3) 0.04%, #d76e06 170.42%);
+  background-position: center;
+  background-size: cover;
+}
+
+
  
 @layer base {
   * {
