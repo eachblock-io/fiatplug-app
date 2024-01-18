@@ -9,10 +9,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import giftcard from "@/public/cards/Greendot.png";
-import amazoncard from "@/public/cards/Amazon.jpg";
-import steamcard from "@/public/cards/steam.jpg";
-import RazorGoldcard from "@/public/cards/RazorGold.png";
+import adds from "@/public/crypto.png";
+import adds1 from "@/public/ads-1.png";
+import adds2 from "@/public/adds2.png";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,26 +19,21 @@ const cardsData = [
   {
     id: 1,
     name: "Greendot",
-    img: giftcard,
+    img: adds,
   },
   {
     id: 2,
     name: "Amazon",
-    img: amazoncard,
+    img: adds1,
   },
   {
     id: 3,
     name: "Steam",
-    img: steamcard,
-  },
-  {
-    id: 4,
-    name: "Razor Gold",
-    img: RazorGoldcard,
+    img: adds2,
   },
 ];
 
-export function CardCarousel() {
+export function CryptoCarousel() {
   return (
     <section>
       <Carousel
@@ -57,10 +51,10 @@ export function CardCarousel() {
           {cardsData?.map((data) => (
             <CarouselItem
               key={data?.id}
-              className="pl-4 md:basis-1/2 lg:basis-1/3">
+              className="pl-4 md:basis-1/2 lg:basis-1/2">
               <Link href={`/account/offers/${data?.id}`}>
                 <div className="p-1">
-                  <Card className="lg:h-48 h-40 relative w-full flex aspect-square items-center justify-center lg:p-6">
+                  <Card className="lg:h-52 h-40 relative w-full flex aspect-square items-center justify-center lg:p-6">
                     <Image src={data?.img} alt={data?.name} priority fill />
                   </Card>
                 </div>
