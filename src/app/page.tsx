@@ -12,6 +12,8 @@ import InputField from "@/components/forms/InputField";
 import PasswordInput from "@/components/forms/PasswordInput";
 import FormButton from "@/components/forms/FormButton";
 import { IoMdLock } from "react-icons/io";
+import { Button } from "@/components/ui/button";
+import cookie from "cookie";
 
 const validationSchema = Yup.object({
   password: Yup.string().required("Password is required"),
@@ -23,6 +25,7 @@ const validationSchema = Yup.object({
 const LoginPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const initialValues = {
     email: "",
@@ -31,29 +34,19 @@ const LoginPage = () => {
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
-      router.push("/account");
       setIsLoading(true);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_NEXT_API}/api/login`,
+        values
+      );
+      console.log(response)
+      setIsRedirecting(true);
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      toast.error("Invalid Credentials");
+    } finally {
+      setIsLoading(false);
     }
-    // try {
-    //   setIsLoading(true);
-    //   const response = await axios.post(
-    //     `${process.env.NEXT_PUBLIC_NEXT_API}/api/login`,
-    //     values
-    //   );
-    //   if (response.data?.data?.attributes.role === "creator administrator") {
-    //     toast.error("Something went wrong");
-    //   } else {
-    //     toast.success("Successfully");
-    //     router.push("/otp");
-    //     localStorage.setItem("userEmail", values?.email);
-    //   }
-    // } catch (error) {
-    //   toast.error("Invalid Credentials");
-    // } finally {
-    //   setIsLoading(false);
-    // }
   };
 
   return (
@@ -88,7 +81,7 @@ const LoginPage = () => {
                 type="email"
                 ariaLabel="email"
               />
-              <div className="mt-8">
+              <div className="lg:mt-8 mt-4">
                 <PasswordInput
                   label="Your Password"
                   isLogin={true}
@@ -98,7 +91,12 @@ const LoginPage = () => {
                 />
               </div>
               <div className="mt-6">
-                <FormButton text="Login" type="submit" loading={isLoading} />
+                {/* <FormButton text="Login" type="submit" loading={isLoading} /> */}
+                {isRedirecting ? (
+                  <Button>Redireacting... please wait </Button>
+                ) : (
+                  <Button>{isLoading ? "Loading..." : "Login"}</Button>
+                )}
               </div>
               <p className="mt-3 text-left text-sm">
                 New to FiatPlug?{" "}

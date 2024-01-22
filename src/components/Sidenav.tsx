@@ -36,13 +36,13 @@ export function Sidenav() {
           <p>Home</p>
         </Link>
         <Link
-          href="/dashboard/content"
+          href="/account"
           className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
           <IoWallet className="text-2xl text-gray-500 hover:text-zinc-800" />
           <p>Account</p>
         </Link>
         <Link
-          href="/dashboard/pages"
+          href="/account/orders"
           className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
           <SiBookstack className="text-2xl text-gray-500 hover:text-zinc-800" />
           <p>Orders</p>

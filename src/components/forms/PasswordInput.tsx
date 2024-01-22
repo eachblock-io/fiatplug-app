@@ -66,7 +66,7 @@ const PasswordInput: React.FC<InputFieldProps> = ({
           {...props}
           type={showPassword ? "text" : "password"}
           aria-label={ariaLabel}
-          className={`w-full px-4 sm:py-3 py-2 sm:text-md text-sm border border-primary rounded-sm shadow-sm text-zinc-900 bg-transparent focus:outline-none focus:border-main ${
+          className={`w-full px-4 sm:py-3 py-3 sm:text-md text-sm border border-primary rounded-sm shadow-sm text-zinc-900 bg-transparent focus:outline-none focus:border-main ${
             meta.touched && meta.error ? "border-red-500" : "border-gray-300"
           }`}
           onChange={handlePasswordChange}

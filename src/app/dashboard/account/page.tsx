@@ -1,17 +1,12 @@
 "use client";
-import Badge from "@/components/Badge";
 import MaxWidth from "@/components/MaxWidth";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import CardImg from "@/public/creditCard.png";
-import CryptoImg from "@/public/crypto.png";
 import Image from "next/image";
 import rechargeImg from "@/public/GivingRupiahcoin.png";
 import payImg from "@/public/List.png";
 import giftcardImg from "@/public/creditCard.png";
 import { CardCarousel } from "@/components/ui/CardCarousel";
 import Link from "next/link";
-import { Card } from "@/components/ui/card";
 import { CryptoCarousel } from "@/components/ui/CryptoCarousel";
 import OfferCard from "@/components/OfferCard";
 
@@ -53,7 +48,7 @@ const AccountPage = () => {
                 </h2>
                 <div className="grid lg:grid-cols-2 grid-cols-2 lg:gap-10 gap-2">
                   <Link
-                    href="/"
+                    href="/account/giftcard"
                     className="card-bg relative overflow-hidden rounded-md">
                     <div className=" lg:p-8 p-4 text-white">
                       <h2 className="font-bold lg:text-4xl text-lg">
