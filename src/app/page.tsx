@@ -10,10 +10,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import InputField from "@/components/forms/InputField";
 import PasswordInput from "@/components/forms/PasswordInput";
-import FormButton from "@/components/forms/FormButton";
 import { IoMdLock } from "react-icons/io";
 import { Button } from "@/components/ui/button";
-import cookie from "cookie";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const validationSchema = Yup.object({
   password: Yup.string().required("Password is required"),
@@ -23,7 +22,7 @@ const validationSchema = Yup.object({
 });
 
 const LoginPage = () => {
-  const router = useRouter();
+  const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
 
@@ -35,14 +34,11 @@ const LoginPage = () => {
   const onSubmit = async (values: typeof initialValues) => {
     try {
       setIsLoading(true);
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_NEXT_API}/api/login`,
-        values
-      );
-      console.log(response)
+      await axios.post(`${process.env.NEXT_PUBLIC_NEXT_API}/api/login`, values);
+      push('/dashboard');
       setIsRedirecting(true);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error("Invalid Credentials");
     } finally {
       setIsLoading(false);
@@ -91,11 +87,25 @@ const LoginPage = () => {
                 />
               </div>
               <div className="mt-6">
-                {/* <FormButton text="Login" type="submit" loading={isLoading} /> */}
                 {isRedirecting ? (
-                  <Button>Redireacting... please wait </Button>
+                  <Button
+                    className="w-full py-6 bg-[#F9A21B] font-bold text-md transition-all hover:bg-[#f9a01bdd] "
+                    disabled>
+                    Redireacting... please wait{" "}
+                  </Button>
                 ) : (
-                  <Button>{isLoading ? "Loading..." : "Login"}</Button>
+                  <Button className="w-full py-6 bg-[#F9A21B] font-bold text-md transition-all hover:bg-[#f9a01bdd] ">
+                    {isLoading ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <ClipLoader size={20} color="#fff" />
+                        {<span className="">Loading...</span>}
+                      </span>
+                    ) : (
+                      <>
+                        <span className="font-bold">Login</span>
+                      </>
+                    )}
+                  </Button>
                 )}
               </div>
               <p className="mt-3 text-left text-sm">
