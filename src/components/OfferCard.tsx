@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 
 const OfferCard = () => {
   return (
-    <Card className="p-6 flex items-center justify-between">
+    <Card className="lg:p-6 p-4 flex items-center justify-between">
       <div className="info">
         <div className="user flex items-center">
           <Image src={userImg} alt="user-image" width="200" className="w-12" />

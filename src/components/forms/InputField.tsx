@@ -18,7 +18,7 @@ const InputField: React.FC<InputFieldProps> = ({
     <div className="mb-2">
       <label
         htmlFor={props.name}
-        className="mb-2 block text-sm font-medium text-gray-500">
+        className="mb-1 block text-xs font-medium text-gray-500">
         {label}
       </label>
       <input

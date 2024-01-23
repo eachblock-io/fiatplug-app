@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "@/public/logo.png";
 import Image from "next/image";
 import { Form, Formik } from "formik";
@@ -9,37 +9,53 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import InputField from "@/components/forms/InputField";
-import PasswordInput from "@/components/forms/PasswordInput";
-import { IoMdLock } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import ClipLoader from "react-spinners/ClipLoader";
+import fetchToken from "@/lib/auth";
 
 const validationSchema = Yup.object({
-  password: Yup.string().required("Password is required"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
+  otp: Yup.string().required("OTP is required"),
 });
 
-const LoginPage = () => {
+const VerifyPage = () => {
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [email, setEmail] = useState("");
 
   const initialValues = {
-    email: "",
-    password: "",
+    otp: "",
   };
 
+  useEffect(() => {
+    // Check if there's an email in local storage
+    const storedEmail = localStorage.getItem("userEmail");
+
+    if (storedEmail) {
+      // If there is, set the email and mark as authenticated
+      setEmail(storedEmail);
+    }
+  }, []);
+
   const onSubmit = async (values: typeof initialValues) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      await axios.post(`${process.env.NEXT_PUBLIC_NEXT_API}/api/login`, values);
-      push('/dashboard');
+      const { data } = await fetchToken();
+
+      // Set authorization header in the axios request
+      const headers = {
+        Authorization: `Bearer ${data?.token}`,
+        "Content-Type": "application/json",
+      };
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/verify-otp`,
+        values,
+        { headers }
+      );
+      push("/dashboard");
       setIsRedirecting(true);
-    } catch (error) {
-      console.log(error);
-      toast.error("Invalid Credentials");
+    } catch (error: any) {
+      toast.error(`${error?.response?.data?.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -50,20 +66,12 @@ const LoginPage = () => {
       <div className="bg-white flex flex-col py-10 rounded-xl lg:w-4/12 md:w-5/12 w-10/12 md:px-4">
         <Image src={Logo} width="200" alt="Logo" className="w-40" />
         <div className="mt-10 text-left mb-4">
-          <h1 className="font-bold text-2xl text-gray-700">
-            Log In With Fiatplug!👋
-          </h1>
-        </div>
-        <div className="rounded-sm p-3 flex justify-between items-center lg:flex-row md:flex-col flex-col lg:space-x-6 space-y-2 text-left mb-7 bg-green-50 border border-green-600">
-          <p className="text-xs font-semibold text-gray-700 ">
-            IMPORTANT! Please check that you are visiting
-            https://app.fiatplug.com/
-          </p>
-          <p className="text-xs flex items-center mr-auto space-x-1 py-1 px-2 bg-white border border-gray-600 font-semibold">
-            <IoMdLock className="text-green-600 text-lg" />
-            <span className="text-green-600">https</span>://app.fiatplug.com
+          <h1 className="font-bold text-2xl text-gray-700">Verification 🔐</h1>
+          <p className="text-gray-500 text-md mt-2 ">
+            Verification code sent to this email {`*****${email.slice(4)}`}
           </p>
         </div>
+
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
@@ -71,38 +79,29 @@ const LoginPage = () => {
           {() => (
             <Form className="w-full rounded-lg">
               <InputField
-                label="Your Email"
-                name="email"
-                placeholder="Enter Email"
-                type="email"
-                ariaLabel="email"
+                label="OTP"
+                name="otp"
+                placeholder="Enter OTP"
+                type="text"
+                ariaLabel="otp"
               />
-              <div className="lg:mt-8 mt-4">
-                <PasswordInput
-                  label="Your Password"
-                  isLogin={true}
-                  name="password"
-                  placeholder="Password@347"
-                  ariaLabel="password"
-                />
-              </div>
               <div className="mt-6">
                 {isRedirecting ? (
                   <Button
-                    className="w-full py-6 bg-[#F9A21B] font-semibold text-zinc-600 text-sm transition-all hover:bg-[#f9a01bdd] "
+                    className="w-full py-6 bg-[#F9A21B] font-medium text-xs transition-all hover:bg-[#f9a01bdd] "
                     disabled>
-                    Redireacting... please wait{" "}
+                    Prepering your dashboard... please wait{" "}
                   </Button>
                 ) : (
                   <Button className="w-full py-6 bg-[#F9A21B] font-bold text-md transition-all hover:bg-[#f9a01bdd] ">
                     {isLoading ? (
                       <span className="flex items-center justify-center gap-2">
                         <ClipLoader size={20} color="#fff" />
-                        {<span className="">Loading...</span>}
+                        {<span className="">Verifying...</span>}
                       </span>
                     ) : (
                       <>
-                        <span className="font-bold">Login</span>
+                        <span className="font-bold">Verify</span>
                       </>
                     )}
                   </Button>
@@ -124,4 +123,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default VerifyPage;
