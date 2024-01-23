@@ -17,8 +17,10 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const validationSchema = Yup.object({
-  firstname: Yup.string().required("Firstname is required"),
+  first_name: Yup.string().required("Firstname is required"),
+  last_name: Yup.string().required("Lastname is required"),
   password: Yup.string().required("Password is required"),
+  password_confirmation: Yup.string(),
   referralCode: Yup.string(),
   email: Yup.string()
     .email("Invalid email address")
@@ -31,20 +33,28 @@ const LoginPage = () => {
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   const initialValues = {
-    firstname: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
-    referral: "",
+    password_confirmation: "",
+    referralCode: "",
   };
 
   const onSubmit = async (values: typeof initialValues) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_NEXT_API}/api/register`,
-        values
-      );
-      push("/dashboard");
+      await axios.post(`${process.env.NEXT_PUBLIC_NEXT_API}/api/register`, {
+        first_name: values?.first_name,
+        last_name: values?.last_name,
+        email: values?.email,
+        password: values?.password,
+        password_confirmation: values?.password,
+        referralCode: values?.referralCode,
+      });
+      localStorage.setItem("userEmail", values?.email);
+      localStorage.setItem("userName", values?.first_name);
+      push("/verify");
       setIsRedirecting(true);
     } catch (error) {
       toast.error("Invalid Credentials");
@@ -68,13 +78,20 @@ const LoginPage = () => {
           validationSchema={validationSchema}>
           {() => (
             <Form className="w-full rounded-lg">
-              <div className="mb-4">
+              <div className="mb-2 grid lg:grid-cols-2 grid-cols-1 lg:gap-x-4 gap-y-2">
                 <InputField
                   label="Your First Name"
-                  name="firstName"
+                  name="first_name"
                   placeholder="Enter First Name"
                   type="text"
                   ariaLabel="firstname"
+                />
+                <InputField
+                  label="Your Last Name"
+                  name="last_name"
+                  placeholder="Enter Last Name"
+                  type="text"
+                  ariaLabel="lastname"
                 />
               </div>
               <InputField
@@ -92,10 +109,16 @@ const LoginPage = () => {
                   ariaLabel="password"
                 />
               </div>
+              <InputField
+                hidden
+                name="password_confirmation"
+                type="password"
+                ariaLabel="password_confirmation"
+              />
               <div className="mb-4">
                 <InputField
                   label="Referral Code"
-                  name="referalCode"
+                  name="referralCode"
                   placeholder="Referral code"
                   type="text"
                   ariaLabel="referralCode"
@@ -117,10 +140,12 @@ const LoginPage = () => {
                   <Button
                     className="w-full lg:py-6 bg-[#F9A21B] font-bold lg:text-md transition-all hover:bg-[#f9a01bdd] "
                     disabled>
-                    Redireacting... please wait{" "}
+                    Creating your account... please wait{" "}
                   </Button>
                 ) : (
-                  <Button className="w-full lg:py-6 bg-[#F9A21B] font-bold lg:text-md transition-all hover:bg-[#f9a01bdd] ">
+                  <Button
+                    type="submit"
+                    className="w-full lg:py-6 bg-[#F9A21B] font-bold lg:text-md transition-all hover:bg-[#f9a01bdd] ">
                     {isLoading ? (
                       <span className="flex items-center justify-center gap-2">
                         <ClipLoader size={20} color="#fff" />
@@ -128,7 +153,7 @@ const LoginPage = () => {
                       </span>
                     ) : (
                       <>
-                        <span className="font-bold">Login</span>
+                        <span className="font-bold">Create account</span>
                       </>
                     )}
                   </Button>

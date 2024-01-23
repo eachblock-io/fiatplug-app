@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import { serialize } from "cookie";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
   const body = await req.json();
   const { data } = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/register_super_admin`,
-    req.body
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+    body
   );
+  console.log(body)
   const token = data?.data?.attributes?.access_token;
 
   const serialized = serialize(`token`, token, {
