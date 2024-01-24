@@ -4,27 +4,33 @@ import Link from "next/link";
 import { SiBookstack } from "react-icons/si";
 import { MdSpaceDashboard } from "react-icons/md";
 import { IoSettingsSharp } from "react-icons/io5";
-import { CiLogin } from "react-icons/ci";
 import { IoWallet } from "react-icons/io5";
 import { SiGooglemessages } from "react-icons/si";
 import { TbLogout } from "react-icons/tb";
 import Logo from "@/public/logo.png";
 import Image from "next/image";
 
-export function Sidenav() {
+export function Sidenav({ data }: any) {
   return (
     <div
       className={`lg:h-screen lg:w-[20rem] border-r border-gray-300 shadow-sm transform translate-x-[-100%] lg:translate-x-0 lg:relative absolute left-0 p-6 transition ease-in-out duration-100`}>
-      <Image src={Logo} width="200" alt="Logo" className="w-40" />
+      <Image src={Logo} width="200" alt="Logo" className="w-[100px]" />
       <div className="profile flex items-center space-x-6 mt-8 w-full ">
         <div className="flex items-center space-x-4 border py-2 px-4 w-full rounded-lg">
           <Avatar className="p-0 m-0">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>AY</AvatarFallback>
+            <AvatarImage src={data?.profile_picture} />
+            <AvatarFallback className="font-bold">
+              {data?.first_name[0]}
+              {data?.last_name[0]}
+            </AvatarFallback>
           </Avatar>
           <div>
-            <p className="text-sm font-semibold">Caleb Ben...</p>
-            <p className="text-sm text-gray-500 ">calebben@gm...</p>
+            <p className="text-sm font-semibold">
+              {data?.first_name} {data?.last_name}
+            </p>
+            <p className="text-sm text-gray-500 ">
+              {data?.email?.slice(0, 12)}....
+            </p>
           </div>
         </div>
       </div>

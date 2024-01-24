@@ -18,10 +18,12 @@ export default function RootLayout({
 }) {
   const { push } = useRouter();
   const [isSuccess, setIsSuccess] = useState(false);
+  const [user, setUser] = useState<any>({});
 
   useEffect(() => {
     (async (async) => {
       const { user, error } = await getUser();
+      setUser(user);
       if (error) {
         push("/");
         return;
@@ -38,7 +40,7 @@ export default function RootLayout({
   return (
     <Providers>
       <main>
-        <Layout>{children}</Layout>
+        <Layout data={user}>{children}</Layout>
       </main>
     </Providers>
   );
@@ -49,7 +51,7 @@ async function getUser(): Promise<userResponse> {
     const { data } = await axios.get("/api/me");
 
     return {
-      user: data,
+      user: data?.user,
       error: null,
     };
   } catch (e) {

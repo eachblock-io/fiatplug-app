@@ -53,7 +53,7 @@ export function CryptoCarousel() {
               key={data?.id}
               className="pl-4 md:basis-1/2 lg:basis-1/2">
               <div className="p-1">
-                <Card className="lg:h-52 h-40 relative w-full flex aspect-square items-center justify-center lg:p-6">
+                <Card className="lg:h-52 h-[140px] relative w-full flex aspect-square items-center justify-center lg:p-6">
                   <Image src={data?.img} alt={data?.name} priority fill />
                 </Card>
               </div>

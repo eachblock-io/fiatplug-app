@@ -1,24 +1,9 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoNotifications } from "react-icons/io5";
 import Logo from "@/public/logo.png";
 import Image from "next/image";
 
-const Header = ({ onClick }: any) => {
-  const [mounted, setMounted] = useState(false);
-  const { resolvedTheme, setTheme } = useTheme();
-  const [username, setUsername] = useState("");
-
-  // After mounting, we have access to the theme
-  useEffect(() => {
-    setMounted(true);
-    const username = localStorage.getItem("userName");
-    if (username) {
-      setUsername(username);
-    }
-  }, []);
+const Header = ({ onClick, username }: any) => {
 
   return (
     <div className="flex justify-between items-center sticky top-0 bg-white  lg:px-14 px-4 mx-auto py-5 border-b border-gray-300 shadow-sm z-20 w-full">

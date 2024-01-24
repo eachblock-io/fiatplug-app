@@ -9,11 +9,11 @@ const initialState = {
 } as ToggleState;
 
 export const toggleSlice = createSlice({
-  name: "toggle",
+  name: "active",
   initialState,
   reducers: {
-    handleOpen: (state) => {
-      state.value = true;
+    handleOpen: (state: any) => {
+      state.value = !state.value;
     },
   },
 });
