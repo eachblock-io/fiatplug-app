@@ -44,7 +44,7 @@ const LoginPage = () => {
   const onSubmit = async (values: typeof initialValues) => {
     setIsLoading(true);
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_NEXT_API}/api/register`, {
+      await axios.post(`/api/register`, {
         first_name: values?.first_name,
         last_name: values?.last_name,
         email: values?.email,

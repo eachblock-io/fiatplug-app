@@ -87,11 +87,11 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
     }
   };
 
-  console.log(sellOffers);
-
   return (
     <>
-      {active ? <CardCarousel cards={data} /> : <CryptoCarousel />}
+      <div className="w-full px-4 mx-auto">
+        {active ? <CardCarousel cards={data} /> : <CryptoCarousel />}{" "}
+      </div>
       <section className="w-full lg:my-20 my-6">
         <div className="tabs mb-4 rounded-md border lg:w-11/12 w-full mx-auto grid grid-cols-2 gap-2 p-2 bg-gray-100">
           <button
@@ -241,7 +241,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                           <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-4">
                             {currentBuyOffers?.map((data: any) => (
                               <Link
-                                href={`/dashboard/crypto-offers/${data?.id}`}
+                                href={`/dashboard/crypto/buy/${data?.id}`}
                                 key={data?.id}>
                                 <OfferCard data={data} />
                               </Link>
@@ -290,7 +290,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                           <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-4">
                             {currentSellOffers?.map((data: any) => (
                               <Link
-                                href={`/dashboard/crypto-offers/${data?.id}`}
+                                href={`/dashboard/crypto/sell/${data?.id}`}
                                 key={data?.id}>
                                 <OfferCard data={data} />
                               </Link>

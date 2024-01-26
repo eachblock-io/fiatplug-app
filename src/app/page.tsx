@@ -34,8 +34,8 @@ const LoginPage = () => {
   const onSubmit = async (values: typeof initialValues) => {
     try {
       setIsLoading(true);
-      await axios.post(`${process.env.NEXT_PUBLIC_NEXT_API}/api/login`, values);
-      push('/dashboard');
+      await axios.post(`/api/login`, values);
+      push("/dashboard");
       setIsRedirecting(true);
     } catch (error) {
       console.log(error);
@@ -89,7 +89,7 @@ const LoginPage = () => {
               <div className="mt-6">
                 {isRedirecting ? (
                   <Button
-                    className="w-full py-6 bg-[#F9A21B] font-semibold text-zinc-600 text-sm transition-all hover:bg-[#f9a01bdd] "
+                    className="w-full py-6 bg-[#F9A21B] font-semibold text-zinc-800 text-sm transition-all hover:bg-[#f9a01bdd] "
                     disabled>
                     Redireacting... please wait{" "}
                   </Button>
