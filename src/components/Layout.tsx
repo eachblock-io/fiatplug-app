@@ -19,7 +19,7 @@ const Layout = ({
   };
 
   return (
-    <section className="flex sm:h-screen h-full w-full overflow-hidden">
+    <section className="flex sm:h-screen h-screen w-full overflow-hidden">
       <Sidenav data={data?.attributes} />
       <Mobilenav toggle={toggle} handleToggle={handleToggle} />
       <main className="w-full relative overflow-y-auto">

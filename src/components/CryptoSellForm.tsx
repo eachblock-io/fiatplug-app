@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -18,9 +17,10 @@ import {
 } from "@/components/ui/tooltip";
 import { formatCurrency } from "@/utils";
 import fetchToken from "@/lib/auth";
+import AddBankPage from "./AddBank";
 
 const CryptoSellForm = ({ data }: any) => {
-  const { push } = useRouter();
+  const [openBank, setOpenBank] = useState(true);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -77,8 +77,6 @@ const CryptoSellForm = ({ data }: any) => {
     }
   };
 
-  //
-
   const copyAddress = async () => {
     await navigator.clipboard.writeText(address);
     setIsCopied(true);
@@ -120,6 +118,7 @@ const CryptoSellForm = ({ data }: any) => {
         setIsRedirecting(true);
         setIsChecked(true);
         toast.success(resdata?.message);
+        setOpenBank(true);
       }
     } catch (error) {
       console.log(error);
@@ -130,6 +129,11 @@ const CryptoSellForm = ({ data }: any) => {
 
   return (
     <div className="lg:w-5/12 w-10/12 mx-auto lg:mt-8 mt-20">
+      <AddBankPage
+        data={data}
+        openBank={openBank}
+        setOpenBank={setOpenBank}
+      />
       <h1 className="font-bold text-2xl mb-6">Sell Crypto</h1>
       <form onSubmit={handleSubmit}>
         <div>

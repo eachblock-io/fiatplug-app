@@ -1,26 +1,21 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Input } from "./ui/input";
-import { MdContentCopy } from "react-icons/md";
 import coinImg from "@/public/coin.png";
 import { MdError } from "react-icons/md";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { formatCurrency } from "@/utils";
 import fetchToken from "@/lib/auth";
+import PreviewPayment from "@/components/PreviewPayment";
+import AddBankPage from "./AddBank";
 
 const CryptoBuyForm = ({ data }: any) => {
-  const { push } = useRouter();
+  const [isOpen, setIsOpen] = useState(true);
+  const [completeModal, setCompleteModal] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -28,6 +23,7 @@ const CryptoBuyForm = ({ data }: any) => {
   const [quantity, setQuantity] = useState<any>();
   const [point, setPoint] = useState("");
   const [address, setAddress] = useState("");
+  const [previewInfo, setPreviewInfo] = useState({});
 
   const handleInputChange = async (event: { target: { value: any } }) => {
     const inputValue = event.target.value;
@@ -108,17 +104,31 @@ const CryptoBuyForm = ({ data }: any) => {
         setIsRedirecting(true);
         setIsChecked(true);
         toast.success(resdata?.message);
+        setIsOpen(true);
       }
-      console.log(resdata);
+      console.log(resdata?.data);
+      setPreviewInfo(resdata?.data);
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
+      setIsRedirecting(false);
     }
   };
 
+  const handleComplete = () => {
+    setCompleteModal(true);
+  };
+
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto lg:mt-8 mt-20">
+    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-8 mt-20">
+      <PreviewPayment
+        data={previewInfo}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        handleComplete={handleComplete}
+        completeModal={completeModal}
+      />
       <h1 className="font-bold text-2xl mb-6">Buy Crypto</h1>
       <form onSubmit={handleSubmit}>
         <div>

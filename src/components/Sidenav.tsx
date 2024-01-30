@@ -54,7 +54,7 @@ export function Sidenav({ data }: any) {
           <p>Orders</p>
         </Link>
         <Link
-          href="/dashboard"
+          href="/dashboard/chat"
           className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
           <SiGooglemessages className="text-2xl text-gray-500 hover:text-zinc-800" />
           <p>Messages</p>

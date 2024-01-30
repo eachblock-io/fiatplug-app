@@ -6,7 +6,7 @@ import Image from "next/image";
 const Header = ({ onClick, username }: any) => {
 
   return (
-    <div className="flex justify-between items-center sticky top-0 bg-white  lg:px-14 px-4 mx-auto py-5 border-b border-gray-300 shadow-sm z-20 w-full">
+    <div className="flex justify-between items-center sticky top-0 bg-white  lg:px-14 px-4 mx-auto h-[10vh] border-b border-gray-300 shadow-sm z-20 w-full">
       <HiOutlineBars3BottomLeft
         onClick={onClick}
         className="lg:hidden block text-main text-4xl cursor-pointer"

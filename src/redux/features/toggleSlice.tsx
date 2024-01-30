@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type ToggleState = {
   value: boolean;
+  preview: boolean;
 };
 
 const initialState = {
   value: false,
+  preview: false,
 } as ToggleState;
 
 export const toggleSlice = createSlice({
@@ -15,9 +17,16 @@ export const toggleSlice = createSlice({
     handleOpen: (state: any) => {
       state.value = !state.value;
     },
+    handleOpenPreview: (state: any) => {
+      state.preview = true;
+    },
+    handleClosePreview: (state: any) => {
+      state.preview = false;
+    },
   },
 });
 
-export const { handleOpen } = toggleSlice.actions;
+export const { handleOpen, handleOpenPreview, handleClosePreview } =
+  toggleSlice.actions;
 
 export default toggleSlice.reducer;

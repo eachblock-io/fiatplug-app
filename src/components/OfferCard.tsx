@@ -1,9 +1,6 @@
 import React from "react";
 import { Card } from "./ui/card";
-import userImg from "@/public/user.png";
-import Image from "next/image";
 import { IoIosTimer } from "react-icons/io";
-import { Button } from "./ui/button";
 import { formatCurrency } from "@/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 

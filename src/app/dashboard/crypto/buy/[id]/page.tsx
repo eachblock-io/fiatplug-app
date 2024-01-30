@@ -1,6 +1,6 @@
-import CryptoBuyForm from "@/components/CryptoBuyForm";
 import React from "react";
 import { cookies } from "next/headers";
+import CryptoBuyForm from "@/components/CryptoBuyForm";
 
 async function geOffer(id: string) {
   const cookieStore = cookies();
@@ -26,10 +26,8 @@ export default async function CryptoOfferFormPage({ params }: any) {
   const offerPromise = await geOffer(userID);
   const [offer] = await Promise.all([offerPromise]);
   return (
-    <>
-      <section className="w-full flex items-center justify-center">
-        <CryptoBuyForm data={offer} />
-      </section>
-    </>
+    <section className="w-full relative flex items-center justify-center">
+      <CryptoBuyForm data={offer} />
+    </section>
   );
 }
