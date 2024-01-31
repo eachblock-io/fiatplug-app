@@ -17,6 +17,8 @@ const PreviewPayment = ({
   handleComplete,
 }: any) => {
   const { push } = useRouter();
+
+  // console.log(data);
   return (
     <>
       {isOpen ? (

@@ -71,6 +71,12 @@ textarea {
   outline: none;
 }
 
+.chats-bg {
+  background-image: url('/chatBg.jpg'), linear-gradient(180deg, rgb(0, 68, 255) 0.04%, #7cbbef 170.42%);
+  background-position: center;
+  background-size: cover;
+}
+
 .giftcard-card {
   background-image: url('/startedbg.png');
   background-position: center;
@@ -86,6 +92,8 @@ textarea {
   background-position: center;
   background-size: cover;
 }
+
+
 
 
  
