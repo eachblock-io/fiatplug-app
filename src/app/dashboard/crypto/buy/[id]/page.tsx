@@ -2,7 +2,7 @@ import React from "react";
 import { cookies } from "next/headers";
 import CryptoBuyForm from "@/components/CryptoBuyForm";
 
-async function geOffer(id: string) {
+async function getOffer(id: string) {
   const cookieStore = cookies();
   const token = cookieStore.get("token");
   const headers = {
@@ -23,7 +23,7 @@ async function geOffer(id: string) {
 
 export default async function CryptoOfferFormPage({ params }: any) {
   const userID = params?.id;
-  const offerPromise = await geOffer(userID);
+  const offerPromise = getOffer(userID);
   const [offer] = await Promise.all([offerPromise]);
   return (
     <section className="w-full relative flex items-center justify-center">

@@ -11,10 +11,9 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { formatCurrency } from "@/utils";
 import fetchToken from "@/lib/auth";
 import PreviewPayment from "@/components/PreviewPayment";
-import AddBankPage from "./AddBank";
 
 const CryptoBuyForm = ({ data }: any) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [completeModal, setCompleteModal] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -106,7 +105,7 @@ const CryptoBuyForm = ({ data }: any) => {
         toast.success(resdata?.message);
         setIsOpen(true);
       }
-      console.log(resdata?.data);
+      // console.log(resdata?.data);
       setPreviewInfo(resdata?.data);
     } catch (error) {
       console.log(error);
@@ -116,8 +115,42 @@ const CryptoBuyForm = ({ data }: any) => {
     }
   };
 
-  const handleComplete = () => {
-    setCompleteModal(true);
+  // console.log(previewInfo);
+
+  const handleComplete = async () => {
+    // setCompleteModal(true);
+
+    try {
+      const token = await fetchToken();
+      const headers = {
+        Authorization: `Bearer ${token?.data?.token}`,
+        "Content-Type": "application/json",
+      };
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-transaction`,
+        {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            // id: previewInfo?.order_id,
+            status: "completed",
+            type: "crypto_transaction",
+          }),
+        }
+      );
+
+      const resdata = await res.json();
+      console.log(resdata);
+      if (resdata?.status == "success") {
+        setIsLoading(false);
+        setIsOpen(true);
+      }
+      console.log(resdata?.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

@@ -237,7 +237,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       </div>
                     ) : (
                       <>
-                        {currentBuyOffers.length > 0 ? (
+                        {currentBuyOffers?.length > 0 ? (
                           <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-4">
                             {currentBuyOffers?.map((data: any) => (
                               <Link
@@ -286,7 +286,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       </div>
                     ) : (
                       <>
-                        {currentSellOffers.length > 0 ? (
+                        {currentSellOffers?.length > 0 ? (
                           <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-4">
                             {currentSellOffers?.map((data: any) => (
                               <Link

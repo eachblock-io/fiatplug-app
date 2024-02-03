@@ -4,52 +4,40 @@ import { IoIosTimer } from "react-icons/io";
 import { formatCurrency } from "@/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-
 interface OfferCardProps {
   data: {
     attributes: {
       rate: number;
-      min_amount: number;
-      max_amount: number;
+      min_limit: number;
+      max_limit: number;
       duration: number;
     };
     relationships: {
-      user: {
-        attributes: {
-          profile_picture: string;
-          first_name: string;
-          last_name: string;
-        };
-      };
       merchant: {
         attributes: {
           profile_picture: string;
-          first_name: string;
-          last_name: string;
+          full_name: string;
         };
       };
     };
   };
 }
 
-const OfferCard: React.FC<OfferCardProps> = ({ data }) => {
+const GiftcardOffer: React.FC<OfferCardProps> = ({ data }) => {
   return (
     <Card className="lg:p-6 p-4 hover:shadow-xl flex items-center justify-between">
       <div className="info">
         <div className="user flex items-center">
-          {/* <Image src={userImg} alt="user-image" width="200" className="w-12" /> */}
           <Avatar className="p-0 m-0">
             <AvatarImage
-              src={data?.relationships?.user?.attributes?.profile_picture}
+              src={data?.relationships?.merchant?.attributes?.profile_picture}
             />
             <AvatarFallback className="font-bold">
-              {data?.relationships?.user?.attributes?.first_name[0]}
-              {data?.relationships?.user?.attributes?.last_name[0]}
+              {data?.relationships?.merchant?.attributes?.full_name[0]}
             </AvatarFallback>
           </Avatar>
           <p className="text-xs ml-2">
-            {data?.relationships?.user?.attributes?.first_name}{" "}
-            {data?.relationships?.user?.attributes?.last_name}
+            {data?.relationships?.merchant?.attributes?.full_name}
           </p>
         </div>
         <p className="mt-2 text-sm">
@@ -61,8 +49,8 @@ const OfferCard: React.FC<OfferCardProps> = ({ data }) => {
         <p className="text-sm mt-1">
           Limit:{" "}
           <span className="font-bold text-xs">
-            {formatCurrency(data?.attributes?.min_amount)} -{" "}
-            {formatCurrency(data?.attributes?.max_amount)}
+            {formatCurrency(data?.attributes?.min_limit)} -{" "}
+            {formatCurrency(data?.attributes?.max_limit)}
           </span>
         </p>
       </div>
@@ -81,4 +69,4 @@ const OfferCard: React.FC<OfferCardProps> = ({ data }) => {
   );
 };
 
-export default OfferCard;
+export default GiftcardOffer;
