@@ -9,6 +9,7 @@ import { SiGooglemessages } from "react-icons/si";
 import { TbLogout } from "react-icons/tb";
 import Logo from "@/public/logo.png";
 import Image from "next/image";
+import { FaUserCircle } from "react-icons/fa";
 
 export function Sidenav({ data }: any) {
   return (
@@ -42,7 +43,7 @@ export function Sidenav({ data }: any) {
           <p>Home</p>
         </Link>
         <Link
-          href="/account"
+          href="/dashboard/account"
           className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
           <IoWallet className="text-2xl text-gray-500 hover:text-zinc-800" />
           <p>Account</p>
@@ -66,10 +67,10 @@ export function Sidenav({ data }: any) {
           <p>Profile</p>
         </Link> */}
         <Link
-          href="/dashboard"
+          href="/dashboard/profile"
           className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-          <IoSettingsSharp className="text-2xl text-gray-500 hover:text-zinc-800" />
-          <p className="text-md">Settings</p>
+          <FaUserCircle className="text-2xl text-gray-500 hover:text-zinc-800" />
+          <p className="text-md">Profile</p>
         </Link>
         {/* <Link
           href="/dashboard"
