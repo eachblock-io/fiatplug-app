@@ -80,65 +80,48 @@ const GiftcardSellForm = ({ data }: any) => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsLoading(true);
-    // const formData = {
-    //   amount: amount,
-    //   currency_id: currencyCode,
-    //   merchant_id: data?.data?.offer?.relationships?.merchant?.id,
-    //   gift_card_id: data?.data?.offer?.relationships?.gift_cards?.id,
-    //   type: "sell",
-    //   "e-code": code,
-    //   card_image: selectedFile,
-    // };
+    const formData = {
+      amount: amount,
+      currency_id: currencyCode,
+      merchant_id: data?.data?.offer?.relationships?.merchant?.id,
+      gift_card_id: data?.data?.offer?.relationships?.gift_cards?.id,
+      type: "sell",
+      "e-code": code,
+      card_image: selectedFile,
+    };
 
-     const formData = new FormData();
-     formData.append("amount", amount.toString());
-     formData.append("currency_id", currencyCode);
-     formData.append(
-       "merchant_id",
-       data?.data?.offer?.relationships?.merchant?.id || ""
-     );
-     formData.append(
-       "gift_card_id",
-       data?.data?.offer?.relationships?.gift_cards?.id || ""
-     );
-     formData.append("type", "sell");
-     formData.append("e-code", code);
+    setIsOpen(true);
 
-     // Append the file
-     if (selectedFile) {
-       formData.append("card_image", selectedFile);
-     }
+    // try {
+    //   const token = await fetchToken();
+    //   const headers = {
+    //     Authorization: `Bearer ${token?.data?.token}`,
+    //   };
+    //   const res = await fetch(
+    //     `${process.env.NEXT_PUBLIC_API_URL}/transactions`,
+    //     {
+    //       method: "POST",
+    //       headers,
+    //       body: JSON.stringify(formData),
+    //     }
+    //   );
 
-    try {
-      const token = await fetchToken();
-      const headers = {
-        Authorization: `Bearer ${token?.data?.token}`,
-      };
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/transactions`,
-        {
-          method: "POST",
-          headers,
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const resdata = await res.json();
-      if (resdata?.status == "success") {
-        setIsLoading(false);
-        setIsRedirecting(true);
-        setIsChecked(true);
-        toast.success(resdata?.message);
-        setIsOpen(true);
-      }
-      setPreviewInfo(resdata?.data);
-      console.log(resdata?.data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-      setIsRedirecting(false);
-    }
+    //   const resdata = await res.json();
+    //   if (resdata?.status == "success") {
+    //     setIsLoading(false);
+    //     setIsRedirecting(true);
+    //     setIsChecked(true);
+    //     toast.success(resdata?.message);
+    //     setIsOpen(true);
+    //   }
+    //   setPreviewInfo(resdata?.data);
+    //   console.log(resdata?.data);
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setIsLoading(false);
+    //   setIsRedirecting(false);
+    // }
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {

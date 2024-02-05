@@ -179,28 +179,36 @@ const ChatPage = () => {
               <div
                 key={user?.id}
                 onClick={() => fetchActiveMessages(user?.attributes?.id)}
-                className={`border cursor-pointer transition-all hover:bg-gray-100 p-3 drop-shadow-lg bg-white rounded-xl ${
+                className={`border cursor-pointer transition-all hover:bg-gray-100 p-3 bg-white rounded-xl ${
                   active == user?.attributes?.id && `border border-gray-500`
                 }`}>
-                <div className="flex gap-4">
-                  <Avatar className="p-0 m-0 border border-gray-600">
-                    <AvatarImage
-                      src={user?.attributes?.receipents[0]?.profile_picture}
-                    />
-                    <AvatarFallback className="font-bold">
-                      {user?.attributes?.receipents[0]?.first_name[0]}
-                      {user?.attributes?.receipents[0]?.last_name[0]}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h2 className="font-bold text-sm">
-                      {user?.attributes?.receipents[0]?.first_name}{" "}
-                      {user?.attributes?.receipents[0]?.last_name}
-                    </h2>
-                    <small className="text-xs text-gray-600 rounded-lg ">
-                      {user?.attributes?.last_message?.message?.slice(0, 26)}
-                      ....
-                    </small>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-x-3">
+                    <Avatar className="p-0 m-0 border border-gray-600">
+                      <AvatarImage
+                        src={user?.attributes?.receipents[0]?.profile_picture}
+                      />
+                      <AvatarFallback className="font-bold">
+                        {user?.attributes?.receipents[0]?.first_name[0]}
+                        {user?.attributes?.receipents[0]?.last_name[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h2 className="font-bold text-xs">
+                        {user?.attributes?.receipents[0]?.first_name}{" "}
+                        {user?.attributes?.receipents[0]?.last_name}
+                      </h2>
+                      <p className="text-xs mt-0 text-gray-600 rounded-lg ">
+                        {user?.attributes?.last_message?.message?.slice(0, 26)}
+                        ....
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-1 text-center">
+                    <p className="text-gray-500 text-sm">12:89</p>
+                    <div className="h-6 w-6 mx-auto text-white rounded-full bg-orange-400 flex items-center justify-center">
+                      <p className="text-xs font-semibold">5</p>
+                    </div>
                   </div>
                 </div>
               </div>
