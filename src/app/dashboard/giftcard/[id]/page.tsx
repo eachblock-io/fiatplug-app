@@ -35,34 +35,6 @@ const GiftcardPurchase = async ({ params }: any) => {
     <section className="lg:pt-10 pt-4 overflow-hidden">
       <MaxWidth>
         <GiftcardBody cardInfo={cardInfo} />
-        {/* <div className="flex lg:flex-row flex-col-reverse gap-8">
-          <div className="offers w-full mb-10">
-            <div className="currencies mb-6 flex space-x-8">
-              {cardInfo?.gift_card?.attributes?.acceptable_currencies?.map(
-                (data: any) => (
-                  <Button variant="ghost" key={data?.id} className="font-bold">
-                    {data?.attributes?.code}
-                  </Button>
-                )
-              )}
-            </div>
-            <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-4 gap-y-4">
-              {cardInfo?.offers?.map((data: any) => (
-                <Link href="/" key={data?.id}>
-                  <GiftcardOffer data={data} />
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="lg:h-60 h-40 lg:w-7/12 mx-auto relative w-full flex aspect-square items-center justify-center lg:p-6">
-            <Image
-              src={cardInfo?.gift_card?.attributes?.image}
-              alt={cardInfo?.gift_card?.attributes?.title}
-              priority
-              fill
-            />
-          </div>
-        </div> */}
       </MaxWidth>
     </section>
   );

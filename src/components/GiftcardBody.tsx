@@ -28,6 +28,7 @@ const GiftcardBody = ({ cardInfo }: any) => {
     // Initialize selectedCurrency with the first currency code
     if (acceptableCurrenciesList.length > 0) {
       setSelectedCurrency(acceptableCurrenciesList[0]);
+      localStorage.setItem("selectedCurrency", acceptableCurrenciesList[0]);
     }
   }, [acceptableCurrenciesList]);
 
@@ -48,6 +49,7 @@ const GiftcardBody = ({ cardInfo }: any) => {
 
   const handleCurrencyClick = (currencyCode: string) => {
     setSelectedCurrency(currencyCode);
+    localStorage.setItem("selectedCurrency", currencyCode);
   };
 
   const filteredOffers = cardInfo?.offers.filter((offer: Offer) => {
@@ -61,23 +63,25 @@ const GiftcardBody = ({ cardInfo }: any) => {
     <div className="flex lg:flex-row flex-col-reverse gap-8">
       <div className="offers w-full mb-10">
         <div className="currencies mb-6 flex lg:space-x-4 space-x-3">
-          {acceptableCurrenciesList.map((currencyCode) => (
-            <Button
-              variant="ghost"
-              key={currencyCode}
-              onClick={() => handleCurrencyClick(currencyCode)}
-              className={`font-bold lg:text-sm text-xs ${
-                selectedCurrency === currencyCode
-                  ? "border-b-4 border-orange-600 rounded-none text-gray-800"
-                  : ""
-              }`}>
-              {currencyCode}
-            </Button>
-          ))}
+          {acceptableCurrenciesList.map((currencyCode) => {
+            return (
+              <Button
+                variant="ghost"
+                key={currencyCode}
+                onClick={() => handleCurrencyClick(currencyCode)}
+                className={`font-bold lg:text-sm text-xs ${
+                  selectedCurrency === currencyCode
+                    ? "border-b-4 border-orange-600 rounded-none text-gray-800"
+                    : ""
+                }`}>
+                {currencyCode}
+              </Button>
+            );
+          })}
         </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-4 gap-y-4">
           {filteredOffers?.map((data: any) => (
-            <Link href="/" key={data?.id}>
+            <Link href={`/dashboard/giftcard/sell/${data?.id}`} key={data?.id}>
               <GiftcardOffer data={data} />
             </Link>
           ))}
