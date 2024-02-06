@@ -88,7 +88,7 @@ textarea {
   background-size: cover;
 }
 .card-bg {
-  background-image: url('/startedbg.png'), linear-gradient(180deg, rgb(233, 156, 3) 0.04%, #d76e06 170.42%);
+  background-image: url('/startedbg.png'), linear-gradient(180deg, rgb(255, 170, 0) 0.08%, #200dcb 170.42%);
   background-position: center;
   background-size: cover;
 }

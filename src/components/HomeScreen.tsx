@@ -122,17 +122,14 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
               <div className="grid lg:grid-cols-2 grid-cols-2 lg:gap-10 gap-2">
                 <Link
                   href="/dashboard/giftcard"
-                  className="card-bg relative overflow-hidden rounded-md">
-                  <div className=" lg:p-8 p-4 text-white">
-                    <h2 className="font-bold lg:text-4xl text-lg">
+                  className="card-bg relative overflow-hidden rounded-[2rem] ">
+                  <div className=" lg:p-10 p-4 text-white ">
+                    <h2 className="font-bold lg:text-3xl text-lg">
                       Redeem Gift Card
                     </h2>
                     <p className="text-md mt-2 lg:text-lg text-sm">
                       Sell gifts card fast and easy
                     </p>
-                    <button className="lg:text-md text-xs mt-4 w-auto lg:px-14 px-5 lg:py-4 py-3 rounded-sm bg-white text-gray-900 font-semibold ">
-                      Redeem giftcard
-                    </button>
                     <Image
                       src={giftcardImg}
                       alt="recharge card"
@@ -144,17 +141,14 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                 <div className="flex flex-col lg:gap-10 gap-2">
                   <Link
                     href="/"
-                    className="recharge-card lg:p-8 p-4 rounded-md bg-[#FFE3F1] hover:bg-[#f0c0d8] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
+                    className="recharge-card lg:p-8 p-4 rounded-[2rem] bg-[#FFE3F1] hover:bg-[#f0c0d8] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
                     <div>
-                      <h2 className="font-bold lg:text-4xl text-lg text-gray-700 ">
+                      <h2 className="font-bold lg:text-3xl text-lg text-gray-700 ">
                         Recharge
                       </h2>
-                      <p className="lg:text-md mt-1 lg:text-lg text-xs">
+                      <p className="lg:text-md mt-2 text-gray-500 lg:text-lg text-xs">
                         Recharge airtime and buy data
                       </p>
-                      <button className="lg:text-md text-xs lg:mt-4 mt-2 lg:w-auto lg:px-14 px-6 lg:py-4 py-3 rounded-sm bg-[#e99c03] text-gray-100 font-semibold whitespace-nowrap ">
-                        Recharge airtime
-                      </button>
                     </div>
                     <Image
                       src={rechargeImg}
@@ -165,17 +159,14 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                   </Link>
                   <Link
                     href="/"
-                    className="bills-card lg:p-8 p-4 rounded-md bg-[#DAF2FF] hover:bg-[#abdbf3] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
+                    className="bills-card lg:p-8 p-4 rounded-[2rem] bg-[#DAF2FF] hover:bg-[#abdbf3] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
                     <div className="w-full">
-                      <h2 className="font-bold lg:text-4xl text-md text-gray-700 ">
+                      <h2 className="font-bold lg:text-3xl text-md text-gray-700 ">
                         Pay Bills
                       </h2>
-                      <p className="text-md mt-1 lg:text-lg text-xs">
+                      <p className="text-md mt-2 text-gray-500 lg:text-lg text-xs">
                         Pay bills at ease
                       </p>
-                      <button className="lg:text-md w-full text-xs lg:mt-4 mt-2 lg:w-auto lg:px-14 px-6 lg:py-4 py-3 rounded-sm bg-[#e99c03] text-gray-100 font-semibold whitespace-nowrap ">
-                        Pay Bills
-                      </button>
                     </div>
                     <Image
                       src={payImg}

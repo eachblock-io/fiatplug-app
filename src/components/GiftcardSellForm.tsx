@@ -75,8 +75,6 @@ const GiftcardSellForm = ({ data }: any) => {
 
   const currencyCode: any = localStorage.getItem("selectedCurrency");
 
-  // console.log(selectedFile);
-
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsLoading(true);
