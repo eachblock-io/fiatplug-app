@@ -87,7 +87,7 @@ const Mobilenav = () => {
     },
   ];
   return (
-    <div className="border px-6 flex items-center justify-center h-[12vh] w-full fixed left-0 bottom-0 right-0 z-10 bg-white">
+    <div className="border lg:hidden px-6 flex items-center justify-center h-[12vh] w-full fixed left-0 bottom-0 right-0 z-10 bg-white">
       <nav className="w-full flex items-center justify-between">
         {links?.map((data) => (
           <Link
