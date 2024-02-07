@@ -14,9 +14,9 @@ const AccountPage = () => {
     setModal(true);
   };
   return (
-    <section className=" lg:w-11/12 w-11/12 mx-auto mt-6">
+    <section className="lg:pt-6 pt-[5rem] lg:w-11/12 w-11/12 mx-auto">
       <div className="lg:w-8/12 w-11/12 mx-auto">
-        <h1 className="font-bold lg:text-2xl">Account</h1>
+        <h1 className="font-semibold lg:text-2xl text-xl">Account</h1>
         <AccountCard openModal={setModal} />
         {/* <KycCard /> */}
         <Link
