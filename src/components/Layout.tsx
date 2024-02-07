@@ -23,10 +23,7 @@ const Layout = ({
       <Sidenav data={data?.attributes} />
       <Mobilenav toggle={toggle} handleToggle={handleToggle} />
       <main className="w-full relative overflow-y-auto">
-        <Header
-          username={data?.attributes?.first_name}
-          onClick={handleToggle}
-        />
+        <Header data={data?.attributes} onClick={handleToggle} />
         {children}
       </main>
     </section>

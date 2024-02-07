@@ -11,77 +11,96 @@ import { SiGooglemessages } from "react-icons/si";
 import { TbLogout } from "react-icons/tb";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { FaUserCircle } from "react-icons/fa";
+import { usePathname } from "next/navigation";
+import { AiFillMessage } from "react-icons/ai";
+
+interface LinkItem {
+  id: number;
+  title: string;
+  link: string;
+  icon: any;
+}
 
 const Mobilenav = ({ handleToggle, toggle }: any) => {
-  return (
-    <div
-      className={`h-screen w-full fixed left-0 top-0 right-0 z-10 transition ease-in-out duration-800 bg-gradient-to-r from-primary to-transparent transform lg:translate-x-[-100rem] ${
-        toggle ? `translate-x-0` : `translate-x-[-100rem]`
-      }`}>
-      <div className="bg-gray-100 h-screen w-72 border-r border-gray-600 transform translate-x-0 sm:relative absolute left-0 transition ease-in-out overflow-auto delay-1000 duration-1000">
-        <RiCloseLine
-          onClick={handleToggle}
-          className="text-zinc-800 fixed right-2 top-3 text-2xl cursor-pointer"
-        />
+  const pathname = usePathname();
 
-        {/* Nav */}
-        <div className="px-4">
-          <div className="profile flex items-center space-x-6 mt-14 w-full ">
-            <div className="flex items-center space-x-4 border py-2 px-4 w-full rounded-lg">
-              <Avatar className="p-0 m-0">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>AY</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="text-sm font-semibold">Eachblock</p>
-                <p className="text-sm text-gray-500 ">eachblock.feather.blog</p>
-              </div>
-            </div>
-          </div>
-          <nav className="mt-8 space-y-2">
-            <Link
-              href="/dashboard"
-              className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-              <MdSpaceDashboard className="text-2xl text-gray-500 hover:text-zinc-800" />
-              <p>Home</p>
-            </Link>
-            <Link
-              href="/dashboard/account"
-              className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-              <IoWallet className="text-2xl text-gray-500 hover:text-zinc-800" />
-              <p>Account</p>
-            </Link>
-            <Link
-              href="/dashboard/orders"
-              className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-              <SiBookstack className="text-2xl text-gray-500 hover:text-zinc-800" />
-              <p>Orders</p>
-            </Link>
-            <Link
-              href="/dashboard/messages"
-              className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-              <SiGooglemessages className="text-2xl text-gray-500 hover:text-zinc-800" />
-              <p>Messages</p>
-            </Link>
-            {/* <Link
-          href="/dashboard"
-          className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-          <FaUser className="text-2xl text-gray-500 hover:text-zinc-800" />
-          <p>Profile</p>
-        </Link> */}
-            <Link
-              href="/dashboard/profile"
-              className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-              <FaUserCircle className="text-2xl text-gray-500 hover:text-zinc-800" />
-              <p className="text-md">Profile</p>
-            </Link>
-            <div className="flex cursor-pointer items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-              <TbLogout className="text-2xl text-gray-500 hover:text-zinc-800" />
-              <p className="cursor-pointer">Logout</p>
-            </div>
-          </nav>
-        </div>
-      </div>
+  const links: LinkItem[] = [
+    {
+      id: 1,
+      title: "Home",
+      icon: (
+        <MdSpaceDashboard
+          className={`text-3xl mx-auto text-gray-500 ${
+            pathname === "/dashboard" && ` text-orange-400`
+          }`}
+        />
+      ),
+      link: "/dashboard",
+    },
+    {
+      id: 2,
+      title: "Account",
+      icon: (
+        <IoWallet
+          className={`text-3xl mx-auto text-gray-500 ${
+            pathname === "/dashboard/account" && ` text-orange-400`
+          }`}
+        />
+      ),
+      link: "/dashboard/account",
+    },
+    {
+      id: 3,
+      title: "Orders",
+      icon: (
+        <SiBookstack
+          className={`text-3xl mx-auto text-gray-500 ${
+            pathname === "/dashboard/orders" && ` text-orange-400`
+          }`}
+        />
+      ),
+      link: "/dashboard/orders",
+    },
+    {
+      id: 4,
+      title: "Message",
+      icon: (
+        <AiFillMessage
+          className={`text-3xl mx-auto text-gray-500 ${
+            pathname === "/dashboard/chat" && ` text-orange-400`
+          }`}
+        />
+      ),
+      link: "/dashboard/chat",
+    },
+    {
+      id: 4,
+      title: "Profile",
+      icon: (
+        <FaUserCircle
+          className={`text-3xl mx-auto text-gray-500 ${
+            pathname === "/dashboard/profile" && ` text-orange-400`
+          }`}
+        />
+      ),
+      link: "/dashboard/profile",
+    },
+  ];
+  return (
+    <div className="border px-4 flex items-center justify-center h-[12vh] w-full fixed left-0 bottom-0 right-0 z-10 bg-white">
+      <nav className="w-full flex items-center justify-between">
+        {links?.map((data) => (
+          <Link
+            key={data?.id}
+            href={data?.link}
+            className={`hover:font-semibold text-center text-gray-500 rounded-xl transition-all ${
+              pathname === data?.link ? `font-semibold` : ``
+            }`}>
+            {data?.icon}
+            <p className="text-xs mt-1">{data?.title}</p>
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 };
