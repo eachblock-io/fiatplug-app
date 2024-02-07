@@ -9,37 +9,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import giftcard from "@/public/cards/Greendot.png";
-import amazoncard from "@/public/cards/Amazon.jpg";
-import steamcard from "@/public/cards/steam.jpg";
-import RazorGoldcard from "@/public/cards/RazorGold.png";
 import Image from "next/image";
 import Link from "next/link";
 
-const cardsData = [
-  {
-    id: 1,
-    name: "Greendot",
-    img: giftcard,
-  },
-  {
-    id: 2,
-    name: "Amazon",
-    img: amazoncard,
-  },
-  {
-    id: 3,
-    name: "Steam",
-    img: steamcard,
-  },
-  {
-    id: 4,
-    name: "Razor Gold",
-    img: RazorGoldcard,
-  },
-];
-
-export function CardCarousel() {
+export function CardCarousel({ cards }: any) {
   return (
     <section>
       <Carousel
@@ -54,14 +27,22 @@ export function CardCarousel() {
           loop: true,
         }}>
         <CarouselContent className="-ml-1">
-          {cardsData?.map((data) => (
+          {cards?.data?.map((data: any) => (
             <CarouselItem
               key={data?.id}
               className="pl-4 md:basis-1/2 lg:basis-1/3">
-              <Link href={`/dashboard/giftcard/${data?.id}`}>
+              <Link
+                href={`/dashboard/giftcard/${data?.id}`}
+                className="rounded-2xl">
                 <div className="p-1">
-                  <Card className="lg:h-48 h-40 relative w-full flex aspect-square items-center justify-center lg:p-6">
-                    <Image src={data?.img} alt={data?.name} priority fill />
+                  <Card className="lg:h-48 h-40 relative rounded-2xl w-full flex aspect-square items-center justify-center lg:p-6">
+                    <Image
+                      src={data?.attributes?.image}
+                      alt={data?.attributes?.title}
+                      priority
+                      fill
+                      className="rounded-2xl"
+                    />
                   </Card>
                 </div>
               </Link>

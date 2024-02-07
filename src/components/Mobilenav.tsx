@@ -10,6 +10,7 @@ import { IoWallet } from "react-icons/io5";
 import { SiGooglemessages } from "react-icons/si";
 import { TbLogout } from "react-icons/tb";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { FaUserCircle } from "react-icons/fa";
 
 const Mobilenav = ({ handleToggle, toggle }: any) => {
   return (
@@ -45,19 +46,19 @@ const Mobilenav = ({ handleToggle, toggle }: any) => {
               <p>Home</p>
             </Link>
             <Link
-              href="/dashboard/content"
+              href="/dashboard/account"
               className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
               <IoWallet className="text-2xl text-gray-500 hover:text-zinc-800" />
               <p>Account</p>
             </Link>
             <Link
-              href="/dashboard/pages"
+              href="/dashboard/orders"
               className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
               <SiBookstack className="text-2xl text-gray-500 hover:text-zinc-800" />
               <p>Orders</p>
             </Link>
             <Link
-              href="/dashboard"
+              href="/dashboard/messages"
               className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
               <SiGooglemessages className="text-2xl text-gray-500 hover:text-zinc-800" />
               <p>Messages</p>
@@ -69,10 +70,10 @@ const Mobilenav = ({ handleToggle, toggle }: any) => {
           <p>Profile</p>
         </Link> */}
             <Link
-              href="/dashboard"
+              href="/dashboard/profile"
               className="flex items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-              <IoSettingsSharp className="text-2xl text-gray-500 hover:text-zinc-800" />
-              <p className="text-md">Settings</p>
+              <FaUserCircle className="text-2xl text-gray-500 hover:text-zinc-800" />
+              <p className="text-md">Profile</p>
             </Link>
             <div className="flex cursor-pointer items-center hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
               <TbLogout className="text-2xl text-gray-500 hover:text-zinc-800" />
