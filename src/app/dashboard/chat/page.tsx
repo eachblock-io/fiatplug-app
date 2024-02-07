@@ -121,7 +121,7 @@ const ChatPage = () => {
   return (
     <div className="w-full h-[90vh] flex lg:flex-row flex-col ">
       {/* Mobile view */}
-      <div className="drop-shadow-lg w-full lg:hidden border bg-gray-100 px-14 py-4 ">
+      <div className="drop-shadow-lg w-full lg:hidden border bg-gray-100 px-14 h-[10vh] flex items-center justify-center ">
         {loadingChats ? (
           <div className="text-center">
             <ClipLoader size={20} color="#000" />
@@ -140,7 +140,7 @@ const ChatPage = () => {
                   key={user?.id}
                   onClick={() => fetchActiveMessages(user?.attributes?.id)}
                   className="pl-2 basis-1/1 md:basis-1/2 lg:basis-1/3">
-                  <div className="border transition-all hover:bg-gray-100 p-3 bg-white rounded-full">
+                  <div className="border transition-all hover:bg-gray-100 p-2 bg-white rounded-full">
                     <div className="flex items-center lg:gap-4 gap-2">
                       <Avatar className="p-0 m-0 border border-gray-600">
                         <AvatarImage
@@ -219,29 +219,29 @@ const ChatPage = () => {
 
       {activeUser ? (
         <div className="chats w-full  relative">
-          <div className="inputs z-10 px-8 pt-2 h-[10vh] border bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
+          <div className="inputs z-10 px-8 py-2 h-[6vh] border bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
             <div className="flex items-center gap-2">
-              <Avatar className="p-0 m-0 border border-gray-600">
+              <Avatar className="p-0 m-0 h-8 w-8 border border-gray-600">
                 <AvatarImage src={activeUser?.profile_picture} />
-                <AvatarFallback className="font-bold">
+                <AvatarFallback className="text-xs">
                   {activeUser?.first_name[0]}
                   {activeUser?.last_name[0]}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="font-bold text-sm">
+                <h2 className="font-semibold text-xs">
                   {activeUser?.first_name} {activeUser?.last_name}
                 </h2>
               </div>
             </div>
           </div>
           <div>
-            <ScrollArea className="lg:h-[75vh] h-[78vh] lg:pb-0 pt-20 pb-36 pr-10 pl-10 ">
+            <ScrollArea className="lg:h-[75vh] h-[70vh] lg:pb-0 pt-16 pb-34 pr-10 pl-10 ">
               <ChatBoard data={messages} />
             </ScrollArea>
           </div>
           {/* Type message input */}
-          <div className="inputs h-[15vh] px-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
+          <div className="inputs h-[12vh] px-4 pb-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
             <form
               onClick={handleSubmit}
               className="input flex items-center lg:w-10/12 w-full bg-gray-200 rounded-full">
@@ -264,7 +264,7 @@ const ChatPage = () => {
           </div>
         </div>
       ) : (
-        <div className="chats-b w-full z-10 h-[90vh] flex items-center justify-center ">
+        <div className="bg-white w-full z-10 h-[68vh] flex items-center justify-center ">
           <div className="text-center">
             <BsChatSquareDots className="lg:text-9xl mb-1 text-4xl mx-auto" />
             <p>Chats shows here</p>

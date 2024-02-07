@@ -92,7 +92,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
       <div className="w-full px-4 mx-auto">
         {active ? <CardCarousel cards={data} /> : <CryptoCarousel />}{" "}
       </div>
-      <section className="w-full lg:my-20 my-6">
+      <section className="w-full lg:mb-20 lg:my-10 my-6">
         <div className="tabs mb-4 rounded-md border lg:w-11/12 w-full mx-auto grid grid-cols-2 gap-2 p-2 bg-gray-100">
           <button
             onClick={handleToggle}
@@ -184,7 +184,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
               <div className="toggle lg:mb-10 mb-6 space-x-6">
                 <button
                   onClick={buyandsell}
-                  className={`py-3 text-sm px-10 font-semibold rounded-full ${
+                  className={`lg:py-6 py-3 lg:text-lg text-sm lg:px-16 px-10 font-semibold rounded-full ${
                     isActive
                       ? `text-[#F9A21B] bg-[#FFF4E2]`
                       : `text-zinc-900 bg-gray-100`
@@ -193,7 +193,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                 </button>
                 <button
                   onClick={buyandsell}
-                  className={`py-3 text-sm px-10 font-semibold rounded-full ${
+                  className={`lg:py-6 py-3 lg:text-lg text-sm lg:px-16 px-10  font-semibold rounded-full ${
                     !isActive
                       ? `text-[#F9A21B] bg-[#FFF4E2]`
                       : `text-zinc-900 bg-gray-100`
