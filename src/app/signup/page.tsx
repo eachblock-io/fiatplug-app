@@ -66,7 +66,7 @@ const LoginPage = () => {
   return (
     <section className="flex items-center justify-center w-full h-screen bg-white">
       <div className="bg-white flex flex-col py-10 rounded-xl lg:w-4/12 md:w-5/12 w-10/12 md:px-4">
-        <Image src={Logo} width="150" alt="Logo" className="lg:w-40 w-24" />
+        <Image src={Logo} width="150" alt="Logo" className="lg:w-40 w-[8rem]" />
         <div className="mt-6 text-left mb-4">
           <h1 className="font-bold lg:text-2xl text-lg text-gray-700">
             Sign Up With Fiatplug!👋
