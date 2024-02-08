@@ -15,14 +15,16 @@ const PreviewPayment = ({
   setIsOpen,
   completeModal,
   handleComplete,
+  handleCancelled,
 }: any) => {
   const { push } = useRouter();
+  // console.log(data);
   return (
     <>
       {isOpen ? (
-        <div className="absolute top-0 bottom-0 right-0 left-0 w-full z-10 bg-white lg:py-4 pb-10 lg:px-20 px-10">
+        <div className="absolute top-0 bottom-0 right-0 left-0 w-full z-10 lg:h-full h-[88vh] bg-white lg:py-4 pb-10 pt-16 lg:px-20 px-10 overflow-y-scroll">
           {completeModal && (
-            <div className="flex items-center justify-center bg-white bg-opacity-80 z-10 absolute top-0 right-0 left-0 h-[100vh]">
+            <div className="flex items-center justify-center bg-white bg-opacity-80 z-10 absolute top-0 right-0 left-0 lg:h-full h-[80vh]">
               <div className="shadow-2xl rounded-lg text-center bg-white lg:p-14 p-8 lg:w-4/12 w-10/12">
                 <Image
                   src={img1}
@@ -47,22 +49,24 @@ const PreviewPayment = ({
           )}
 
           <div className="flex items-center justify-between lg:pt-4 pt-4">
-            <h2 className="font-bold lg:text-xl text-lg">Preview Payment</h2>
+            <h2 className="font-semibold lg:text-xl text-lg">
+              Preview Payment
+            </h2>
             <Button
               onClick={() => setIsOpen(false)}
               variant="ghost"
               className="flex items-center">
-              <FaLongArrowAltLeft className="text-xl" /> Back
+              <FaLongArrowAltLeft className="text-xl" />
             </Button>
           </div>
           <div className="mx-auto lg:w-full w-12/12 lg:mt-6 mt-4">
             <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-x-20 gap-y-10 w-full">
               <div>
-                <p>Your payment amount</p>
-                <h2 className="font-bold lg:text-2xl text-xl">
+                <p className="text-sm">Your payment amount</p>
+                <h2 className="font-bold lg:text-2xl text-lg">
                   NGN {formatCurrency(data?.payment_amount)}
                 </h2>
-                <div className="mt-8 space-y-4 text-gray-600">
+                <div className="mt-4 space-y-2 text-gray-600">
                   <p className="flex lg:text-md text-sm items-center justify-between">
                     <span>Quantity:</span>{" "}
                     <span>
@@ -95,7 +99,7 @@ const PreviewPayment = ({
                     {data?.merchant?.first_name} {data?.merchant?.last_name}
                   </p>
                 </div>
-                <div className="mt-8 space-y-4 text-gray-600">
+                <div className="mt-4 space-y-2 text-gray-600">
                   <p className="flex lg:text-md text-sm items-center justify-between">
                     <span>Bank Name:</span> <span>{data?.bank?.bank_name}</span>
                   </p>
@@ -110,7 +114,7 @@ const PreviewPayment = ({
                 </div>
               </div>
             </div>
-            <div className="bg-[#FFF8ED] py-4 px-6 space-x-6 lg:mt-8 mt-4">
+            <div className="bg-[#FFF8ED] py-4 px-6 lg:mt-8 mt-4">
               <p className="flex items-center space-x-4 text-md">
                 <MdError className="text-2xl text-orange-400" />
                 <span>Note</span>
@@ -121,29 +125,29 @@ const PreviewPayment = ({
                   successfully made, as failing to do so may result in the
                   suspension of your account.
                 </li>
-                <li className="text-xs mt-4 text-gray-600">
+                <li className="text-xs mt-2 text-gray-600">
                   You can engage with the fiatplug seller via chat to expedite
                   your trade.
                 </li>
-                <li className="text-xs mt-4 text-gray-600">
+                <li className="text-xs mt-2 text-gray-600">
                   Please refrain from including cryptocurrency-related terms
                   (such as BTC, USDT, ETH) in payment{" "}
                 </li>
               </ul>
             </div>
-            <div className="btns flex items-center lg:space-x-8 space-x-4 mt-10 pb-10">
-              <Button
-                onClick={() => setIsOpen(false)}
-                variant="outline"
-                className="lg:py-7 py-6 px-6 lg:px-14 lg:text-md text-xs hover:bg-orange-50 hover:text-orange-500 font-bold rounded-full text-orange-400 border border-orange-400">
-                Cancel Order
-              </Button>
-              <Button
-                onClick={handleComplete}
-                className="lg:py-7 py-6 px-6 lg:px-14 lg:text-md text-xs hover:bg-orange-500 hover:text-white font-bold rounded-full text-white bg-orange-400">
-                Payment Complete
-              </Button>
-            </div>
+          </div>
+          <div className=" bg-white w-full btns flex items-center lg:space-x-8 space-x-8 h-[10vh] lg:mt-20">
+            <Button
+              onClick={handleCancelled}
+              variant="outline"
+              className="lg:py-7 py-6 px-6 lg:px-14 lg:text-md text-xs hover:bg-orange-50 hover:text-orange-500 font-bold rounded-full text-orange-400 border border-orange-400">
+              Cancel Order
+            </Button>
+            <Button
+              onClick={handleComplete}
+              className="lg:py-7 py-6 px-6 lg:px-14 lg:text-md text-xs hover:bg-orange-500 hover:text-white font-bold rounded-full text-white bg-orange-400">
+              Payment Complete
+            </Button>
           </div>
         </div>
       ) : null}

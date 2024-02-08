@@ -48,6 +48,8 @@ const AddBankPage = ({ data, openBank, setOpenBank }: any) => {
     accountNumber: "",
   });
 
+  // console.log(data?.data?.id);
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -61,11 +63,11 @@ const AddBankPage = ({ data, openBank, setOpenBank }: any) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const reqData = {
-      id: data?.id,
+      id: data?.data?.id,
       type: "crypto_transaction",
-      bankName: formData?.bankName,
-      accountName: formData?.accountName,
-      accountNumber: formData?.accountNumber,
+      bank_name: formData?.bankName,
+      account_name: formData?.accountName,
+      account_number: formData?.accountNumber,
     };
     try {
       const token = await fetchToken();
@@ -74,7 +76,7 @@ const AddBankPage = ({ data, openBank, setOpenBank }: any) => {
         "Content-Type": "application/json",
       };
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/mobile/initiate-crypto-transaction`,
+        `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-transaction`,
         {
           method: "POST",
           headers,

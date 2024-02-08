@@ -3,7 +3,7 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 
 const OrderPage = ({ params }: any) => {
   return (
-    <div className="w-full relative flex items-center justify-center mb-20">
+    <div className="lg:pt-10 pt-[4rem] w-full relative flex items-center justify-center mb-20">
       <div className="orders-section lg:w-8/12 w-11/12 mt-8">
         <div className="border hover:bg-orange-50 flex items-center cursor-pointer justify-between shadow-md rounded-lg py-4 lg:px-10 px-5">
           <div>

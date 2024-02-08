@@ -119,9 +119,9 @@ const ChatPage = () => {
   };
 
   return (
-    <div className="w-full h-[90vh] flex lg:flex-row flex-col ">
+    <div className="lg:pt-10 pt-[4rem] w-full h-[100vh] flex lg:flex-row flex-col ">
       {/* Mobile view */}
-      <div className="drop-shadow-lg w-full lg:hidden border bg-gray-100 px-14 h-[10vh] flex items-center justify-center ">
+      <div className="w-full lg:hidden border bg-gray-100 px-14 h-[10vh] flex items-center justify-center ">
         {loadingChats ? (
           <div className="text-center">
             <ClipLoader size={20} color="#000" />
@@ -264,7 +264,7 @@ const ChatPage = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-white w-full z-10 h-[68vh] flex items-center justify-center ">
+        <div className="w-full z-10 h-[70vh] flex items-center justify-center ">
           <div className="text-center">
             <BsChatSquareDots className="lg:text-9xl mb-1 text-4xl mx-auto" />
             <p>Chats shows here</p>

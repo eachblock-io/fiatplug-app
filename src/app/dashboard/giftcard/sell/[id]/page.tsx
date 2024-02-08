@@ -26,10 +26,10 @@ const SellGiftcardPage = async ({ params }: any) => {
   const offerPromise = geOffer(userID);
   const [offer] = await Promise.all([offerPromise]);
 
-  console.log(offer);
+  // console.log(offer);
   
   return (
-    <div>
+    <div className="lg:pt-10 pt-[4rem]">
       <GiftcardSellForm data={offer} />
     </div>
   );

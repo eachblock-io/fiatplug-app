@@ -9,29 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
 
-const cardsData = [
-  {
-    id: 1,
-    name: "Greendot",
-    img: giftcard,
-  },
-  {
-    id: 2,
-    name: "Amazon",
-    img: amazoncard,
-  },
-  {
-    id: 3,
-    name: "Steam",
-    img: steamcard,
-  },
-  {
-    id: 4,
-    name: "Razor Gold",
-    img: RazorGoldcard,
-  },
-];
-
 async function getGiftcard() {
   const cookieStore = cookies();
   const token = cookieStore.get("token");
@@ -52,12 +29,11 @@ const GiftcardPage = async () => {
   const giftcardsPromise = getGiftcard();
 
   const [giftcards] = await Promise.all([giftcardsPromise]);
-  console.log(giftcards?.data);
   return (
-    <section className="lg:pt-10 pt-4 overflow-hidden">
+    <section className="lg:pt-10 pt-[6rem] overflow-hidden">
       <MaxWidth>
         <div className="title">
-          <h1 className="lg:text-4xl text-2xl font-bold">Sell Gift Card</h1>
+          <h1 className="lg:text-2xl text-xl font-semibold">Sell Gift Card</h1>
           <p className="mb-6 lg:mt-2 mt-1 lg:text-xl text-md text-gray-500">
             What kind of Gift card would you like to sell?
           </p>

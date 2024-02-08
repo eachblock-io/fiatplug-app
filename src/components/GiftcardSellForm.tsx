@@ -26,6 +26,7 @@ const GiftcardSellForm = ({ data }: any) => {
   const [previewInfo, setPreviewInfo] = useState({});
   const [previewSrc, setPreviewSrc] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [transID, setTransID] = useState({});
 
   const handleInputChange = async (event: { target: { value: any } }) => {
     const inputValue = event.target.value;
@@ -73,14 +74,16 @@ const GiftcardSellForm = ({ data }: any) => {
     }
   };
 
-  const currencyCode: any = localStorage.getItem("selectedCurrency");
+  const currencyID: any = localStorage.getItem("selectedCurrency");
+
+  // console.log(data);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsLoading(true);
     const formData = {
       amount: amount,
-      currency_id: currencyCode,
+      currency_id: currencyID,
       merchant_id: data?.data?.offer?.relationships?.merchant?.id,
       gift_card_id: data?.data?.offer?.relationships?.gift_cards?.id,
       type: "sell",
@@ -88,38 +91,40 @@ const GiftcardSellForm = ({ data }: any) => {
       card_image: selectedFile,
     };
 
-    setIsOpen(true);
+    // setIsOpen(true);
+    console.log(formData);
 
-    // try {
-    //   const token = await fetchToken();
-    //   const headers = {
-    //     Authorization: `Bearer ${token?.data?.token}`,
-    //   };
-    //   const res = await fetch(
-    //     `${process.env.NEXT_PUBLIC_API_URL}/transactions`,
-    //     {
-    //       method: "POST",
-    //       headers,
-    //       body: JSON.stringify(formData),
-    //     }
-    //   );
+    try {
+      const token = await fetchToken();
+      const headers = {
+        Authorization: `Bearer ${token?.data?.token}`,
+      };
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/transactions`,
+        {
+          method: "POST",
+          headers,
+          body: JSON.stringify(formData),
+        }
+      );
 
-    //   const resdata = await res.json();
-    //   if (resdata?.status == "success") {
-    //     setIsLoading(false);
-    //     setIsRedirecting(true);
-    //     setIsChecked(true);
-    //     toast.success(resdata?.message);
-    //     setIsOpen(true);
-    //   }
-    //   setPreviewInfo(resdata?.data);
-    //   console.log(resdata?.data);
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setIsLoading(false);
-    //   setIsRedirecting(false);
-    // }
+      const resdata = await res.json();
+      setTransID(resdata);
+      if (resdata?.status == "success") {
+        setIsLoading(false);
+        setIsRedirecting(true);
+        setIsChecked(true);
+        toast.success(resdata?.message);
+        setIsOpen(true);
+      }
+      setPreviewInfo(resdata?.data);
+      console.log(resdata?.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+      setIsRedirecting(false);
+    }
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -140,9 +145,9 @@ const GiftcardSellForm = ({ data }: any) => {
   };
 
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-8 mt-20">
-      <AddBankPage data={data} openBank={isOpen} setOpenBank={setIsOpen} />
-      <h1 className="font-bold text-2xl mb-6">Sell Giftcard</h1>
+    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-8  mt-20">
+      <AddBankPage data={transID} openBank={isOpen} setOpenBank={setIsOpen} />
+      <h1 className="font-semibold lg:text-2xl text-xl mb-6">Sell Giftcard</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <div className="relative flex items-center">
