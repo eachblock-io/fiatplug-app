@@ -20,7 +20,7 @@ import fetchToken from "@/lib/auth";
 import AddBankPage from "./AddBank";
 
 const CryptoSellForm = ({ data }: any) => {
-  const [openBank, setOpenBank] = useState(false);
+  const [openBank, setOpenBank] = useState(true);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -127,6 +127,7 @@ const CryptoSellForm = ({ data }: any) => {
       console.log(error);
     } finally {
       setIsLoading(false);
+      setIsRedirecting(false);
     }
   };
 
@@ -134,10 +135,12 @@ const CryptoSellForm = ({ data }: any) => {
     <div className="lg:w-5/12 w-10/12 mx-auto lg:mt-8 mt-20">
       <AddBankPage
         data={transID}
+        type="crypto_transaction"
+        userData={data?.data?.relationships?.user}
         openBank={openBank}
         setOpenBank={setOpenBank}
       />
-      <h1 className="font-semibold lg:text-2xl text-xl mb-6">Sell Crypto</h1>
+      <h1 className="font-bold lg:text-2xl text-xl mb-6">Sell Crypto</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <div className="relative flex items-center">
@@ -228,7 +231,7 @@ const CryptoSellForm = ({ data }: any) => {
           </p>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-8">
           {isRedirecting ? (
             <Button
               disabled={isChecked}

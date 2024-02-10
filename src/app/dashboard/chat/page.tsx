@@ -16,6 +16,10 @@ import axios from "axios";
 import { BsChatSquareDots } from "react-icons/bs";
 import ClipLoader from "react-spinners/ClipLoader";
 import ChatBoard from "@/components/ChatBoard";
+import { MdError } from "react-icons/md";
+import toast from "react-hot-toast";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<any>([]);
@@ -118,8 +122,30 @@ const ChatPage = () => {
     }
   };
 
+  const handlePaidStatus = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Paddy!!!!");
+
+    try {
+      const token = await fetchToken();
+      // const { data } = await axios.post(
+      //   `${process.env.NEXT_PUBLIC_API_URL}/orders/${}`,
+      //   {
+      //     payment_recieved: true,
+      //   },
+      //   {
+      //     headers: {
+      //       "Content-Type": `application/json`,
+      //       Authorization: `Bearer ${token?.data?.token}`,
+      //     },
+      //   }
+      // );
+      toast.success("Payment confirmed ✅");
+    } catch (error) {}
+  };
+
   return (
-    <div className="lg:pt-10 pt-[4rem] w-full h-[100vh] flex lg:flex-row flex-col ">
+    <div className=" lg:pt-0 pt-[4rem] w-full h-[92vh] flex lg:flex-row flex-col ">
       {/* Mobile view */}
       <div className="w-full lg:hidden border bg-gray-100 px-14 h-[10vh] flex items-center justify-center ">
         {loadingChats ? (
@@ -219,7 +245,7 @@ const ChatPage = () => {
 
       {activeUser ? (
         <div className="chats w-full  relative">
-          <div className="inputs z-10 px-8 py-2 h-[6vh] border bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
+          <div className="inputs z-10 px-8 py-2 lg:h-[8vh] h-[6vh] border bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
             <div className="flex items-center gap-2">
               <Avatar className="p-0 m-0 h-8 w-8 border border-gray-600">
                 <AvatarImage src={activeUser?.profile_picture} />
@@ -238,6 +264,31 @@ const ChatPage = () => {
           <div>
             <ScrollArea className="lg:h-[75vh] h-[70vh] lg:pb-0 pt-16 pb-34 pr-10 pl-10 ">
               <ChatBoard data={messages} />
+              <form
+                onSubmit={handlePaidStatus}
+                className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[8rem] ">
+                <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
+                  <div>
+                    <MdError className="text-3xl text-orange-400" />
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    Only input a valid crypto address. Incorrect addresses may
+                    result in irreversible transactions.
+                  </p>
+                </div>
+                <div className="flex space-x-3 mt-6 mb-8">
+                  <Checkbox id="terms" className="h-6 w-6" />
+                  <label
+                    htmlFor="terms"
+                    className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    I have recieved the correct amount to my bank. And I hereby
+                    confirm the order as completed.
+                  </label>
+                </div>
+                <Button className="bg-orange-400 hover:bg-orange-500 h-14 font-normal text-white rounded-full text-center w-full">
+                  Confirm order as paid
+                </Button>
+              </form>
             </ScrollArea>
           </div>
           {/* Type message input */}
