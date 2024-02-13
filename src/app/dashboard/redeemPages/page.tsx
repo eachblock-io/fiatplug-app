@@ -92,12 +92,12 @@ const RedeemPointsAirtime = () => {
             </div>
           </div>
 
-          <Button
-            // onClick={() => openModal(true)}
-            className="bg-[#F9A21B] hover:bg-[#f3b456] px-48 lg:h-12 lg:text-md mt-4 rounded-full flex">
-            Proceed
-            <FaArrowRight className="text-white" />
-          </Button>
+                      <Button
+                    className="bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-full flex justify-between items-center w-full">
+                    <span>Proceed</span>
+                    <FaArrowRight className="text-white" />
+                  </Button>
+
 
         </form>
       </div>

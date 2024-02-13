@@ -37,6 +37,20 @@ const chooseAbeneficiary = () => {
                         </div>
                  </div>
         </div>
+        
+        <div className="bg-white border shadow-lg lg:p-8 p-6 rounded-[2rem]">
+                <div className="p-2  rounded-lg flex">
+
+                     <div className="inline-block  rounded-[9px] py-5 bg-[#FFA048]">
+                            <RiBankLine/>
+                        </div>
+
+                    <div>
+                        <p>Jams, Ethan Hunt</p>
+                        <span>2023434318 | Opay</span>
+                        </div>
+                 </div>
+        </div>
       </div>
     </section>
   );
