@@ -24,31 +24,33 @@ const chooseAbeneficiary = () => {
           </div>
         </Link>
 
-        <div className="bg-white border shadow-lg lg:p-8 p-6 rounded-[2rem]">
-                <div className="p-2  rounded-lg flex">
+            <Link href="/dashboard/redeemPages/redeemPoints/" >
+                    <div className="bg-white border shadow-lg lg:p-8 p-6 rounded-[2rem] mb-5">
+                            <div className="p-2  rounded-lg flex">
 
-                     <div className="inline-block  rounded-[9px] py-5 bg-[#FFA048]">
-                            <RiBankLine/>
-                        </div>
+                                <div className="inline-block  rounded-full py-5 px-5 bg-[#28B825]">
+                                    <RiBankLine className=" text-white"/>
+                                </div>
 
-                    <div>
-                        <p>Jams, Ethan Hunt</p>
-                        <span>2023434318 | Opay</span>
-                        </div>
-                 </div>
-        </div>
+                                <div>
+                                    <p>Jams, Ethan Hunt</p>
+                                    <span>2023434318 | Opay</span>
+                                </div>
+                            </div>
+                    </div>
+                </Link>
         
         <div className="bg-white border shadow-lg lg:p-8 p-6 rounded-[2rem]">
                 <div className="p-2  rounded-lg flex">
 
-                     <div className="inline-block  rounded-[9px] py-5 bg-[#FFA048]">
-                            <RiBankLine/>
+                     <div className="inline-block rounded-full py-5 px-5 bg-[#28B825]">
+                            <RiBankLine className=" text-white"/>
                         </div>
 
                     <div>
                         <p>Jams, Ethan Hunt</p>
                         <span>2023434318 | Opay</span>
-                        </div>
+                      </div>
                  </div>
         </div>
       </div>
