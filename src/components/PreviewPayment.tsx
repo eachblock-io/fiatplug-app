@@ -9,7 +9,7 @@ import img1 from "@/public/undraw_season_change_f99v 1.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const PreviewPayment = ({
+PreviewPaymentconst  = ({
   data,
   isOpen,
   setIsOpen,
