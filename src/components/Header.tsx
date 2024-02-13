@@ -29,7 +29,7 @@ const Header = ({ data }: any) => {
   };
 
   return (
-    <div className="flex justify-between items-center sticky top-0 bg-white  lg:px-14 px-6 mx-auto h-[10vh] border-b border-gray-300 shadow-sm z-20 w-full">
+    <div className="flex justify-between items-center lg:sticky fixed top-0 bg-white lg:px-14 px-6 pt-2 mx-auto h-[8vh] border-b border-gray-300 shadow-sm z-20 w-full">
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center space-x-2 lg:hidden">
           <Avatar className="p-0 m-0">

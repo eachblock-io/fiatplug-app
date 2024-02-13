@@ -35,7 +35,7 @@ const ProfilePage = async () => {
   const userPromise = getUser();
   const [user] = await Promise.all([userPromise]);
   return (
-    <section>
+    <section className="lg:pt-0 pt-[4rem]">
       <div className="header bg-black lg:h-40 h-28 flex items-center justify-start ">
         <Link
           href="/dashboard/profile/settings"

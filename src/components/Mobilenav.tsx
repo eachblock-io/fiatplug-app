@@ -74,7 +74,7 @@ const Mobilenav = () => {
       link: "/dashboard/chat",
     },
     {
-      id: 4,
+      id: 5,
       title: "Profile",
       icon: (
         <FaUserCircle

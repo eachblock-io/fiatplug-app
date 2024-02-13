@@ -16,7 +16,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
   const dispatch = useAppDispatch();
   const active = useAppSelector((state) => state.toggle.value);
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
   const [currentBuyOffers, setCurrentBuyOffers] = useState(buyOffers?.offers);
   const [currentSellOffers, setCurrentSellOffers] = useState(
     sellOffers?.offers
@@ -92,7 +92,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
       <div className="w-full px-4 mx-auto">
         {active ? <CardCarousel cards={data} /> : <CryptoCarousel />}{" "}
       </div>
-      <section className="w-full lg:mb-20 lg:my-10 my-6">
+      <section className="w-full lg:mb-20 lg:my-10 mt-6">
         <div className="tabs mb-4 rounded-md border lg:w-11/12 w-full mx-auto grid grid-cols-2 gap-2 p-2 bg-gray-100">
           <button
             onClick={handleToggle}
@@ -116,18 +116,18 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
         <div className="lg:w-11/12 w-full mx-auto ">
           {active && (
             <div className="lg:pt-10 pt-4">
-              <h2 className="font-bold lg:text-3xl text-2xl text-gray-700 mb-4">
+              <h2 className="font-semibold lg:text-3xl text-xl text-gray-700 mb-4">
                 Function
               </h2>
               <div className="grid lg:grid-cols-2 grid-cols-2 lg:gap-10 gap-2">
                 <Link
                   href="/dashboard/giftcard"
-                  className="card-bg relative overflow-hidden rounded-[2rem] ">
+                  className="card-bg relative overflow-hidden rounded-[1rem] ">
                   <div className=" lg:p-10 p-4 text-white ">
-                    <h2 className="font-bold lg:text-3xl text-lg">
+                    <h2 className="font-semibold lg:text-3xl text-lg">
                       Redeem Gift Card
                     </h2>
-                    <p className="text-md mt-2 lg:text-lg text-sm">
+                    <p className="text-md lg:mt-2 mt-1 lg:text-lg text-sm">
                       Sell gifts card fast and easy
                     </p>
                     <Image
@@ -141,12 +141,12 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                 <div className="flex flex-col lg:gap-10 gap-2">
                   <Link
                     href="/"
-                    className="recharge-card lg:p-8 p-4 rounded-[2rem] bg-[#FFE3F1] hover:bg-[#f0c0d8] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
+                    className="recharge-card lg:p-8 p-4 rounded-[1rem] bg-[#FFE3F1] hover:bg-[#f0c0d8] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
                     <div>
-                      <h2 className="font-bold lg:text-3xl text-lg text-gray-700 ">
+                      <h2 className="font-semibold lg:text-3xl text-lg text-gray-700 ">
                         Recharge
                       </h2>
-                      <p className="lg:text-md mt-2 text-gray-500 lg:text-lg text-xs">
+                      <p className="lg:text-md lg:mt-2 mt-1 text-gray-500 lg:text-lg text-xs">
                         Recharge airtime and buy data
                       </p>
                     </div>
@@ -159,12 +159,12 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                   </Link>
                   <Link
                     href="/"
-                    className="bills-card lg:p-8 p-4 rounded-[2rem] bg-[#DAF2FF] hover:bg-[#abdbf3] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
+                    className="bills-card lg:p-8 p-4 rounded-[1rem] bg-[#DAF2FF] hover:bg-[#abdbf3] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
                     <div className="w-full">
-                      <h2 className="font-bold lg:text-3xl text-md text-gray-700 ">
+                      <h2 className="font-semibold lg:text-3xl text-md text-gray-700 ">
                         Pay Bills
                       </h2>
-                      <p className="text-md mt-2 text-gray-500 lg:text-lg text-xs">
+                      <p className="text-md lg:mt-2 mt-1 text-gray-500 lg:text-lg text-xs">
                         Pay bills at ease
                       </p>
                     </div>
@@ -204,12 +204,12 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
               {isActive ? (
                 <div>
                   {/* Buy Currencies list */}
-                  <div className="flex items-center lg:space-x-10 space-x-4 mb-6">
+                  <div className="flex items-center lg:space-x-10 space-x-4">
                     {buyOffers?.currencies?.map((data: any) => (
                       <button
                         key={data?.id}
                         onClick={() => handleFetchBuyOffers(data?.id)}
-                        className={`font-bold text-gray-600 lg:text-md text-sm ${
+                        className={`font-semibold text-gray-600 lg:text-md text-sm ${
                           activeCurr === data?.id &&
                           `border-b border-orange-500`
                         }`}>
@@ -217,7 +217,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       </button>
                     ))}
                   </div>
-                  <h1 className="font-bold lg:text-2xl text-lg mb-4 lg:mt-10">
+                  <h1 className="font-semibold lg:text-2xl text-lg mb-4 mt-7 lg:mt-10">
                     Available offers
                   </h1>
                   <>

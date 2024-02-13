@@ -22,7 +22,7 @@ const CryptoBuyForm = ({ data }: any) => {
   const [quantity, setQuantity] = useState<any>();
   const [point, setPoint] = useState("");
   const [address, setAddress] = useState("");
-  const [previewInfo, setPreviewInfo] = useState({});
+  const [previewInfo, setPreviewInfo] = useState<any>({});
 
   const handleInputChange = async (event: { target: { value: any } }) => {
     const inputValue = event.target.value;
@@ -115,7 +115,7 @@ const CryptoBuyForm = ({ data }: any) => {
     }
   };
 
-  // console.log(previewInfo);
+  // console.log(data);
 
   const handleComplete = async () => {
     // setCompleteModal(true);
@@ -132,7 +132,7 @@ const CryptoBuyForm = ({ data }: any) => {
           method: "POST",
           headers,
           body: JSON.stringify({
-            // id: previewInfo?.order_id,
+            id: previewInfo?.id,
             status: "completed",
             type: "crypto_transaction",
           }),
@@ -153,6 +153,41 @@ const CryptoBuyForm = ({ data }: any) => {
     }
   };
 
+  const handleCancelled = async () => {
+    setIsOpen(false);
+
+    try {
+      const token = await fetchToken();
+      const headers = {
+        Authorization: `Bearer ${token?.data?.token}`,
+        "Content-Type": "application/json",
+      };
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-transaction`,
+        {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            id: previewInfo?.id,
+            status: "cancelled",
+            type: "crypto_transaction",
+          }),
+        }
+      );
+
+      const resdata = await res.json();
+      if (resdata?.status == "success") {
+        setIsLoading(false);
+        setIsOpen(false);
+      }
+      console.log(resdata?.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-8 mt-20">
       <PreviewPayment
@@ -161,6 +196,7 @@ const CryptoBuyForm = ({ data }: any) => {
         setIsOpen={setIsOpen}
         handleComplete={handleComplete}
         completeModal={completeModal}
+        handleCancelled={handleCancelled}
       />
       <h1 className="font-bold text-2xl mb-6">Buy Crypto</h1>
       <form onSubmit={handleSubmit}>

@@ -7,6 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import fetchToken from "@/lib/auth";
+import ChatPage from "./ChatPage";
 
 const nigeriaBanks = [
   { code: "011", name: "First Bank of Nigeria" },
@@ -38,9 +39,9 @@ interface FormData {
   accountNumber: string;
 }
 
-const AddBankPage = ({ data, openBank, setOpenBank }: any) => {
-  const { push } = useRouter();
+const AddBankPage = ({ data, type, userData, openBank, setOpenBank }: any) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [openChat, setOpenChat] = useState(true);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     bankName: "",
@@ -58,45 +59,52 @@ const AddBankPage = ({ data, openBank, setOpenBank }: any) => {
     }));
   };
 
+  // console.log(data);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     const reqData = {
-      id: data?.id,
-      type: "crypto_transaction",
-      bankName: formData?.bankName,
-      accountName: formData?.accountName,
-      accountNumber: formData?.accountNumber,
+      id: data?.data?.id,
+      type: type,
+      bank_name: formData?.bankName,
+      account_name: formData?.accountName,
+      account_number: formData?.accountNumber,
     };
-    try {
-      const token = await fetchToken();
-      const headers = {
-        Authorization: `Bearer ${token?.data?.token}`,
-        "Content-Type": "application/json",
-      };
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/mobile/initiate-crypto-transaction`,
-        {
-          method: "POST",
-          headers,
-          body: JSON.stringify(reqData),
-        }
-      );
+    console.log(reqData);
+    // try {
+    //   const token = await fetchToken();
+    //   const headers = {
+    //     Authorization: `Bearer ${token?.data?.token}`,
+    //     "Content-Type": "application/json",
+    //   };
+    //   const res = await fetch(
+    //     `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-transaction`,
+    //     {
+    //       method: "POST",
+    //       headers,
+    //       body: JSON.stringify(reqData),
+    //     }
+    //   );
 
-      const resdata = await res.json();
-      if (resdata?.status == "success") {
-        setIsLoading(false);
-        setIsRedirecting(true);
-        setOpenBank(true);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
+    //   const resdata = await res.json();
+    //   if (resdata?.status == "success") {
+    //     setIsLoading(false);
+    //     setIsRedirecting(true);
+    //     setOpenBank(false);
+    //     setOpenChat(true);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setIsLoading(false);
+    //   setIsRedirecting(false);
+    // }
   };
 
   return (
     <>
+      {openChat && <ChatPage userData={userData} order={data} />}
       {openBank ? (
         <div className="absolute top-0 bottom-0 right-0 left-0 w-full z-10 bg-white lg:py-20 pt-20 pb-10 lg:px-20 px-10">
           <div className="flex items-center justify-between lg:pt-4 pt-4">

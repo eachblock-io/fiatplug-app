@@ -32,7 +32,7 @@ const GiftcardPurchase = async ({ params }: any) => {
 
   const cardInfo = cardData?.data;
   return (
-    <section className="lg:pt-10 pt-4 overflow-hidden">
+    <section className="lg:pt-10 pt-[6rem] overflow-hidden">
       <MaxWidth>
         <GiftcardBody cardInfo={cardInfo} />
       </MaxWidth>

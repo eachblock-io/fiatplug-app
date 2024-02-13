@@ -18,7 +18,6 @@ const ChatBoard = ({ data }: any) => {
     })();
   }, []);
 
-
   return (
     <>
       {data?.map((message: any, i: any) => {

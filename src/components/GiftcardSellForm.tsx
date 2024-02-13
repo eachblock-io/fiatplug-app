@@ -20,12 +20,15 @@ const GiftcardSellForm = ({ data }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [amount, setAmount] = useState("");
-  const [quantity, setQuantity] = useState<any>();
   const [point, setPoint] = useState("");
   const [code, setCode] = useState("");
   const [previewInfo, setPreviewInfo] = useState({});
   const [previewSrc, setPreviewSrc] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [transID, setTransID] = useState({});
+  const [ngnAmount, setNgnAmount] = useState<any>();
+
+  // console.log(data);
 
   const handleInputChange = async (event: { target: { value: any } }) => {
     const inputValue = event.target.value;
@@ -49,8 +52,8 @@ const GiftcardSellForm = ({ data }: any) => {
 
     // Update the state with the formatted money value
     setAmount(inputValue);
-    const conversion = event.target.value / data?.data?.attributes?.rate;
-    setQuantity(conversion);
+    const conversion = event.target.value * data?.data?.offer?.attributes?.rate;
+    setNgnAmount(conversion);
 
     const token = await fetchToken();
 
@@ -69,57 +72,62 @@ const GiftcardSellForm = ({ data }: any) => {
       const point = await res.json();
 
       setPoint(point?.data);
-      console.log(point?.data);
     }
   };
 
-  const currencyCode: any = localStorage.getItem("selectedCurrency");
+  const currencyID: any = localStorage.getItem("selectedCurrency");
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsLoading(true);
-    const formData = {
-      amount: amount,
-      currency_id: currencyCode,
-      merchant_id: data?.data?.offer?.relationships?.merchant?.id,
-      gift_card_id: data?.data?.offer?.relationships?.gift_cards?.id,
-      type: "sell",
-      "e-code": code,
-      card_image: selectedFile,
-    };
 
-    setIsOpen(true);
+    try {
+      const token = await fetchToken();
 
-    // try {
-    //   const token = await fetchToken();
-    //   const headers = {
-    //     Authorization: `Bearer ${token?.data?.token}`,
-    //   };
-    //   const res = await fetch(
-    //     `${process.env.NEXT_PUBLIC_API_URL}/transactions`,
-    //     {
-    //       method: "POST",
-    //       headers,
-    //       body: JSON.stringify(formData),
-    //     }
-    //   );
+      const formData = new FormData();
+      formData.append("amount", amount.toString());
+      formData.append("currency_id", currencyID);
+      formData.append(
+        "merchant_id",
+        data?.data?.offer?.relationships?.merchant?.id || ""
+      );
+      formData.append(
+        "gift_card_id",
+        data?.data?.offer?.relationships?.gift_cards?.id || ""
+      );
+      formData.append("type", "sell");
+      formData.append("e-code", code);
+      // Append the file only if it exists
+      if (selectedFile) {
+        formData.append("card_image", selectedFile);
+      }
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/transactions`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token?.data?.token}`,
+          },
+          body: formData,
+        }
+      );
 
-    //   const resdata = await res.json();
-    //   if (resdata?.status == "success") {
-    //     setIsLoading(false);
-    //     setIsRedirecting(true);
-    //     setIsChecked(true);
-    //     toast.success(resdata?.message);
-    //     setIsOpen(true);
-    //   }
-    //   setPreviewInfo(resdata?.data);
-    //   console.log(resdata?.data);
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setIsLoading(false);
-    //   setIsRedirecting(false);
-    // }
+      const resdata = await res.json();
+      setTransID(resdata);
+      if (resdata?.status === "success") {
+        setIsLoading(false);
+        setIsRedirecting(true);
+        setIsChecked(true);
+        toast.success(resdata?.message);
+        setIsOpen(true);
+      }
+      setPreviewInfo(resdata?.data);
+      console.log(resdata)
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+      setIsRedirecting(false);
+    }
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -139,10 +147,18 @@ const GiftcardSellForm = ({ data }: any) => {
     }
   };
 
+  console.log(data?.data?.offer);
+
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-8 mt-20">
-      <AddBankPage data={data} openBank={isOpen} setOpenBank={setIsOpen} />
-      <h1 className="font-bold text-2xl mb-6">Sell Giftcard</h1>
+    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-0  mt-6">
+      <AddBankPage
+        data={transID}
+        type="gift_card_transaction"
+        userData={data?.data?.offer?.relationships?.merchant}
+        openBank={isOpen}
+        setOpenBank={setIsOpen}
+      />
+      <h1 className="font-bold lg:text-2xl text-xl mb-6">Sell Giftcard</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <div className="relative flex items-center">
@@ -172,23 +188,15 @@ const GiftcardSellForm = ({ data }: any) => {
             </small>
           </div>
         </div>
-        {/* <h2 className="lg:text-md text-xs font-semibold mt-4 mb-1">
+        <h2 className="lg:text-md text-xs font-semibold mt-4 mb-1">
           Trading Info
         </h2>
-        <div>
-          <div className="flex items-center justify-between">
-            <p className="lg:text-md text-xs">Quantity</p>
-            <p className="lg:text-md text-xs font-semibold">
-              {quantity ? parseFloat(quantity?.toFixed(2)) : "0.00"} USD
-            </p>
-          </div>
-          <div className="flex items-center justify-between mt-2">
-            <p className="lg:text-md text-xs">Payment</p>
-            <p className="lg:text-md text-xs font-semibold">
-              {formatCurrency(amount)} NGN
-            </p>
-          </div>
-        </div> */}
+        <div className="flex items-center justify-between">
+          <p className="lg:text-md text-xs">Amount in Naira</p>
+          <p className="lg:text-md text-xs font-semibold">
+            {formatCurrency(ngnAmount)} NGN
+          </p>
+        </div>
         <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-5 px-6 shadow-md rounded-lg">
           <p className="font-medium text-sm">Point Earned</p>
           <p className="font-bold flex items-center text-sm">
