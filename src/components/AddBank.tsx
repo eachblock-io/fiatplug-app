@@ -8,6 +8,25 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import fetchToken from "@/lib/auth";
 import ChatPage from "./ChatPage";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 const nigeriaBanks = [
   { code: "011", name: "First Bank of Nigeria" },
@@ -33,73 +52,65 @@ const nigeriaBanks = [
   { code: "315", name: "Providus Bank" },
 ];
 
-interface FormData {
-  bankName: string;
-  accountName: string;
-  accountNumber: string;
-}
+const FormSchema = z.object({
+  bankName: z.string({
+    required_error: "Please select an email to display.",
+  }),
+  accountName: z.string({
+    required_error: "Please select an email to display.",
+  }),
+  accountNumber: z.string({
+    required_error: "Please select an email to display.",
+  }),
+});
 
 const AddBankPage = ({ data, type, userData, openBank, setOpenBank }: any) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [openChat, setOpenChat] = useState(true);
+  const [openChat, setOpenChat] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
-    bankName: "",
-    accountName: "",
-    accountNumber: "",
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  // console.log(data);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmitForm = async (formdata: z.infer<typeof FormSchema>) => {
     setIsLoading(true);
     const reqData = {
       id: data?.data?.id,
       type: type,
-      bank_name: formData?.bankName,
-      account_name: formData?.accountName,
-      account_number: formData?.accountNumber,
+      bank_name: formdata?.bankName,
+      account_name: formdata?.accountName,
+      account_number: formdata?.accountNumber,
     };
-    console.log(reqData);
-    // try {
-    //   const token = await fetchToken();
-    //   const headers = {
-    //     Authorization: `Bearer ${token?.data?.token}`,
-    //     "Content-Type": "application/json",
-    //   };
-    //   const res = await fetch(
-    //     `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-transaction`,
-    //     {
-    //       method: "POST",
-    //       headers,
-    //       body: JSON.stringify(reqData),
-    //     }
-    //   );
+    // console.log(reqData);
+    try {
+      const token = await fetchToken();
+      const headers = {
+        Authorization: `Bearer ${token?.data?.token}`,
+        "Content-Type": "application/json",
+      };
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-transaction`,
+        {
+          method: "POST",
+          headers,
+          body: JSON.stringify(reqData),
+        }
+      );
 
-    //   const resdata = await res.json();
-    //   if (resdata?.status == "success") {
-    //     setIsLoading(false);
-    //     setIsRedirecting(true);
-    //     setOpenBank(false);
-    //     setOpenChat(true);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setIsLoading(false);
-    //   setIsRedirecting(false);
-    // }
+      const resdata = await res.json();
+      if (resdata?.status == "success") {
+        setIsLoading(false);
+        setIsRedirecting(true);
+        setOpenBank(false);
+        setOpenChat(true);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+      setIsRedirecting(false);
+    }
   };
 
   return (
@@ -116,76 +127,102 @@ const AddBankPage = ({ data, type, userData, openBank, setOpenBank }: any) => {
             </Button>
           </div>
           <div className="lg:w-5/12 w-12/12 mx-auto pb-10 lg:mt-10 mt-20">
-            <h1 className="font-bold text-2xl">Add bank details</h1>
+            <h1 className="font-bold mb-2 text-2xl">Add bank details</h1>
             <p>Input correct bank details</p>
-            <form onSubmit={handleSubmit} className="space-y-6 mt-8">
-              <div>
-                <select
-                  className="w-full p-4 rounded-lg border border-gray-400"
-                  id="bank"
-                  name="bankName"
-                  value={formData.bankName}
-                  onChange={handleChange}
-                  required>
-                  <option value="" className="text-gray-500 py-8">
-                    Select a Bank
-                  </option>
-                  {nigeriaBanks?.map((data) => (
-                    <option key={data?.code} value={data?.name}>
-                      {data?.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  id="accountName"
-                  name="accountName"
-                  value={formData.accountName}
-                  onChange={handleChange}
-                  required
-                  placeholder="Account Name"
-                  className="p-7 border border-gray-500"
-                />
-              </div>
-              <div>
-                <Input
-                  type="text"
-                  id="accountNumber"
-                  name="accountNumber"
-                  value={formData.accountNumber}
-                  onChange={handleChange}
-                  required
-                  placeholder="Account Number"
-                  className="p-7 border border-gray-500"
-                />
-              </div>
-              <div className="mt-20">
-                {isRedirecting ? (
-                  <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-                    <span className="flex items-center justify-center gap-2">
-                      <ClipLoader size={20} color="#fff" />
-                      {<span className="">Redirecting... please wait</span>}
-                    </span>
-                  </Button>
-                ) : (
-                  <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-                    {isLoading ? (
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(handleSubmitForm)}
+                className="space-y-6 mt-8">
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="bankName"
+                    render={({ field }) => (
+                      <FormItem>
+                        {/* <FormLabel>Bank Name</FormLabel> */}
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}>
+                          <FormControl className="p-7 border border-gray-500">
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select bank" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {nigeriaBanks?.map((data) => (
+                              <SelectItem key={data?.code} value={data?.name}>
+                                {data?.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="accountName"
+                    render={({ field }) => (
+                      <FormItem>
+                        {/* <FormLabel>Account Name</FormLabel> */}
+                        <Input
+                          type="text"
+                          {...field}
+                          placeholder="Account Name"
+                          className="p-7 border border-gray-500"
+                        />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="accountNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        {/* <FormLabel>Account Number</FormLabel> */}
+                        <Input
+                          type="text"
+                          {...field}
+                          placeholder="Account Name"
+                          className="p-7 border border-gray-500"
+                        />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="pt-10">
+                  {isRedirecting ? (
+                    <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
                       <span className="flex items-center justify-center gap-2">
                         <ClipLoader size={20} color="#fff" />
-                        {<span className="">Loading...</span>}
+                        {<span className="">Redirecting... please wait</span>}
                       </span>
-                    ) : (
-                      <>
-                        <span className="font-bold">Sell Crypto</span>
-                      </>
-                    )}
-                    <FaLongArrowAltRight className="ml-auto text-2xl" />
-                  </Button>
-                )}
-              </div>
-            </form>
+                    </Button>
+                  ) : (
+                    <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                      {isLoading ? (
+                        <span className="flex items-center justify-center gap-2">
+                          <ClipLoader size={20} color="#fff" />
+                          {<span className="">Loading...</span>}
+                        </span>
+                      ) : (
+                        <>
+                          <span className="font-bold">Sell Crypto</span>
+                        </>
+                      )}
+                      <FaLongArrowAltRight className="ml-auto text-2xl" />
+                    </Button>
+                  )}
+                </div>
+              </form>
+            </Form>
           </div>
         </div>
       ) : null}

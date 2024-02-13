@@ -32,7 +32,7 @@ const ChatPage = ({ userData, order }: any) => {
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
 
-  //   console.log(userData);
+  console.log(userData);
 
   useEffect(() => {
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_KEY}`, {
@@ -139,17 +139,27 @@ const ChatPage = ({ userData, order }: any) => {
           <div className="inputs z-10 px-8 py-3 lg:mt-2 mt-1 lg:h-[10vh] h-[8vh] border bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
             <div className="flex items-center gap-2">
               <Link href="/dashboard/chat">
-                <IoIosArrowBack className="text-2xl mr-4" />
+                <IoIosArrowBack className="text-2xl mr-2" />
               </Link>
               <Avatar className="p-0 m-0 h-8 w-8 border border-gray-600">
                 <AvatarImage src={userData?.attributes?.profile_picture} />
-                <AvatarFallback className="text-xs"></AvatarFallback>
+                <AvatarFallback className="text-xs">
+                  {/* {userData?.attributes?.first_name[0]}
+                  {userData?.attributes?.last_name[0]} */}
+                </AvatarFallback>
               </Avatar>
-              <div>
+              {userData?.attributes?.full_name ? (
+                <div>
+                  <h2 className="font-semibold text-xs">
+                    {userData?.attributes?.full_name}
+                  </h2>
+                </div>
+              ) : (
                 <h2 className="font-semibold text-xs">
-                  {userData?.attributes?.full_name}
+                  {userData?.attributes?.first_name}{" "}
+                  {userData?.attributes?.last_name}
                 </h2>
-              </div>
+              )}
             </div>
           </div>
           <div>

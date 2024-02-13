@@ -20,7 +20,7 @@ import fetchToken from "@/lib/auth";
 import AddBankPage from "./AddBank";
 
 const CryptoSellForm = ({ data }: any) => {
-  const [openBank, setOpenBank] = useState(true);
+  const [openBank, setOpenBank] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -132,7 +132,7 @@ const CryptoSellForm = ({ data }: any) => {
   };
 
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto lg:mt-8 mt-20">
+    <div className="lg:w-5/12 w-10/12 mx-auto lg:mt-0 mt-20">
       <AddBankPage
         data={transID}
         type="crypto_transaction"
