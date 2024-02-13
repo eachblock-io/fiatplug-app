@@ -17,9 +17,9 @@ const redeemPoints = () => {
         <p>Where should we send to?</p>
         <form className="space-y-6 mt-8">
         <Link href="/" passHref>
-          <div className="p-2 border border-gray-500 rounded-lg flex">
+          <div className="p-2 border border-gray-300 rounded-lg flex">
 
-                  <div className="inline-block  rounded-[9px] py-5 px-5 bg-[#FFA048]">
+                  <div className="inline-block  rounded-[9px] py-5 px-5 mr-5 bg-[#FFA048]">
                       <img src="/magic_star_.png" alt="" className=" w-8 h-8" />
                     </div>
                   <div>
@@ -28,8 +28,6 @@ const redeemPoints = () => {
                   </div>
           </div>
           </Link>
-
-         
                     <div className="bg-white border shadow-lg lg:p-8 p-6 rounded-[2rem] mb-5">
                             <div className="p-2  rounded-lg flex">
 
@@ -43,20 +41,17 @@ const redeemPoints = () => {
                                 </div>
                             </div>
                     </div>
-              
-       
           <div>
             <span>Enter points to redeem</span>
             <div className="relative flex items-center"> 
-     
-      <Input
-        type="text"
-        id="accountName"
-        name="accountName"
-        required
-        placeholder="Account Number"
-        className="pl-16 pr-16 py-2 border border-gray-500 w-full" 
-      />
+            <Input
+              type="text"
+              id="accountName"
+              name="accountName"
+              required
+              placeholder="Account Number"
+              className="pl-16 pr-16 py-2 border border-gray-300 w-full" 
+            />
       <span className="absolute left-4 top-0 bottom-0 flex items-center pl-2">0</span>
       <span className="absolute right-4 top-0 bottom-0 flex items-center pr-2">MAX</span>
     </div>
@@ -67,10 +62,14 @@ const redeemPoints = () => {
             </div>
           </div>
           <Button
-                    className="bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-full flex justify-between items-center w-full">
-                    <span>Redeem Points</span>
-                    <FaArrowRight className="text-white" />
-        </Button>
+            className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-full flex items-center w-full">
+            
+            {/* Text container centered */}
+            <span className="w-full text-center block">Redeem Points</span>
+            
+            {/* Right icon aligned to the right */}
+            <FaArrowRight className="text-white absolute right-4" />
+          </Button>
         </form>
       </div>
       

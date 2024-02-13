@@ -91,13 +91,13 @@ const RedeemPointsAirtime = () => {
             </div>
           </div>
 
-                      <Button
-                    className="bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-full flex justify-between items-center w-full">
-                    <span>Proceed</span>
-                    <FaArrowRight className="text-white" />
-                  </Button>
-
-
+          <Button
+            className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-full flex items-center w-full">
+            {/* Text container centered */}
+            <span className="w-full text-center block">Proceed</span>
+            {/* Right icon aligned to the right */}
+            <FaArrowRight className="text-white absolute right-4" />
+          </Button>
         </form>
       </div>
 
