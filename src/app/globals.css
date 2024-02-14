@@ -110,6 +110,13 @@ textarea {
   background-position: center;
   background-size: cover;
 }
+.otp-field {
+  width: 38px;
+  margin-right: 10px;
+  padding-left: 12px;
+  height: 40px;
+  border-bottom: 1px solid #C2C2C2;
+}
 
 
 

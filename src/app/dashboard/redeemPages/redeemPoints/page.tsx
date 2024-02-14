@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { FaArrowRight, FaArrowLeft} from "react-icons/fa6";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,8 @@ import { useRouter } from 'next/navigation';
 const redeemPoints = () => {
 
   const { push } = useRouter();
+ 
+
 
   return (
     <>
