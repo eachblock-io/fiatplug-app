@@ -12,12 +12,12 @@ const RedeemPointsAirtime = () => {
   // const router = useRouter();
   return (
     <>
-
-      <div className="lg:w-5/12 w-12/12 mx-auto pb-10 lg:mt-10 mt-20">
-      <div className="fixed top-5 left-5 ml-5">
-        {/* Back button */}
-        <FaArrowLeft />
+      <div className=" ml-5">
+              {/* Back button */}
+              <FaArrowLeft />
       </div>
+      <div className="lg:w-5/12 w-12/12 mx-auto pb-10 lg:mt-10 mt-20">
+      
         <h1 className="font-bold text-2xl">Redeem points for cash</h1>
         <p>Where should we send to?</p>
         <form className="space-y-6 mt-8">
@@ -89,7 +89,7 @@ const RedeemPointsAirtime = () => {
             <div className="flex justify-between">
             <div className="flex items-center text-gray-500">
               <p className="mb-0">1 Point =</p>
-                 <img src="/Group_34373.png" className="w-2 h-2 mx-1" alt="Conversion icon"/>
+                 <img src="/Group_34373.png" className="w-3 h-3 mx-1" alt="Conversion icon"/>
               <p className="mb-0">NGN600</p>
           </div>
               <p>Balance 550</p>
