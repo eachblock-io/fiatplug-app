@@ -32,26 +32,27 @@ const pin = () => {
 
         <form className="space-y-6 mt-8">
         <div className="row">
-            <div className="col text-center">
+            <div className="col text-center mb-20">
             {otp.map((data, index) => {
                         return (
                             <input
-                                className="otp-field"
-                                type="text"
-                                name="otp"
-                                maxLength="1"
-                                key={index}
-                                value={data}
-                                onChange={e => handleChange(e.target, index)}
-                                onFocus={e => e.target.select()}
-                            />
+                            className="otp-field w-12 h-12 text-center text-xl border-b-2 border-gray-300 focus:border-yellow-500 focus:outline-none"
+                            type="text"
+                            name="otp"
+                            maxLength="1"
+                            key={index}
+                            value={data}
+                            onChange={(e) => handleChange(e.target, index)}
+                            onFocus={(e) => e.target.select()}
+                          />
+                          
                         );
                     })}
             </div>
         </div>
         
           <Button
-            className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-full flex items-center w-full">
+            className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-md flex items-center w-full">
             <span className="w-full text-center block">Continue</span>
           </Button>
         </form>
