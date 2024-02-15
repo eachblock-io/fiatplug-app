@@ -23,8 +23,8 @@ const GiftcardSellForm = ({ data }: any) => {
   const [point, setPoint] = useState("");
   const [code, setCode] = useState("");
   const [previewInfo, setPreviewInfo] = useState({});
-  const [previewSrc, setPreviewSrc] = useState("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewSrcs, setPreviewSrcs] = useState<string[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [transID, setTransID] = useState({});
   const [ngnAmount, setNgnAmount] = useState<any>();
 
@@ -98,8 +98,10 @@ const GiftcardSellForm = ({ data }: any) => {
       formData.append("type", "sell");
       formData.append("e-code", code);
       // Append the file only if it exists
-      if (selectedFile) {
-        formData.append("card_image", selectedFile);
+      if (selectedFiles) {
+        selectedFiles?.forEach((file, index) => {
+          formData?.append(`card_image[${index}]`, file);
+        });
       }
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/transactions`,
@@ -107,6 +109,7 @@ const GiftcardSellForm = ({ data }: any) => {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token?.data?.token}`,
+            Accept: "application/json",
           },
           body: formData,
         }
@@ -122,7 +125,7 @@ const GiftcardSellForm = ({ data }: any) => {
         setIsOpen(true);
       }
       setPreviewInfo(resdata?.data);
-      console.log(resdata)
+      console.log(resdata);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -131,26 +134,38 @@ const GiftcardSellForm = ({ data }: any) => {
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const files = e.target.files;
 
-    if (file) {
-      const reader = new FileReader();
+    if (files) {
+      const newFiles: File[] = Array.from(files);
 
-      reader.onloadend = () => {
-        setPreviewSrc(reader.result as string);
-      };
-
-      reader.readAsDataURL(file);
-      setSelectedFile(file);
-    } else {
-      setPreviewSrc("");
+      const newPreviews: string[] = [];
+      newFiles.forEach((file) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          newPreviews.push(reader.result as string);
+          if (newPreviews.length === newFiles.length) {
+            setPreviewSrcs([...previewSrcs, ...newPreviews]);
+            setSelectedFiles([...selectedFiles, ...newFiles]);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     }
   };
 
-  console.log(data?.data?.offer);
+  const handleRemoveImage = (index: number) => {
+    const updatedPreviewSrcs = [...previewSrcs];
+    updatedPreviewSrcs.splice(index, 1);
+    setPreviewSrcs(updatedPreviewSrcs);
+
+    const updatedFiles = [...selectedFiles];
+    updatedFiles.splice(index, 1);
+    setSelectedFiles(updatedFiles);
+  };
 
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-0  mt-6">
+    <div className="lg:w-5/12 w-10/12 mx-auto pb-40 lg:mt-0  mt-6">
       <AddBankPage
         data={transID}
         type="gift_card_transaction"
@@ -210,7 +225,6 @@ const GiftcardSellForm = ({ data }: any) => {
           <div className="flex items-center">
             <Input
               type="text"
-              required
               value={code}
               placeholder="Enter code"
               className="w-full h-14 px-6 text-gray-600 font-medium overflow-hidden border border-gray-500"
@@ -219,31 +233,40 @@ const GiftcardSellForm = ({ data }: any) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 items-center relative overflow-hidden border border-orange-300 mt-6 rounded-xl p-6 h-[10rem]">
+        <div className="flex gap-x-4 items-center relative overflow-y-auto pt-10 border border-orange-300 mt-6 rounded-xl p-6 lg:h-[8rem] h-[6rem]">
           <div>
             <label
               htmlFor="fileInput"
-              className="flex justify-center items-center border-2 h-14 w-20 border-orange-200 rounded p-2 cursor-pointer">
-              <BsPlus className="text-4xl text-orange-200" />
+              className="flex justify-center items-center border-2 lg:h-14 h-10 lg:w-20 w-10 border-orange-200 rounded p-2 cursor-pointer">
+              <BsPlus className="text-5xl text-orange-200" />
               <input
                 type="file"
                 id="fileInput"
                 accept="image/*"
                 className="hidden"
+                multiple
                 onChange={handleFileChange}
               />
             </label>
           </div>
-          <div className="overflow-hidden lg:p-6">
-            {previewSrc && (
-              <Image
-                src={previewSrc}
-                alt="File Preview"
-                width={300}
-                height={200}
-                layout="fixed"
-              />
-            )}
+          <div className="overflow-hidden lg:p-6  w-full grid grid-cols-3 ">
+            {previewSrcs.map((previewSrc, index) => (
+              <div key={index} className="relative inline-block mr-4 mb-4">
+                <button
+                  type="button"
+                  className="absolute top-0 right-0 bg-white p-1 rounded-full"
+                  onClick={() => handleRemoveImage(index)}>
+                  <MdError className="text-red-500" />
+                </button>
+                <Image
+                  src={previewSrc}
+                  alt="File Preview"
+                  width={100}
+                  height={100}
+                  layout="fixed"
+                />
+              </div>
+            ))}
           </div>
         </div>
 
