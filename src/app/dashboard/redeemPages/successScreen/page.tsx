@@ -48,25 +48,26 @@ const successScreen = () => {
           </div>
           <div>
             <div className="-mt-px flex divide-x divide-gray-200">
-              <div className="flex w-0 flex-1 text-center">
-
-                <span>😟</span>
-
-                <a
-                  className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-[#007AFF]"
-                >
-                  Not Good
-                </a>
+      
+              <div className="flex w-0 flex-1 justify-center items-center">
+                  <a
+                    className="relative flex flex-col items-center justify-center w-full py-4 text-sm font-semibold text-[#007AFF] rounded-br-lg border border-transparent"
+                    href="#"
+                  >
+                    <span className="text-xl">😟</span>
+                    <span>Not Good</span>
+                  </a>
               </div>
-              <div className="-ml-px flex w-0 flex-1">
-                <span>😊</span>
-
-                <a
-                  className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-[#007AFF]"
-                >
-                  Great
-                </a>
+              <div className="-ml-px flex w-0 flex-1 justify-center items-center">
+                  <a
+                    className="relative flex flex-col items-center justify-center w-full py-4 text-sm font-semibold text-[#007AFF] rounded-br-lg border border-transparent"
+                    href="#"
+                  >
+                    <span className="text-xl">😊</span>
+                    <span>Great!</span>
+                  </a>
               </div>
+
             </div>
           </div>
         </div>
