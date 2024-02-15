@@ -2,7 +2,7 @@
 const nextConfig = {
     images: {
     domains: [
-      'staging-api.fiatplug.co',
+      'api.fiatplug.co',
       // 'staging-api.fiatplug.co',
     ],
   },

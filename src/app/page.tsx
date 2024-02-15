@@ -47,10 +47,10 @@ const LoginPage = () => {
 
   return (
     <section className="flex items-center justify-center w-full h-screen bg-white">
-      <div className="bg-white flex flex-col py-10 rounded-xl lg:w-4/12 md:w-5/12 w-10/12 md:px-4">
-        <Image src={Logo} width="200" alt="Logo" className="w-40" />
+      <div className="bg-white flex flex-col py-10 rounded-xl lg:w-4/12 md:w-5/12 w-9/12 md:px-4">
+        <Image src={Logo} width="200" alt="Logo" className="lg:w-40 w-[8rem]" />
         <div className="mt-10 text-left mb-4">
-          <h1 className="font-bold text-2xl text-gray-700">
+          <h1 className="font-bold lg:text-2xl text-xl text-gray-700">
             Log In With Fiatplug!👋
           </h1>
         </div>
@@ -61,7 +61,7 @@ const LoginPage = () => {
           </p>
           <p className="text-xs flex items-center mr-auto space-x-1 py-1 px-2 bg-white border border-gray-600 font-semibold">
             <IoMdLock className="text-green-600 text-lg" />
-            <span className="text-green-600">https</span>://app.fiatplug.com
+            <span className="text-green-600 text-xs">https</span>://app.fiatplug.com
           </p>
         </div>
         <Formik

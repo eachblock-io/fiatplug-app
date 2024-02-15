@@ -12,9 +12,9 @@ const AccountCard = ({ openModal }: any) => {
   };
 
   return (
-    <div className="card bg-gray-800 text-white lg:p-8 p-6 rounded-xl lg:mt-10 mt-6 ">
+    <div className="card bg-gray-800 text-white lg:p-8 p-6 rounded-xl lg:mt-10 mt-4 ">
       <div className="flex items-center justify-between">
-        <p className="lg:text-xl text-md">Availble Balance</p>
+        <p className="lg:text-xl text-sm">Availble Balance</p>
         <div className="lg:h-10 h-8 lg:w-10 w-8 rounded-full bg-gray-500 flex items-center justify-center">
           {active ? (
             <IoMdEye onClick={handleToggle} className="lg:text-2xl text-xl" />

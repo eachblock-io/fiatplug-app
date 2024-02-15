@@ -1,5 +1,5 @@
-import React from 'react'
-import GiftcardSellForm from '@/components/GiftcardSellForm'
+import React from "react";
+import GiftcardSellForm from "@/components/GiftcardSellForm";
 import { cookies } from "next/headers";
 
 async function geOffer(id: string) {
@@ -9,12 +9,9 @@ async function geOffer(id: string) {
     Authorization: `Bearer ${token?.value}`,
     "Content-Type": "application/json",
   };
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/offers/${id}`,
-    {
-      headers,
-    }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/offers/${id}`, {
+    headers,
+  });
 
   const offer = await res.json();
 
@@ -26,13 +23,11 @@ const SellGiftcardPage = async ({ params }: any) => {
   const offerPromise = geOffer(userID);
   const [offer] = await Promise.all([offerPromise]);
 
-  console.log(offer);
-  
   return (
-    <div>
+    <div className="lg:pt-4 pt-[4rem]">
       <GiftcardSellForm data={offer} />
     </div>
   );
 };
 
-export default SellGiftcardPage
+export default SellGiftcardPage;

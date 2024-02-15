@@ -17,9 +17,27 @@ interface Offer {
     rate: string;
   };
 }
+interface OfferID {
+  id: string;
+  attributes: {
+    acceptable_currencies?: Array<{
+      id: string;
+    }>;
+    // Add other attributes as needed
+    rate: string;
+  };
+}
+interface Currency {
+  id: string;
+  attributes: {
+    code: string;
+  };
+}
 
 const GiftcardBody = ({ cardInfo }: any) => {
   const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
+  const [selectedCurrencyID, setSelectedCurrencyID] = useState<string[]>([]);
+  const [currencies, setCurrencies] = useState<any>([]);
   const [acceptableCurrenciesList, setAcceptableCurrenciesList] = useState<
     string[]
   >([]);
@@ -28,16 +46,28 @@ const GiftcardBody = ({ cardInfo }: any) => {
     // Initialize selectedCurrency with the first currency code
     if (acceptableCurrenciesList.length > 0) {
       setSelectedCurrency(acceptableCurrenciesList[0]);
-      localStorage.setItem("selectedCurrency", acceptableCurrenciesList[0]);
+      localStorage.setItem("selectedCurrency", selectedCurrencyID[0]);
     }
-  }, [acceptableCurrenciesList]);
+  }, [acceptableCurrenciesList, selectedCurrencyID]);
 
   useEffect(() => {
+    // Extract unique currency ID from offers and set to state
+    const uniqueCurrenciesID: string[] = Array.from(
+      new Set(
+        cardInfo?.offers.reduce((acc: string[], offer: OfferID) => {
+          const currencies = offer.attributes?.acceptable_currencies || [];
+          return acc.concat(currencies.map((currency) => currency?.id || ""));
+        }, [])
+      )
+    );
+    setSelectedCurrencyID(uniqueCurrenciesID);
+
     // Extract unique currency codes from offers and set to state
     const uniqueCurrencies: string[] = Array.from(
       new Set(
         cardInfo?.offers.reduce((acc: string[], offer: Offer) => {
           const currencies = offer.attributes?.acceptable_currencies || [];
+          setCurrencies(currencies);
           return acc.concat(
             currencies.map((currency) => currency.attributes?.code || "")
           );
@@ -47,9 +77,9 @@ const GiftcardBody = ({ cardInfo }: any) => {
     setAcceptableCurrenciesList(uniqueCurrencies);
   }, [cardInfo?.offers]);
 
-  const handleCurrencyClick = (currencyCode: string) => {
+  const handleCurrencyClick = (currencyID: string, currencyCode: string) => {
     setSelectedCurrency(currencyCode);
-    localStorage.setItem("selectedCurrency", currencyCode);
+    localStorage.setItem("selectedCurrency", currencyID);
   };
 
   const filteredOffers = cardInfo?.offers.filter((offer: Offer) => {
@@ -63,18 +93,20 @@ const GiftcardBody = ({ cardInfo }: any) => {
     <div className="flex lg:flex-row flex-col-reverse gap-8">
       <div className="offers w-full mb-10">
         <div className="currencies mb-6 flex lg:space-x-4 space-x-3">
-          {acceptableCurrenciesList.map((currencyCode) => {
+          {currencies.map((currency: Currency) => {
             return (
               <Button
                 variant="ghost"
-                key={currencyCode}
-                onClick={() => handleCurrencyClick(currencyCode)}
+                key={currency?.id}
+                onClick={() =>
+                  handleCurrencyClick(currency?.id, currency.attributes?.code)
+                }
                 className={`font-bold lg:text-sm text-xs ${
-                  selectedCurrency === currencyCode
+                  selectedCurrency === currency.attributes?.code
                     ? "border-b-4 border-orange-600 rounded-none text-gray-800"
                     : ""
                 }`}>
-                {currencyCode}
+                {currency.attributes?.code}
               </Button>
             );
           })}

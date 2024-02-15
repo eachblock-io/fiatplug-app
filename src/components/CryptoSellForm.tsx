@@ -20,7 +20,7 @@ import fetchToken from "@/lib/auth";
 import AddBankPage from "./AddBank";
 
 const CryptoSellForm = ({ data }: any) => {
-  const [openBank, setOpenBank] = useState(true);
+  const [openBank, setOpenBank] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -30,6 +30,7 @@ const CryptoSellForm = ({ data }: any) => {
   const [address, setAddress] = useState(
     data?.data?.attributes?.wallet_address
   );
+  const [transID, setTransID] = useState({});
   const [isCopied, setIsCopied] = useState(false);
 
   const handleInputChange = async (event: { target: { value: any } }) => {
@@ -113,6 +114,7 @@ const CryptoSellForm = ({ data }: any) => {
       );
 
       const resdata = await res.json();
+      setTransID(resdata);
       if (resdata?.status == "success") {
         setIsLoading(false);
         setIsRedirecting(true);
@@ -120,21 +122,25 @@ const CryptoSellForm = ({ data }: any) => {
         toast.success(resdata?.message);
         setOpenBank(true);
       }
+      // console.log(resdata)
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
+      setIsRedirecting(false);
     }
   };
 
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto lg:mt-8 mt-20">
+    <div className="lg:w-5/12 w-10/12 mx-auto lg:mt-0 mt-20">
       <AddBankPage
-        data={data}
+        data={transID}
+        type="crypto_transaction"
+        userData={data?.data?.relationships?.user}
         openBank={openBank}
         setOpenBank={setOpenBank}
       />
-      <h1 className="font-bold text-2xl mb-6">Sell Crypto</h1>
+      <h1 className="font-bold lg:text-2xl text-xl mb-6">Sell Crypto</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <div className="relative flex items-center">
@@ -225,7 +231,7 @@ const CryptoSellForm = ({ data }: any) => {
           </p>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-8">
           {isRedirecting ? (
             <Button
               disabled={isChecked}

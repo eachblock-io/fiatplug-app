@@ -23,9 +23,9 @@ async function Orders() {
 
 const OrdersPage = async () => {
   return (
-    <section className="w-full relative flex items-center justify-center mb-20">
-      <div className="orders-section lg:w-8/12 w-11/12 mt-8">
-        <h1 className="font-bold text-4xl ">Orders</h1>
+    <section className="lg:pt-10 pt-[5rem] w-full relative flex items-center justify-center mb-20">
+      <div className="orders-section lg:w-8/12 w-11/12">
+        <h1 className="font-semibold lg:text-2xl text-xl">Orders</h1>
         <div className="space-y-6 mt-8">
           {[0, 1, 2, 3, 4].map((data, i) => (
             <OrderCard key={i} data={data} />
