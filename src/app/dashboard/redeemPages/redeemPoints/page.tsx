@@ -17,16 +17,12 @@ const redeemPoints = () => {
 
   return (
     <>
-    <div className=" ml-5">
-                  {/* Back button */}
-                  <FaArrowLeft />
-      </div>
       <div className="lg:w-5/12 w-12/12 mx-auto pb-10 lg:mt-10 mt-20">
         <h1 className="font-bold text-2xl">Redeem points for cash</h1>
         <p>Where should we send to?</p>
         <form className="space-y-6 mt-8">
         <Link href="/" passHref>
-        <div className="p-2 border border-gray-500 rounded-lg flex">
+        <div className="p-2 border border-gray-300 rounded-lg flex">
                   <div className="inline-block  rounded-[9px] py-2 px-2 mr-3 bg-[#FFA048]">
                       <img src="/magic_star_.png" alt="" className=" w-8 h-8" />
                     </div>
@@ -38,8 +34,8 @@ const redeemPoints = () => {
           </Link>
                     <div className="bg-white border shadow-lg lg:p-4 p-3 rounded-[2rem] mb-5">
                             <div className="p-1  rounded-lg flex">
-                                <div className="inline-block  rounded-full py-5 px-5 mr-5 bg-[#28B825]">
-                                    <RiBankLine className=" text-white"/>
+                                <div className="inline-block  rounded-full py-2 px-2 mr-5 bg-[#28B825]">
+                                    <RiBankLine className="w-8 h-8 text-white"/>
                                 </div>
 
                                 <div>
@@ -57,7 +53,7 @@ const redeemPoints = () => {
         id=""
         name=""
         placeholder=""
-        className="p-7 border border-gray-500 text-gray-500"
+        className="p-7 border border-gray-300 text-gray-500"
       />
 
      
