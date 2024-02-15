@@ -51,10 +51,13 @@ const pin = () => {
             </div>
         </div>
         
+        <Link href="/dashboard/redeemPages/successScreen">
+        
           <Button
             className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-md flex items-center w-full">
             <span className="w-full text-center block">Continue</span>
           </Button>
+        </Link>
         </form>
       </div>
       

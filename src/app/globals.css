@@ -121,6 +121,10 @@ textarea {
   outline-color: transparent;
 }
 
+.otp-field:focus{
+  border-bottom:2px solid #F9A21B;
+}
+
 
 
 
