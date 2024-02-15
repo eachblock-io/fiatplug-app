@@ -12,6 +12,7 @@ import GiftcardBody from "@/components/GiftcardBody";
 async function getCard(id: string) {
   const cookieStore = cookies();
   const token = cookieStore.get("token");
+  // console.log(token?.value);
   const headers = {
     Authorization: `Bearer ${token?.value}`,
     "Content-Type": "application/json",

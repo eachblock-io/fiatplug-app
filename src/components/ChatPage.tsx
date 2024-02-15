@@ -32,7 +32,7 @@ const ChatPage = ({ userData, order }: any) => {
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
 
-  console.log(userData);
+  
 
   useEffect(() => {
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_KEY}`, {
@@ -99,6 +99,7 @@ const ChatPage = ({ userData, order }: any) => {
         }
       );
       setRoomID(data?.data?.attributes?.room_id);
+      console.log(data?.data);
       setMessageToSend("");
     }
   };
@@ -165,7 +166,7 @@ const ChatPage = ({ userData, order }: any) => {
           <div>
             <ScrollArea className="lg:h-[75vh] h-[82vh] relative lg:pb-0 pt-20 pb-34 pr-6 pl-6 ">
               <ChatBoard data={messages} />
-              <form
+              {/* <form
                 onSubmit={handlePaidStatus}
                 className=" p-3 lg:w-6/12 lg:mr-auto mx-auto w-full pt-[27rem] pb-[8rem] ">
                 <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
@@ -189,7 +190,7 @@ const ChatPage = ({ userData, order }: any) => {
                 <Button className="bg-orange-400 hover:bg-orange-500 h-14 font-normal text-white rounded-full text-center w-full">
                   Confirm order as paid
                 </Button>
-              </form>
+              </form> */}
             </ScrollArea>
           </div>
           {/* Type message input */}
