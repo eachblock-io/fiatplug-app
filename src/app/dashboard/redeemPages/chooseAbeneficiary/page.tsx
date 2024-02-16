@@ -6,9 +6,12 @@ import Link from "next/link";
 import { IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 import { RiBankLine } from "react-icons/ri";
+import { useRouter } from 'next/navigation';
 
 
 const chooseAbeneficiary = () => {
+  const { push } = useRouter();
+
 
   return (
     <section className=" lg:w-11/12 w-11/12 mx-auto mt-6">

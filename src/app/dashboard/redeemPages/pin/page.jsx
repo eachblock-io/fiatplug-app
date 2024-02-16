@@ -6,9 +6,13 @@ import { FaArrowRight } from "react-icons/fa6";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { OtpInput } from '@/components/OtpInput';
+import { useRouter } from 'next/navigation';
 
 const pin = () => {
 
+
+  
+  const { push } = useRouter();
     const [otp, setOtp] = useState(new Array(4).fill(""));
 
     const handleChange = (element, index) => {
@@ -51,13 +55,14 @@ const pin = () => {
             </div>
         </div>
         
-        <Link href="/dashboard/redeemPages/successScreen">
+        {/* <Link href="/dashboard/redeemPages/successScreen"> */}
         
           <Button
+           onClick={() => push("/dashboard/redeemPages/successScreen")}
             className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-md flex items-center w-full">
             <span className="w-full text-center block">Continue</span>
           </Button>
-        </Link>
+        {/* </Link> */}
         </form>
       </div>
       

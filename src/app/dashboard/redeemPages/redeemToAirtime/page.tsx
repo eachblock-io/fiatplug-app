@@ -8,11 +8,11 @@ import magicStar from '../../../public/magic_star_.png'
 import { Button } from "@/components/ui/button";
 import  PhoneInput  from "@/components/phoneNumber";
 import  SelectNetwork  from "@/components/SelectNetwork";
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 
 const RedeemToAirtime = () => {
-  // const router = useRouter();
+  const { push } = useRouter();
   return (
     <>
       <div className=" ml-5">
@@ -64,13 +64,14 @@ const RedeemToAirtime = () => {
           </div>
 
 
-          <Link href="/dashboard/redeemPages/redeemToAirtime/pinAirtime">
+          {/* <Link href="/dashboard/redeemPages/redeemToAirtime/pinAirtime"> */}
               <Button
+              onClick={() => push("/dashboard/redeemPages/redeemToAirtime/pinAirtime")}
                 className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-full flex items-center w-full">
                 <span className="w-full text-center block">Proceed</span>
                 <FaArrowRight className="text-white absolute right-4" />
               </Button>
-          </Link>
+          {/* </Link> */}
         </form>
       </div>
 

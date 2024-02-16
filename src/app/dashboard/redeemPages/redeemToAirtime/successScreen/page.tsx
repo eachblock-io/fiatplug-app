@@ -33,13 +33,11 @@ const successScreen = () => {
         <div className="text-center mb-10">
               <p className="text-[#6B4201] mb-6"> Points Redeemed</p>
               <h1 className="font-bold text-2xl text-gray-800">Succesful!!</h1>
-                <p className="text-lg text-gray-500 items-center">
-                      You just redeemed 300 Points for 
-                      <span className="flex ">
-                          <img src="/Group_34373.png" className="w-3 h-3 mx-1" alt="Conversion icon"/> 
-                      </span>
-                NGN75,000 airtime
-            </p>
+                <p className="text-lg text-gray-500">
+                  You just redeemed 300 Points for
+                  <img src="/Group_34373.png" className="w-3 h-3 mr-1 inline" alt="Conversion icon"/>
+                  NGN75,000 airtime
+              </p>
 
         </div>
 

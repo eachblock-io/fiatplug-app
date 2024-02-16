@@ -69,7 +69,7 @@ const redeemPoints = () => {
             </div>
           </div>
           
-          <Link href="/dashboard/redeemPages/pin">
+          {/* <Link href="/dashboard/redeemPages/pin"> */}
             <Button
             onClick={() => push("/dashboard/redeemPages/pin")}
               className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-md flex items-center w-full">
@@ -80,7 +80,7 @@ const redeemPoints = () => {
               {/* Right icon aligned to the right */}
               <FaArrowRight className="text-white absolute right-4" />
             </Button>
-            </Link>
+            {/* </Link> */}
           
         </form>
       </div>
