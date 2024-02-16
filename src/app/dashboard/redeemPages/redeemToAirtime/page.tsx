@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import magicStar from '../../../public/magic_star_.png'
 import { Button } from "@/components/ui/button";
 import  PhoneInput  from "@/components/phoneNumber";
+import  SelectNetwork  from "@/components/SelectNetwork";
 // import { useRouter } from 'next/router';
 
 
@@ -23,14 +24,18 @@ const RedeemToAirtime = () => {
         <h1 className="font-bold text-2xl">Airtime</h1>
         <p>Select a network provider</p>
         <form className="space-y-6 mt-8">
-        
+
+        <SelectNetwork/>
          
           
           <div>
-            <PhoneInput
-              type="numeric"
-              className="p-7 border border-gray-300 text-gray-500"
-            />
+          <span className="text-gray-500 mb-12">Enter Phone Number</span>
+            <div>
+                    <PhoneInput
+                    type="numeric"
+                    className="p-7 border border-gray-300 text-gray-500"
+                    />
+                </div>
           </div>
           <div>
             <span className="text-gray-500">Enter points to redeem</span>
