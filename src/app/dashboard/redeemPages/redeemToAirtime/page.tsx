@@ -24,13 +24,10 @@ const RedeemToAirtime = () => {
         <h1 className="font-bold text-2xl">Airtime</h1>
         <p>Select a network provider</p>
         <form className="space-y-6 mt-8">
-
         <SelectNetwork/>
-         
-          
           <div>
-          <span className="text-gray-500 mb-12">Enter Phone Number</span>
-            <div>
+          <span className="text-gray-500 ">Enter Phone Number</span>
+            <div className="mt-10">
                     <PhoneInput
                     type="numeric"
                     className="p-7 border border-gray-300 text-gray-500"
@@ -67,7 +64,7 @@ const RedeemToAirtime = () => {
           </div>
 
 
-          <Link href="/dashboard/redeemPages/successScreen">
+          <Link href="/dashboard/redeemPages/redeemToAirtime/pinAirtime">
               <Button
                 className="relative bg-[#F9A21B] hover:bg-[#f3b456] px-4 lg:h-12 lg:text-md mt-4 rounded-full flex items-center w-full">
                 <span className="w-full text-center block">Proceed</span>

@@ -1,26 +1,27 @@
 "use client";
 import { useState } from 'react';
-import mtn from "../../public/glo.png"
+import mtn from "../../public/glo.png";
+import Image from "next/image";
 
 const networks = [
     {
         id: 1,
-        src: '/public/icons/download.png',
+        src: '/download.png',
         alt: 'Network 1',
     },
     {
         id: 2,
-        src: '/public/icons/download.png',
+        src: '/glo.png',
         alt: 'Network 2',
     },
     {
         id: 3,
-        src: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        src: '/airtel.png',
         alt: 'Network 3',
     },
     {
         id: 4,
-        src: 'https://images.unsplash.com/photo-1541747157478-3222166cf342?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+        src: '/etisalat.png',
         alt: 'Network 4',
     },
 ];
@@ -33,7 +34,7 @@ const SelectNetwork = () => {
     };
 
     return (
-        <div className="flex justify-center gap-4">
+        <div className="flex">
             {networks.map((network) => (
                 <div
                     key={network.id}
@@ -42,7 +43,7 @@ const SelectNetwork = () => {
                     style={{ backgroundColor: selectedNetworkId === network.id ? '#28B825' : 'transparent' }}
                 >
                     <img
-                        className="h-16 w-16 rounded-full"
+                        className="h-10 w-10 rounded-full"
                         src={network.src}
                         alt={network.alt}
                     />

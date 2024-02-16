@@ -30,6 +30,7 @@ const RedeemModal = ({ openModal, setModal }: any) => {
                   </p>
                 </Link>
               </div>
+              
               <Link href="/dashboard/redeemPages">
                 <h2 className="font-semibold lg:text-xl text-lg">
                   Redeem to Cash 💸
