@@ -184,7 +184,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
               <div className="toggle lg:mb-10 mb-6 space-x-6">
                 <button
                   onClick={buyandsell}
-                  className={`lg:py-6 py-3 lg:text-lg text-sm lg:px-16 px-10 font-semibold rounded-full ${
+                  className={`lg:py-4 py-3 lg:text-lg text-sm lg:px-16 px-10 font-semibold rounded-full ${
                     isActive
                       ? `text-[#F9A21B] bg-[#FFF4E2]`
                       : `text-zinc-900 bg-gray-100`
@@ -193,7 +193,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                 </button>
                 <button
                   onClick={buyandsell}
-                  className={`lg:py-6 py-3 lg:text-lg text-sm lg:px-16 px-10  font-semibold rounded-full ${
+                  className={`lg:py-4 py-3 lg:text-lg text-sm lg:px-16 px-10  font-semibold rounded-full ${
                     !isActive
                       ? `text-[#F9A21B] bg-[#FFF4E2]`
                       : `text-zinc-900 bg-gray-100`
@@ -234,7 +234,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                               <Link
                                 href={`/dashboard/crypto/buy/${data?.id}`}
                                 key={data?.id}>
-                                <OfferCard data={data} />
+                                <OfferCard isBuyCrypto data={data} />
                               </Link>
                             ))}
                           </div>
@@ -283,7 +283,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                               <Link
                                 href={`/dashboard/crypto/sell/${data?.id}`}
                                 key={data?.id}>
-                                <OfferCard data={data} />
+                                <OfferCard isSellCrypto data={data} />
                               </Link>
                             ))}
                           </div>

@@ -4,10 +4,10 @@ import { IoIosTimer } from "react-icons/io";
 import { formatCurrency } from "@/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-
 interface OfferCardProps {
   data: {
     attributes: {
+      quantity: string;
       rate: number;
       min_amount: number;
       max_amount: number;
@@ -30,9 +30,17 @@ interface OfferCardProps {
       };
     };
   };
+  isGiftcard?: boolean;
+  isBuyCrypto?: boolean;
+  isSellCrypto?: boolean;
 }
 
-const OfferCard: React.FC<OfferCardProps> = ({ data }) => {
+const OfferCard: React.FC<OfferCardProps> = ({
+  data,
+  isBuyCrypto,
+  isGiftcard,
+  isSellCrypto,
+}) => {
   return (
     <Card className="lg:p-6 p-4 hover:shadow-xl flex items-center justify-between">
       <div className="info">
@@ -58,6 +66,18 @@ const OfferCard: React.FC<OfferCardProps> = ({ data }) => {
             {formatCurrency(data?.attributes?.rate)}
           </span>
         </p>
+        {isBuyCrypto && (
+          <>
+            {data?.attributes?.quantity && (
+              <p className="mt-2 text-sm">
+                Quantity:{" "}
+                <span className="font-bold text-xs">
+                  {data?.attributes?.quantity}
+                </span>
+              </p>
+            )}
+          </>
+        )}
         <p className="text-sm mt-1">
           Limit:{" "}
           <span className="font-bold text-xs">
@@ -67,15 +87,36 @@ const OfferCard: React.FC<OfferCardProps> = ({ data }) => {
         </p>
       </div>
       <div className="btn">
-        <p className="flex items-center text-sm">
-          <IoIosTimer /> {data?.attributes?.duration}mins
-        </p>
-        <p className="border border-orange-400 text-orange-400 py-1 px-2 text-sm my-2 rounded-md ">
-          E-codes
-        </p>
-        <button className="w-full py-2 text-white rounded-lg text-sm px-3 bg-orange-400">
-          Sell
-        </button>
+        {isGiftcard && (
+          <div>
+            <p className="flex items-center text-sm">
+              <IoIosTimer /> {data?.attributes?.duration}mins
+            </p>
+            <p className="border border-orange-400 text-orange-400 py-1 px-2 text-sm my-2 rounded-md ">
+              E-codes
+            </p>
+          </div>
+        )}
+
+        <>
+          {isBuyCrypto ? (
+            <>
+              {isBuyCrypto ? (
+                <button className="w-full py-2 text-white rounded-lg text-xs px-3 bg-orange-400">
+                  Buy
+                </button>
+              ) : (
+                <button className="w-full py-2 text-white rounded-lg text-xs px-3 bg-orange-400">
+                  Sell
+                </button>
+              )}
+            </>
+          ) : (
+            <button className="w-full py-2 text-white rounded-lg text-xs px-3 bg-orange-400">
+              Sell
+            </button>
+          )}
+        </>
       </div>
     </Card>
   );
