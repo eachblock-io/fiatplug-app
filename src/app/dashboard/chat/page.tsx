@@ -40,6 +40,7 @@ const ChatPage = () => {
 
     // Bind to a custom event
     channel.bind("message.sent", (data: any) => {
+      // console.log(data);
       setMessages((prevMessages: any) => [
         ...prevMessages,
         data?.attributes?.message,
@@ -145,7 +146,7 @@ const ChatPage = () => {
   };
 
   return (
-    <div className=" lg:pt-0 pt-[4rem] w-full h-[92vh] flex lg:flex-row flex-col ">
+    <div className=" lg:pt-0 pt-[4rem] w-full h-[92vh] flex lg:flex-row flex-col">
       {/* Mobile view */}
       <div className="w-full lg:hidden border bg-gray-100 px-14 h-[10vh] flex items-center justify-center ">
         {loadingChats ? (

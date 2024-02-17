@@ -28,11 +28,9 @@ const ChatPage = ({ userData, order }: any) => {
   const [chats, setChats] = useState<any>();
   const [loadingChats, setLoadingChats] = useState<any>(false);
   const [activeUser, setActiveUser] = useState<any>();
-  const [active, setActive] = useState<any>();
+  const [active, setActive] = useState<any>(false);
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
-
-  
 
   useEffect(() => {
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_KEY}`, {
@@ -44,16 +42,15 @@ const ChatPage = ({ userData, order }: any) => {
 
     // Bind to a custom event
     channel.bind("message.sent", (data: any) => {
-      setMessages((prevMessages: any) => [
-        ...prevMessages,
-        data?.attributes?.message,
-      ]);
+      console.log(data);
     });
+
+    console.log("Data!!!");
 
     return () => {
       channel.unbind_all();
     };
-  }, [messages]);
+  }, [messageToSend]);
 
   useEffect(() => {
     fetchRecentChats();
@@ -98,11 +95,13 @@ const ChatPage = ({ userData, order }: any) => {
           },
         }
       );
-      setRoomID(data?.data?.attributes?.room_id);
-      console.log(data?.data);
+      // setRoomID(data?.data?.attributes?.id);
+      // console.log(data?.data?.attributes);
       setMessageToSend("");
     }
   };
+
+  // console.log(messages);
 
   const handleKeyPress = (e: any) => {
     if (e.key === "Enter" && !e.shiftKey) {
