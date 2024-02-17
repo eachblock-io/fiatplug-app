@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 interface OfferCardProps {
   data: {
     attributes: {
-      quantity: ReactNode;
+      quantity: string;
       rate: number;
       min_amount: number;
       max_amount: number;
