@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { OtpInput } from '@/components/OtpInput';
 import { useRouter } from 'next/navigation';
 
-const pin = () => {
+const Pin = () => {
 
 
   
@@ -70,4 +70,4 @@ const pin = () => {
   );
 };
 
-export default pin;
+export default Pin;

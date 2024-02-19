@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { OtpInput } from '@/components/OtpInput';
 
-const pin = () => {
+const Pin = () => {
 
     const [otp, setOtp] = useState(new Array(4).fill(""));
 
@@ -65,4 +65,4 @@ const pin = () => {
   );
 };
 
-export default pin;
+export default Pin;

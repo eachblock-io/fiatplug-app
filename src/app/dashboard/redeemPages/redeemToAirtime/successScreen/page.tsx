@@ -6,8 +6,10 @@ import { FaArrowRight,FaCheck } from "react-icons/fa6";
 import { BiSolidBank } from "react-icons/bi"
 import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
+import GroupImg from "@/public/Group_34373.png";
+import Image from "next/image";
 
-const successScreen = () => {
+const SuccessScreen = () => {
 
   const { push } = useRouter();
 
@@ -35,7 +37,7 @@ const successScreen = () => {
               <h1 className="font-bold text-2xl text-gray-800">Succesful!!</h1>
                 <p className="text-lg text-gray-500">
                   You just redeemed 300 Points for
-                  <img src="/Group_34373.png" className="w-3 h-3 mr-1 inline" alt="Conversion icon"/>
+                  <Image src={GroupImg} alt="Conversion icon" className="w-3 h-3 mr-1 inline"/>
                   NGN75,000 airtime
               </p>
 
@@ -87,4 +89,4 @@ const successScreen = () => {
   );
 };
 
-export default successScreen;
+export default SuccessScreen;

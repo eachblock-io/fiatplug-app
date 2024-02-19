@@ -7,7 +7,7 @@ import { BiSolidBank } from "react-icons/bi"
 import { Button } from "@/components/ui/button";
 
 
-const successScreen = () => {
+const SuccessScreen = () => {
 
 
   return (
@@ -80,4 +80,4 @@ const successScreen = () => {
   );
 };
 
-export default successScreen;
+export default SuccessScreen;

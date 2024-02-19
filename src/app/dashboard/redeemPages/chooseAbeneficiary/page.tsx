@@ -9,14 +9,13 @@ import { RiBankLine } from "react-icons/ri";
 import { useRouter } from 'next/navigation';
 
 
-const chooseAbeneficiary = () => {
+const ChooseABeneficiary = () => {
   const { push } = useRouter();
 
 
   return (
     <section className=" lg:w-11/12 w-11/12 mx-auto mt-6">
       <div className="lg:w-8/12 w-11/12 mx-auto">
-        {/* <h1 className="font-bold lg:text-2xl">Account</h1> */}
         <Link
           href="/"
           className="bg-white border shadow-lg lg:p-8 p-2 flex gap-x-4 items-center justify-between rounded-[2rem] my-8 ">
@@ -61,4 +60,4 @@ const chooseAbeneficiary = () => {
   );
 };
 
-export default chooseAbeneficiary;
+export default ChooseABeneficiary;
