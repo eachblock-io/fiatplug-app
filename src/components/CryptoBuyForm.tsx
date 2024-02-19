@@ -119,6 +119,7 @@ const CryptoBuyForm = ({ data }: any) => {
 
   const handleComplete = async () => {
     // setCompleteModal(true);
+    setIsLoading(true);
 
     try {
       const token = await fetchToken();
@@ -140,12 +141,10 @@ const CryptoBuyForm = ({ data }: any) => {
       );
 
       const resdata = await res.json();
-      console.log(resdata);
       if (resdata?.status == "success") {
         setIsLoading(false);
         setIsOpen(true);
       }
-      console.log(resdata?.data);
     } catch (error) {
       console.log(error);
     } finally {
