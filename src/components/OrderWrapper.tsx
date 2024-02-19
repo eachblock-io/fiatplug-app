@@ -26,8 +26,6 @@ const OrderWrapper = ({ data }: any) => {
     setSelectedOrder(null);
   };
 
-  console.log(selectedOrder);
-
   return (
     <div className="mb-10">
       <div className="space-y-6 mt-8">

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import Notify from "@/lib/utils";
 
 const ChatBoard = ({ data }: any) => {
   const divRef = useRef<HTMLDivElement>(null);
@@ -7,7 +9,7 @@ const ChatBoard = ({ data }: any) => {
 
   useEffect(() => {
     if (divRef.current) {
-      divRef.current!.scrollTop = divRef.current!.scrollHeight;
+      divRef?.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [data]);
 
@@ -19,7 +21,7 @@ const ChatBoard = ({ data }: any) => {
   }, []);
 
   return (
-    <>
+    <ScrollArea className="lg:h-[75vh] h-[70vh] lg:pb-0 pt-16 pr-10 pl-10">
       {data?.map((message: any, i: any) => {
         const currentUser = message?.user?.id == user?.id;
         return (
@@ -47,7 +49,8 @@ const ChatBoard = ({ data }: any) => {
           </div>
         );
       })}
-    </>
+      <div ref={divRef}></div>
+    </ScrollArea>
   );
 };
 

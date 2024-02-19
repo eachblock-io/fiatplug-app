@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -32,7 +31,7 @@ const ChatPage = () => {
   const [roomID, setRoomID] = useState("");
 
   useEffect(() => {
-    const pusher = new Pusher(`${process.env.NEXT_PUBLIC_KEY}`, {
+    const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
       cluster: "mt1",
     });
 
@@ -113,7 +112,6 @@ const ChatPage = () => {
       );
       setRoomID(data?.data?.attributes?.room_id);
       setMessageToSend("");
-      Notify(messageToSend, "Caleb");
     }
   };
 
@@ -264,7 +262,7 @@ const ChatPage = () => {
             </div>
           </div>
           <div>
-            <ScrollArea className="lg:h-[75vh] h-[70vh] lg:pb-0 pt-16 pb-34 pr-10 pl-10 ">
+            <>
               <ChatBoard data={messages} />
               {/* <form
                 onSubmit={handlePaidStatus}
@@ -291,7 +289,7 @@ const ChatPage = () => {
                   Confirm order as paid
                 </Button>
               </form> */}
-            </ScrollArea>
+            </>
           </div>
           {/* Type message input */}
           <div className="inputs h-[12vh] px-4 pb-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
