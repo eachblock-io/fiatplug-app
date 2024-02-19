@@ -13,6 +13,7 @@ const AccountPage = () => {
   const handleModal = () => {
     setModal(true);
   };
+
   return (
     <section className="lg:pt-6 pt-[5rem] lg:w-11/12 w-11/12 mx-auto">
       <div className="lg:w-8/12 w-11/12 mx-auto">
@@ -34,7 +35,6 @@ const AccountPage = () => {
             </div>
           </div>
         </Link>
-
         <div className="bg-white border shadow-lg lg:p-8 p-6 rounded-[2rem]">
           <h2 className="font-semibold lg:text-xl text-lg">Transaction</h2>
         </div>

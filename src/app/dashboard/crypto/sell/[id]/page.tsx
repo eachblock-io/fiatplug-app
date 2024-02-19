@@ -25,8 +25,6 @@ export default async function CryptoOfferFormPage({ params }: any) {
   const userID = params?.id;
   const offerPromise = await geOffer(userID);
   const [offer] = await Promise.all([offerPromise]);
-
-  console.log(offer)
   return (
     <>
       <section className="lg:pt-10 pt-[2rem] w-full flex items-center justify-center">

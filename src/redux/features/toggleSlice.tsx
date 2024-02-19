@@ -6,7 +6,7 @@ type ToggleState = {
 };
 
 const initialState = {
-  value: false,
+  value: true,
   preview: false,
 } as ToggleState;
 

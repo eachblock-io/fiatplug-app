@@ -20,6 +20,7 @@ import { MdError } from "react-icons/md";
 import toast from "react-hot-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import Notify from "@/lib/utils";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<any>([]);
@@ -40,7 +41,6 @@ const ChatPage = () => {
 
     // Bind to a custom event
     channel.bind("message.sent", (data: any) => {
-      // console.log(data);
       setMessages((prevMessages: any) => [
         ...prevMessages,
         data?.attributes?.message,
@@ -113,6 +113,7 @@ const ChatPage = () => {
       );
       setRoomID(data?.data?.attributes?.room_id);
       setMessageToSend("");
+      Notify(messageToSend, "Caleb");
     }
   };
 
@@ -265,7 +266,7 @@ const ChatPage = () => {
           <div>
             <ScrollArea className="lg:h-[75vh] h-[70vh] lg:pb-0 pt-16 pb-34 pr-10 pl-10 ">
               <ChatBoard data={messages} />
-              <form
+              {/* <form
                 onSubmit={handlePaidStatus}
                 className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[8rem] ">
                 <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
@@ -289,7 +290,7 @@ const ChatPage = () => {
                 <Button className="bg-orange-400 hover:bg-orange-500 h-14 font-normal text-white rounded-full text-center w-full">
                   Confirm order as paid
                 </Button>
-              </form>
+              </form> */}
             </ScrollArea>
           </div>
           {/* Type message input */}

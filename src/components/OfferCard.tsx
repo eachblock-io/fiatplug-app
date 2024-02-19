@@ -66,18 +66,16 @@ const OfferCard: React.FC<OfferCardProps> = ({
             {formatCurrency(data?.attributes?.rate)}
           </span>
         </p>
-        {isBuyCrypto && (
-          <>
-            {data?.attributes?.quantity && (
-              <p className="mt-2 text-sm">
-                Quantity:{" "}
-                <span className="font-bold text-xs">
-                  {data?.attributes?.quantity}
-                </span>
-              </p>
-            )}
-          </>
-        )}
+        <>
+          {data?.attributes?.quantity && (
+            <p className="mt-2 text-sm">
+              Quantity:{" "}
+              <span className="font-bold text-xs">
+                {data?.attributes?.quantity}
+              </span>
+            </p>
+          )}
+        </>
         <p className="text-sm mt-1">
           Limit:{" "}
           <span className="font-bold text-xs">
