@@ -1,23 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
-import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoNotifications } from "react-icons/io5";
-import Logo from "@/public/logo.png";
-import Image from "next/image";
 import { NotificationDropdown } from "./NotificationDropdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuItem,
 } from "./ui/dropdown-menu";
-import { TbLogout } from "react-icons/tb";
-import { Button } from "./ui/button";
 import Pusher from "pusher-js";
 import Notify from "@/lib/utils";
+
+import LogoutModal from "./LogoutModal";
 
 const Header = ({ data }: any) => {
   const [toggle, setToggle] = useState(false);
@@ -26,10 +21,6 @@ const Header = ({ data }: any) => {
 
   const handleToggleNotify = () => {
     setToggle(!toggle);
-  };
-
-  const handleLogout = () => {
-    console.log("Logo out");
   };
 
   useEffect(() => {
@@ -97,17 +88,17 @@ const Header = ({ data }: any) => {
             </p>
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        {/* <DropdownMenuContent>
           <DropdownMenuItem>
             <Button
-              onSubmit={handleLogout}
+              onSubmit={handleCheckLogout}
               variant="ghost"
               className="flex w-full items-center justify-start hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
               <TbLogout className="text-2xl text-gray-500 hover:text-zinc-800" />
               <p>Logout</p>
             </Button>
           </DropdownMenuItem>
-        </DropdownMenuContent>
+        </DropdownMenuContent> */}
       </DropdownMenu>
       {/* <h2 className="font-bold lg:block hidden">Hi, {data?.first_name}</h2> */}
       <div className="profile flex items-center space-x-4">

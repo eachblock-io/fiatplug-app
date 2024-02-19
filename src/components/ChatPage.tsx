@@ -32,10 +32,8 @@ const ChatPage = ({ userData, order }: any) => {
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
 
-  
-
   useEffect(() => {
-    const pusher = new Pusher(`${process.env.NEXT_PUBLIC_KEY}`, {
+    const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
       cluster: "mt1",
     });
 
@@ -163,7 +161,7 @@ const ChatPage = ({ userData, order }: any) => {
             </div>
           </div>
           <div>
-            <ScrollArea className="lg:h-[75vh] h-[82vh] relative lg:pb-0 pt-20 pb-34 pr-6 pl-6 ">
+            <>
               <ChatBoard data={messages} />
               {/* <form
                 onSubmit={handlePaidStatus}
@@ -190,7 +188,7 @@ const ChatPage = ({ userData, order }: any) => {
                   Confirm order as paid
                 </Button>
               </form> */}
-            </ScrollArea>
+            </>
           </div>
           {/* Type message input */}
           <div className="inputs h-[12vh] px-4 pb-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">

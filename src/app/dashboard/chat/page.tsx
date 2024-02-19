@@ -15,11 +15,7 @@ import axios from "axios";
 import { BsChatSquareDots } from "react-icons/bs";
 import ClipLoader from "react-spinners/ClipLoader";
 import ChatBoard from "@/components/ChatBoard";
-import { MdError } from "react-icons/md";
 import toast from "react-hot-toast";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import Notify from "@/lib/utils";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<any>([]);
