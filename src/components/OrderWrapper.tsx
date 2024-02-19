@@ -29,7 +29,7 @@ const OrderWrapper = ({ data }: any) => {
   console.log(selectedOrder);
 
   return (
-    <div>
+    <div className="mb-10">
       <div className="space-y-6 mt-8">
         {data.slice(0, displayCount).map((orderData: any, i: any) => (
           <OrderCard key={i} data={orderData} onOrderClick={handleOrderClick} />
