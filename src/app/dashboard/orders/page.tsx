@@ -1,36 +1,33 @@
 import React from "react";
 import { cookies } from "next/headers";
-import OrderCard from "@/components/OrderCard";
+import OrderWrapper from "@/components/OrderWrapper";
 
-async function Orders() {
+async function getOrders() {
   const cookieStore = cookies();
   const token = cookieStore.get("token");
-  // const headers = {
-  //   Authorization: `Bearer ${token?.value}`,
-  //   "Content-Type": "application/json",
-  // };
-  // const res = await fetch(
-  //   `${process.env.NEXT_PUBLIC_API_URL}/orders`,
-  //   {
-  //     headers,
-  //   }
-  // );
+  const headers = {
+    Authorization: `Bearer ${token?.value}`,
+    "Content-Type": "application/json",
+  };
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/mobile/get-user-orders`,
+    {
+      headers,
+    }
+  );
 
-  // const offer = await res.json();
+  const orders = await res.json();
 
-  // return offer;
+  return orders;
 }
 
 const OrdersPage = async () => {
+  const orders = await getOrders();
   return (
-    <section className="lg:pt-10 pt-[5rem] w-full relative flex items-center justify-center mb-20">
+    <section className="lg:pt-10 pt-[5rem] w-full relative flex items-center justify-center ">
       <div className="orders-section lg:w-8/12 w-11/12">
         <h1 className="font-semibold lg:text-2xl text-xl">Orders</h1>
-        <div className="space-y-6 mt-8">
-          {[0, 1, 2, 3, 4].map((data, i) => (
-            <OrderCard key={i} data={data} />
-          ))}
-        </div>
+        <OrderWrapper data={orders?.data} />
       </div>
     </section>
   );
