@@ -283,7 +283,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                               <Link
                                 href={`/dashboard/crypto/sell/${data?.id}`}
                                 key={data?.id}>
-                                <OfferCard isBuyCrypto data={data} />
+                                <OfferCard isSellCrypto data={data} />
                               </Link>
                             ))}
                           </div>
