@@ -26,7 +26,7 @@ export default async function CryptoOfferFormPage({ params }: any) {
   const offerPromise = getOffer(userID);
   const [offer] = await Promise.all([offerPromise]);
   return (
-    <section className="w-full relative flex items-center justify-center">
+    <section className="w-full relative flex items-center justify-center overflow-hidden">
       <CryptoBuyForm data={offer} />
     </section>
   );

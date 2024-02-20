@@ -8,23 +8,30 @@ import { formatCurrency } from "@/utils";
 import img1 from "@/public/undraw_season_change_f99v 1.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import ChatPage from "./ChatPage";
 
-const PreviewPayment  = ({
+const PreviewPayment = ({
   data,
   isOpen,
   setIsOpen,
   completeModal,
   handleComplete,
   handleCancelled,
+  isLoading,
+  handleStartChat,
+  openChat,
+  userData,
 }: any) => {
-  const { push } = useRouter();
-  // console.log(data);
   return (
     <>
       {isOpen ? (
-        <div className="absolute top-0 bottom-0 right-0 left-0 w-full z-10 lg:h-full h-[88vh] bg-white lg:py-4 pb-10 pt-16 lg:px-20 px-10 overflow-y-scroll">
+        <div
+          className={`absolute top-0 bottom-0 right-0 left-0 w-full z-10 lg:h-[100vh] h-[88vh] bg-white lg:py-4 pb-10 pt-16 lg:px-20 px-6 ${
+            openChat ? `overflow-hidden` : `overflow-y-scroll`
+          } overflow-y-scroll`}>
+          {openChat && <ChatPage userData={userData} />}
           {completeModal && (
-            <div className="flex items-center justify-center bg-white bg-opacity-80 z-10 absolute top-0 right-0 left-0 lg:h-full h-[80vh]">
+            <div className="flex items-center justify-center bg-white bg-opacity-80 z-10 absolute top-0 right-0 left-0 lg:h-full h-[100vh]">
               <div className="shadow-2xl rounded-lg text-center bg-white lg:p-14 p-8 lg:w-4/12 w-10/12">
                 <Image
                   src={img1}
@@ -35,12 +42,12 @@ const PreviewPayment  = ({
                   className="mx-auto"
                 />
                 <p className="py-6 lg:px-8 text-sm">
-                  Your USDT purchase is in progress with a 10-minute
+                  Your {data?.currency} purchase is in progress with a 10-minute
                   confirmation time. Reach out to our support team for
                   assistance
                 </p>
                 <Button
-                  onClick={() => push("/dashboard/chat")}
+                  onClick={handleStartChat}
                   className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
                   Chat with merchant
                 </Button>
@@ -61,7 +68,7 @@ const PreviewPayment  = ({
           </div>
           <div className="mx-auto lg:w-full w-12/12 lg:mt-6 mt-4">
             <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-x-20 gap-y-10 w-full">
-              <div>
+              <div className=" shadow-md p-3 border">
                 <p className="text-sm">Your payment amount</p>
                 <h2 className="font-bold lg:text-2xl text-lg">
                   NGN {formatCurrency(data?.payment_amount)}
@@ -86,7 +93,7 @@ const PreviewPayment  = ({
                 </div>
               </div>
 
-              <div className="">
+              <div className=" shadow-md p-3 border">
                 <div className="flex items-center">
                   <Avatar className="p-0 m-0">
                     <AvatarImage src={data?.merchant?.profile_picture} />
@@ -146,7 +153,7 @@ const PreviewPayment  = ({
             <Button
               onClick={handleComplete}
               className="lg:py-7 py-6 px-6 lg:px-14 lg:text-md text-xs hover:bg-orange-500 hover:text-white font-bold rounded-full text-white bg-orange-400">
-              Payment Complete
+              {isLoading ? "Loading..." : "Payment Complete"}
             </Button>
           </div>
         </div>

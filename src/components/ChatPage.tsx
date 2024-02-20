@@ -22,6 +22,7 @@ import { MdError } from "react-icons/md";
 import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
 import toast from "react-hot-toast";
+import ChatBoardScreen from "./ChatBoardScreen";
 
 const ChatPage = ({ userData, order }: any) => {
   const [messages, setMessages] = useState<any>([]);
@@ -131,8 +132,8 @@ const ChatPage = ({ userData, order }: any) => {
   };
 
   return (
-    <div className="h-[88vh] absolute top-0 bottom-0 right-0 left-0 w-full z-10 bg-white">
-      <div className="lg:pt-10 pt-[4rem] w-full h-[100vh] flex lg:flex-row flex-col ">
+    <div className="h-[90vh] absolute top-0 bottom-0 right-0 left-0 w-full z-10 bg-white overflow-hidden">
+      <div className=" w-full h-[90vh] flex lg:flex-row flex-col ">
         <div className="chats w-full  relative">
           <div className="inputs z-10 px-8 py-3 lg:mt-2 mt-1 lg:h-[10vh] h-[8vh] border bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
             <div className="flex items-center gap-2">
@@ -162,7 +163,7 @@ const ChatPage = ({ userData, order }: any) => {
           </div>
           <div>
             <>
-              <ChatBoard data={messages} />
+              <ChatBoardScreen data={messages} />
               {/* <form
                 onSubmit={handlePaidStatus}
                 className=" p-3 lg:w-6/12 lg:mr-auto mx-auto w-full pt-[27rem] pb-[8rem] ">

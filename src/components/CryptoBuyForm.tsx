@@ -14,6 +14,7 @@ import PreviewPayment from "@/components/PreviewPayment";
 
 const CryptoBuyForm = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
   const [completeModal, setCompleteModal] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -142,14 +143,19 @@ const CryptoBuyForm = ({ data }: any) => {
 
       const resdata = await res.json();
       if (resdata?.status == "success") {
+        setCompleteModal(true);
         setIsLoading(false);
-        setIsOpen(true);
       }
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleStartChat = () => {
+    setCompleteModal(false);
+    setOpenChat(true);
   };
 
   const handleCancelled = async () => {
@@ -188,14 +194,18 @@ const CryptoBuyForm = ({ data }: any) => {
   };
 
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-8 mt-20">
+    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 overflow-hidden mt-20">
       <PreviewPayment
         data={previewInfo}
         isOpen={isOpen}
+        isLoading={isLoading}
         setIsOpen={setIsOpen}
         handleComplete={handleComplete}
         completeModal={completeModal}
         handleCancelled={handleCancelled}
+        handleStartChat={handleStartChat}
+        openChat={openChat}
+        userData={data?.data?.relationships?.user}
       />
       <h1 className="font-bold text-2xl mb-6">Buy Crypto</h1>
       <form onSubmit={handleSubmit}>
@@ -278,8 +288,8 @@ const CryptoBuyForm = ({ data }: any) => {
         </div>
 
         <div className="p-2">
-          <h2 className="text-sm font-semibold">Trade terms</h2>
-          <p className="text-xs text-red-400">
+          <h2 className="text-sm font-semibold text-red-800">Trade terms</h2>
+          <p className="text-xs text-red-800">
             {data?.data?.attributes?.terms}
           </p>
         </div>
