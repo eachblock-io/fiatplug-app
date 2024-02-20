@@ -12,6 +12,7 @@ import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
+import LogoutModal from "./LogoutModal";
 
 interface LinkItem {
   id: number;
@@ -86,9 +87,6 @@ export function Sidenav({ data }: any) {
     },
   ];
 
-  const handleLogout = () => {
-    console.log("Logo out");
-  };
   return (
     <div
       className={`lg:h-screen lg:w-[20rem] border-r border-gray-300 shadow-sm transform translate-x-[-100%] lg:translate-x-0 lg:relative absolute left-0 p-6 transition ease-in-out duration-100`}>
@@ -124,13 +122,14 @@ export function Sidenav({ data }: any) {
             <p>{data?.title}</p>
           </Link>
         ))}
-        <Button
-          onSubmit={handleLogout}
-          variant="ghost"
-          className="flex w-full items-center justify-start hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-          <TbLogout className="text-2xl text-gray-500 hover:text-zinc-800" />
-          <p>Logout</p>
-        </Button>
+        <LogoutModal>
+          <Button
+            variant="ghost"
+            className="flex w-full items-center justify-start hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
+            <TbLogout className="text-2xl text-gray-500 hover:text-zinc-800" />
+            <p>Logout</p>
+          </Button>
+        </LogoutModal>
       </nav>
     </div>
   );

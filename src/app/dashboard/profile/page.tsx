@@ -141,7 +141,23 @@ const ProfilePage = async () => {
 
           <TiArrowRight className="text-3xl font-bold text-gray-600" />
         </Link>
-        <LogoutModal />
+        <LogoutModal>
+          <Button
+            variant="ghost"
+            className="flex w-full justify-between items-center hover:bg-orange-50 pt-8 px-4 rounded-lg">
+            <div className="flex items-center space-x-10">
+              <Image
+                src={img6}
+                alt="user level"
+                width={25}
+                height={25}
+                layout="fixed"
+              />
+              <p className="font-semibold lg:text-lg text-sm">Logout</p>
+            </div>
+            <TiArrowRight className="text-3xl font-bold text-gray-600" />
+          </Button>
+        </LogoutModal>
         <Button
           variant="ghost"
           className="flex w-full justify-between items-center hover:bg-orange-50 lg:mt-8 mt-8 pt-8 px-4 rounded-lg">

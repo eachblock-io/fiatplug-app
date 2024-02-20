@@ -1,9 +1,20 @@
 import { NextResponse, NextRequest } from "next/server";
 import axios from "axios";
 import { serialize } from "cookie";
+import { cookies } from "next/headers";
 
-export async function DELETE() {
-  await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/auth/access_token`);
+export async function POST() {
+  const cookieStore = cookies();
+
+  const token = cookieStore.get("token");
+
+  const headers = {
+    Authorization: `Bearer ${token?.value}`,
+    "Content-Type": "application/json",
+  };
+  await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/auth/access_token`, {
+    headers,
+  });
 
   const serialized = serialize(`token`, ``, {
     httpOnly: true,

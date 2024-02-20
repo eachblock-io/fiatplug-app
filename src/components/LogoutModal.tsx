@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import img6 from "@/public/icons/logout.svg";
 import Image from "next/image";
 
-export default function LogoutModal() {
+export default function LogoutModal({ children }: any) {
   const { push } = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -20,8 +20,8 @@ export default function LogoutModal() {
 
   const handleLogout = async () => {
     try {
-      await axios.delete(`/api/logout`);
-      toast.error("Logout successful");
+      await axios.post(`/api/logout`);
+      toast.success("Logout successful");
       push("/");
     } catch (error) {
       console.log(error);
@@ -33,22 +33,8 @@ export default function LogoutModal() {
 
   return (
     <>
-      <Button
-        onClick={handleCheckLogout}
-        variant="ghost"
-        className="flex w-full justify-between items-center hover:bg-orange-50 pt-8 px-4 rounded-lg">
-        <div className="flex items-center space-x-10">
-          <Image
-            src={img6}
-            alt="user level"
-            width={25}
-            height={25}
-            layout="fixed"
-          />
-          <p className="font-semibold lg:text-lg text-sm">Logout</p>
-        </div>
-        <TiArrowRight className="text-3xl font-bold text-gray-600" />
-      </Button>
+      <div onClick={handleCheckLogout}>{children}</div>
+
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
