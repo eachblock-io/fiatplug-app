@@ -18,9 +18,11 @@ import {
 import { formatCurrency } from "@/utils";
 import fetchToken from "@/lib/auth";
 import AddBankPage from "./AddBank";
+import ChatPage from "./ChatPage";
 
 const CryptoSellForm = ({ data }: any) => {
-  const [openBank, setOpenBank] = useState(false);
+  const [openBank, setOpenBank] = useState(true);
+  const [openChat, setOpenChat] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -132,135 +134,139 @@ const CryptoSellForm = ({ data }: any) => {
   };
 
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto lg:mt-0 mt-20">
+    <>
       <AddBankPage
         data={transID}
         type="crypto_transaction"
         userData={data?.data?.relationships?.user}
         openBank={openBank}
         setOpenBank={setOpenBank}
+        setOpenChat={setOpenChat}
       />
-      <h1 className="font-bold lg:text-2xl text-xl mb-6">Sell Crypto</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <div className="relative flex items-center">
-            <Input
-              type="text"
-              value={amount}
-              placeholder="Enter Amount"
-              className="w-full h-14 px-4 border border-gray-500"
-              onChange={handleInputChange}
-            />
-            <span className="ml-[-3rem]">USD</span>
+      {openChat && <ChatPage userData={data?.data?.relationships?.user} />}
+      <div className="lg:w-5/12 w-10/12 mx-auto">
+        <h1 className="font-bold lg:text-2xl text-lg mb-6">Sell Crypto</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <div className="relative flex items-center">
+              <Input
+                type="text"
+                value={amount}
+                placeholder="Enter Amount"
+                className="w-full lg:h-12 h-10 px-4 border border-gray-500"
+                onChange={handleInputChange}
+              />
+              <span className="ml-[-3rem] lg:text-sm text-xs">USD</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-gray-500 text-xs mt-1">
+                Rate:{" "}
+                <span className="text-xs">
+                  {formatCurrency(data?.data?.attributes?.rate)}
+                </span>
+              </p>
+              <small className="text-gray-500 text-xs mt-1">
+                Limit:{" "}
+                <span className="text-xs">
+                  {formatCurrency(data?.data?.attributes?.min_amount)} -{" "}
+                  {formatCurrency(data?.data?.attributes?.max_amount)}
+                </span>
+              </small>
+            </div>
           </div>
+          <h2 className="lg:text-md text-xs font-semibold mt-4 mb-1">
+            Trading Info
+          </h2>
           <div className="flex items-center justify-between">
-            <p className="text-gray-500 text-xs mt-1">
-              Rate:{" "}
-              <span className="text-xs">
-                {formatCurrency(data?.data?.attributes?.rate)}
-              </span>
+            <p className="lg:text-md text-xs">Amount in Naira</p>
+            <p className="lg:text-md text-xs font-semibold">
+              {formatCurrency(ngnAmount)} NGN
             </p>
-            <small className="text-gray-500 text-xs mt-1">
-              Limit:{" "}
-              <span className="text-xs">
-                {formatCurrency(data?.data?.attributes?.min_amount)} -{" "}
-                {formatCurrency(data?.data?.attributes?.max_amount)}
-              </span>
-            </small>
           </div>
-        </div>
-        <h2 className="lg:text-md text-xs font-semibold mt-4 mb-1">
-          Trading Info
-        </h2>
-        <div className="flex items-center justify-between">
-          <p className="lg:text-md text-xs">Amount in Naira</p>
-          <p className="lg:text-md text-xs font-semibold">
-            {formatCurrency(ngnAmount)} NGN
-          </p>
-        </div>
-        <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-5 px-6 shadow-md rounded-lg">
-          <p className="font-medium text-sm">Point Earned</p>
-          <p className="font-bold flex items-center text-sm">
-            <Image src={coinImg} alt="coin" width="17" className="mr-1" />
-            {point ? point : `0.00`}
-          </p>
-        </div>
-
-        <div className="pt-2">
-          <p className="text-gray-900 lg:text-md text-sm mb-2">
-            Copy wallet address to send{" "}
-            {data?.data?.attributes?.currency?.symbol}
-          </p>
-          <div className="flex items-center">
-            <Input
-              type="text"
-              readOnly
-              value={address}
-              placeholder="Enter Amount"
-              className="w-full h-12 px-6 text-gray-600 font-medium overflow-hidden border border-gray-500"
-              onChange={handleInputChange}
-            />
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="relative">
-                  <MdContentCopy
-                    onClick={copyAddress}
-                    className={`cursor-pointer text-2xl ml-[-2rem] ${
-                      isCopied && `text-green-400`
-                    }`}
-                  />
-                  {isCopied && (
-                    <p className="whitespace-nowrap absolute top-[-2rem] text-xs font-bold text-green-400 right-2">
-                      Copied ✅
-                    </p>
-                  )}
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Copy wallet Address</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+          <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-3 px-6 shadow-md rounded-lg">
+            <p className="font-medium text-sm">Point Earned</p>
+            <p className="font-bold flex items-center text-sm">
+              <Image src={coinImg} alt="coin" width="17" className="mr-1" />
+              {point ? point : `0.00`}
+            </p>
           </div>
-        </div>
 
-        <div className="bg-[#FFF8ED] py-4 px-6 flex items-center space-x-6 mt-4">
-          <MdError className="text-5xl text-orange-400" />
-          <p className="text-xs text-gray-600">
-            Only input a valid crypto address. Incorrect addresses may result in
-            irreversible transactions.
-          </p>
-        </div>
+          <div className="pt-2">
+            <p className="text-gray-900 lg:text-sm text-xs mb-2">
+              Copy wallet address to send{" "}
+              {data?.data?.attributes?.currency?.symbol}
+            </p>
+            <div className="flex items-center">
+              <Input
+                type="text"
+                readOnly
+                value={address}
+                placeholder="Enter Amount"
+                className="w-full h-12 px-6 text-gray-600 font-medium overflow-hidden border border-gray-500"
+                onChange={handleInputChange}
+              />
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className="relative">
+                    <MdContentCopy
+                      onClick={copyAddress}
+                      className={`cursor-pointer text-2xl ml-[-2rem] ${
+                        isCopied && `text-green-400`
+                      }`}
+                    />
+                    {isCopied && (
+                      <p className="whitespace-nowrap absolute top-[-2rem] text-xs font-bold text-green-400 right-2">
+                        Copied ✅
+                      </p>
+                    )}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Copy wallet Address</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+          </div>
 
-        <div className="mt-8">
-          {isRedirecting ? (
-            <Button
-              disabled={isChecked}
-              className="w-full mt-8 py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-              <span className="flex items-center justify-center gap-2">
-                <ClipLoader size={20} color="#fff" />
-                {<span className="">Redirecting... please wait</span>}
-              </span>
-            </Button>
-          ) : (
-            <Button
-              disabled={isChecked}
-              className="w-full mt-8 py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-              {isLoading ? (
+          <div className="bg-[#FFF8ED] py-4 px-6 flex items-center space-x-6 mt-4">
+            <MdError className="text-5xl text-orange-400" />
+            <p className="text-xs text-gray-600">
+              Only input a valid crypto address. Incorrect addresses may result
+              in irreversible transactions.
+            </p>
+          </div>
+
+          <div className="mt-8">
+            {isRedirecting ? (
+              <Button
+                disabled={isChecked}
+                className="w-full mt-8 lg:py-7 py-5 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
                 <span className="flex items-center justify-center gap-2">
                   <ClipLoader size={20} color="#fff" />
-                  {<span className="">Loading...</span>}
+                  {<span className="">Redirecting... please wait</span>}
                 </span>
-              ) : (
-                <>
-                  <span className="font-bold">Continue</span>
-                </>
-              )}
-              <FaLongArrowAltRight className="ml-auto text-2xl" />
-            </Button>
-          )}
-        </div>
-      </form>
-    </div>
+              </Button>
+            ) : (
+              <Button
+                disabled={isChecked}
+                className="w-full mt-8 lg:py-7 py-5 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <ClipLoader size={20} color="#fff" />
+                    {<span className="">Loading...</span>}
+                  </span>
+                ) : (
+                  <>
+                    <span className="font-bold">Continue</span>
+                  </>
+                )}
+                <FaLongArrowAltRight className="ml-auto text-2xl" />
+              </Button>
+            )}
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

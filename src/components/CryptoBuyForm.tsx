@@ -108,7 +108,6 @@ const CryptoBuyForm = ({ data }: any) => {
         toast.success(resdata?.message);
         setIsOpen(true);
       }
-      // console.log(resdata?.data);
       setPreviewInfo(resdata?.data);
     } catch (error) {
       console.log(error);
@@ -118,7 +117,6 @@ const CryptoBuyForm = ({ data }: any) => {
     }
   };
 
-  // console.log(data);
 
   const handleComplete = async () => {
     // setCompleteModal(true);
