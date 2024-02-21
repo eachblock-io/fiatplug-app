@@ -1,76 +1,37 @@
 "use client";
-import React from "react";
 import { Button } from "./ui/button";
-import { FaLongArrowAltLeft } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MdError } from "react-icons/md";
 import { formatCurrency } from "@/utils";
-import img1 from "@/public/undraw_season_change_f99v 1.png";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import ChatPage from "./ChatPage";
 
 const PreviewPayment = ({
   data,
   isOpen,
-  setIsOpen,
   completeModal,
   handleComplete,
   handleCancelled,
   isLoading,
-  handleStartChat,
-  openChat,
-  userData,
 }: any) => {
   return (
     <>
+      
       {isOpen ? (
         <div
           className={`absolute top-0 bottom-0 right-0 left-0 w-full z-10 lg:h-[100vh] h-[88vh] bg-white lg:py-4 pb-10 pt-16 lg:px-20 px-6 ${
-            openChat ? `overflow-hidden` : `overflow-y-scroll`
+            completeModal ? `overflow-hidden` : `overflow-y-scroll`
           } overflow-y-scroll`}>
-          {openChat && <ChatPage userData={userData} />}
-          {completeModal && (
-            <div className="flex items-center justify-center bg-white bg-opacity-80 z-10 absolute top-0 right-0 left-0 lg:h-full h-[100vh]">
-              <div className="shadow-2xl rounded-lg text-center bg-white lg:p-14 p-8 lg:w-4/12 w-10/12">
-                <Image
-                  src={img1}
-                  alt="chat"
-                  width={200}
-                  height={300}
-                  layout="fixed"
-                  className="mx-auto"
-                />
-                <p className="py-6 lg:px-8 text-sm">
-                  Your {data?.currency} purchase is in progress with a 10-minute
-                  confirmation time. Reach out to our support team for
-                  assistance
-                </p>
-                <Button
-                  onClick={handleStartChat}
-                  className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-                  Chat with merchant
-                </Button>
-              </div>
-            </div>
-          )}
+          
 
-          <div className="flex items-center justify-between lg:pt-4 pt-4">
+          <div className="lg:pt-4 pt-4">
             <h2 className="font-semibold lg:text-xl text-lg">
               Preview Payment
             </h2>
-            <Button
-              onClick={() => setIsOpen(false)}
-              variant="ghost"
-              className="flex items-center">
-              <FaLongArrowAltLeft className="text-xl" />
-            </Button>
           </div>
-          <div className="mx-auto lg:w-full w-12/12 lg:mt-6 mt-4">
-            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-x-20 gap-y-10 w-full">
+          <div className="mx-auto lg:w-full w-12/12 lg:mt-6 mt-3">
+            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-x-20 gap-y-6 w-full">
               <div className=" shadow-md p-3 border">
                 <p className="text-sm">Your payment amount</p>
-                <h2 className="font-bold lg:text-2xl text-lg">
+                <h2 className="font-bold lg:text-2xl text-md">
                   NGN {formatCurrency(data?.payment_amount)}
                 </h2>
                 <div className="mt-4 space-y-2 text-gray-600">
@@ -102,7 +63,7 @@ const PreviewPayment = ({
                       {data?.relationships?.user?.attributes?.last_name[0]}
                     </AvatarFallback>
                   </Avatar>
-                  <p className="text-xs ml-2">
+                  <p className="text-sm ml-2">
                     {data?.merchant?.first_name} {data?.merchant?.last_name}
                   </p>
                 </div>
@@ -121,7 +82,7 @@ const PreviewPayment = ({
                 </div>
               </div>
             </div>
-            <div className="bg-[#FFF8ED] py-4 px-6 lg:mt-8 mt-4">
+            <div className="bg-[#FFF8ED] py-4 px-6 lg:mt-4 mt-4">
               <p className="flex items-center space-x-4 text-md">
                 <MdError className="text-2xl text-orange-400" />
                 <span>Note</span>
@@ -143,7 +104,7 @@ const PreviewPayment = ({
               </ul>
             </div>
           </div>
-          <div className=" bg-white w-full btns flex items-center lg:space-x-8 space-x-8 h-[10vh] lg:mt-20">
+          <div className=" bg-white w-full btns flex items-center lg:space-x-8 space-x-4 h-[10vh] lg:mt-10">
             <Button
               onClick={handleCancelled}
               variant="outline"

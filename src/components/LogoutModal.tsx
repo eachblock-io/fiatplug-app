@@ -5,10 +5,6 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { TiArrowRight } from "react-icons/ti";
-import { Button } from "@/components/ui/button";
-import img6 from "@/public/icons/logout.svg";
-import Image from "next/image";
 
 export default function LogoutModal({ children }: any) {
   const { push } = useRouter();

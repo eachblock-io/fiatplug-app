@@ -11,6 +11,8 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { formatCurrency } from "@/utils";
 import fetchToken from "@/lib/auth";
 import PreviewPayment from "@/components/PreviewPayment";
+import CompleteModal from "./CompleteModal";
+import ChatPage from "./ChatPage";
 
 const CryptoBuyForm = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -155,6 +157,7 @@ const CryptoBuyForm = ({ data }: any) => {
 
   const handleStartChat = () => {
     setCompleteModal(false);
+    setIsOpen(false);
     setOpenChat(true);
   };
 
@@ -194,7 +197,7 @@ const CryptoBuyForm = ({ data }: any) => {
   };
 
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto pb-10 overflow-hidden mt-20">
+    <>
       <PreviewPayment
         data={previewInfo}
         isOpen={isOpen}
@@ -202,128 +205,142 @@ const CryptoBuyForm = ({ data }: any) => {
         setIsOpen={setIsOpen}
         handleComplete={handleComplete}
         completeModal={completeModal}
+        setCompleteModal={setCompleteModal}
         handleCancelled={handleCancelled}
         handleStartChat={handleStartChat}
         openChat={openChat}
         userData={data?.data?.relationships?.user}
       />
-      <h1 className="font-bold text-2xl mb-6">Buy Crypto</h1>
-      <form onSubmit={handleSubmit}>
+      <CompleteModal
+        completeModal={completeModal}
+        data={previewInfo}
+        handleStartChat={handleStartChat}
+        setCompleteModal={setCompleteModal}
+      />
+      {openChat && <ChatPage userData={data?.data?.relationships?.user} />}
+      <div className="lg:w-5/12 w-10/12 mx-auto">
         <div>
-          <div className="relative flex items-center">
-            <Input
-              type="text"
-              required
-              value={amount}
-              placeholder="Enter Amount"
-              className="w-full h-14 px-4 border border-gray-500"
-              onChange={handleInputChange}
-            />
-            <span className="ml-[-3rem]">NGN</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="text-gray-500 text-xs mt-1">
-              Rate:{" "}
-              <span className="text-xs">
-                {formatCurrency(data?.data?.attributes?.rate)}
-              </span>
-            </p>
-            <small className="text-gray-500 text-xs mt-1">
-              Limit:{" "}
-              <span className="text-xs">
-                {formatCurrency(data?.data?.attributes?.min_amount)} -{" "}
-                {formatCurrency(data?.data?.attributes?.max_amount)}
-              </span>
-            </small>
-          </div>
-        </div>
-        <h2 className="lg:text-md text-xs font-semibold mt-4 mb-1">
-          Trading Info
-        </h2>
-        <div>
-          <div className="flex items-center justify-between">
-            <p className="lg:text-md text-xs">Quantity</p>
-            <p className="lg:text-md text-xs font-semibold">
-              {quantity ? parseFloat(quantity?.toFixed(2)) : "0.00"} USD
-            </p>
-          </div>
-          <div className="flex items-center justify-between mt-2">
-            <p className="lg:text-md text-xs">Payment</p>
-            <p className="lg:text-md text-xs font-semibold">
-              {formatCurrency(amount)} NGN
-            </p>
-          </div>
-        </div>
-        <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-5 px-6 shadow-md rounded-lg">
-          <p className="font-medium text-sm">Point Earned</p>
-          <p className="font-bold flex items-center text-sm">
-            <Image src={coinImg} alt="coin" width="17" className="mr-1" />
-            {point ? point : `0.00`}
-          </p>
-        </div>
+          <h1 className="font-bold lg:text-2xl text-lg mb-4">Buy Crypto</h1>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <div className="relative flex items-center">
+                <Input
+                  type="text"
+                  required
+                  value={amount}
+                  placeholder="Enter Amount"
+                  className="w-full lg:h-12 h-10 px-4 placeholder:text-xs border border-gray-500"
+                  onChange={handleInputChange}
+                />
+                <span className="ml-[-3rem] text-xs">NGN</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-gray-500 text-xs mt-1">
+                  Rate:{" "}
+                  <span className="text-xs">
+                    {formatCurrency(data?.data?.attributes?.rate)}
+                  </span>
+                </p>
+                <small className="text-gray-500 text-xs mt-1">
+                  Limit:{" "}
+                  <span className="text-xs">
+                    {formatCurrency(data?.data?.attributes?.min_amount)} -{" "}
+                    {formatCurrency(data?.data?.attributes?.max_amount)}
+                  </span>
+                </small>
+              </div>
+            </div>
+            <h2 className="lg:text-md text-xs font-semibold mt-4 mb-1">
+              Trading Info
+            </h2>
+            <div>
+              <div className="flex items-center justify-between">
+                <p className="lg:text-md text-xs">Quantity</p>
+                <p className="lg:text-md text-xs font-semibold">
+                  {quantity ? parseFloat(quantity?.toFixed(2)) : "0.00"} USD
+                </p>
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <p className="lg:text-md text-xs">Payment</p>
+                <p className="lg:text-md text-xs font-semibold">
+                  {formatCurrency(amount)} NGN
+                </p>
+              </div>
+            </div>
+            <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-3 px-6 shadow-md rounded-lg">
+              <p className="font-medium text-xs">Point Earned</p>
+              <p className="font-bold flex items-center text-sm">
+                <Image src={coinImg} alt="coin" width="17" className="mr-1" />
+                {point ? point : `0.00`}
+              </p>
+            </div>
 
-        <div className="pt-4">
-          <p className="text-gray-900 lg:text-md text-sm mb-2">
-            Paste your wallet address
-            {data?.data?.attributes?.currency?.symbol}
-          </p>
-          <div className="flex items-center">
-            <Input
-              type="text"
-              required
-              value={address}
-              placeholder="Paste wallet address"
-              className="w-full h-14 px-6 text-gray-600 font-medium overflow-hidden border border-gray-500"
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </div>
-        </div>
+            <div className="pt-2">
+              <p className="text-gray-900 lg:text-sm text-xs mb-2">
+                Paste your wallet address{" "}
+                {data?.data?.attributes?.currency?.symbol}
+              </p>
+              <div className="flex items-center">
+                <Input
+                  type="text"
+                  required
+                  value={address}
+                  placeholder="Paste wallet address"
+                  className="w-full lg:h-12 h-10 px-6 text-gray-600 placeholder:text-xs overflow-hidden border border-gray-500"
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+            </div>
 
-        <div className="bg-[#FFF8ED] py-4 px-6 flex items-center space-x-6 mt-4">
-          <MdError className="text-4xl text-orange-400" />
-          <p className="text-xs text-gray-600">
-            Only input a valid crypto address. Incorrect addresses may result in
-            irreversible transactions.
-          </p>
-        </div>
+            <div className="bg-[#FFF8ED] py-4 px-6 flex items-center space-x-6 mt-4">
+              <MdError className="text-4xl text-orange-400" />
+              <p className="text-xs text-gray-600">
+                Only input a valid crypto address. Incorrect addresses may
+                result in irreversible transactions.
+              </p>
+            </div>
 
-        <div className="p-2">
-          <h2 className="text-sm font-semibold text-red-800">Trade terms</h2>
-          <p className="text-xs text-red-800">
-            {data?.data?.attributes?.terms}
-          </p>
-        </div>
+            <div className="p-2">
+              <h2 className="text-sm font-semibold text-red-800">
+                Trade terms
+              </h2>
+              <p className="text-xs text-red-800">
+                {data?.data?.attributes?.terms}
+              </p>
+            </div>
 
-        <div className="mt-4">
-          {isRedirecting ? (
-            <Button
-              disabled={isChecked}
-              className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-              <span className="flex items-center justify-center gap-2">
-                <ClipLoader size={20} color="#fff" />
-                {<span className="">Redirecting... please wait</span>}
-              </span>
-            </Button>
-          ) : (
-            <Button
-              disabled={isChecked}
-              className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-              {isLoading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <ClipLoader size={20} color="#fff" />
-                  {<span className="">Loading...</span>}
-                </span>
+            <div className="mt-4">
+              {isRedirecting ? (
+                <Button
+                  disabled={isChecked}
+                  className="w-full lg:py-7 py-5 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                  <span className="flex items-center justify-center gap-2">
+                    <ClipLoader size={20} color="#fff" />
+                    {<span className="">Redirecting... please wait</span>}
+                  </span>
+                </Button>
               ) : (
-                <>
-                  <span className="font-bold">Continue</span>
-                </>
+                <Button
+                  disabled={isChecked}
+                  className="w-full lg:py-7 py-6 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <ClipLoader size={20} color="#fff" />
+                      {<span className="">Loading...</span>}
+                    </span>
+                  ) : (
+                    <>
+                      <span className="font-bold">Continue</span>
+                    </>
+                  )}
+                  <FaLongArrowAltRight className="ml-auto text-2xl" />
+                </Button>
               )}
-              <FaLongArrowAltRight className="ml-auto text-2xl" />
-            </Button>
-          )}
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };
 
