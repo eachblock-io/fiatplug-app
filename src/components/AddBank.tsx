@@ -64,9 +64,16 @@ const FormSchema = z.object({
   }),
 });
 
-const AddBankPage = ({ data, type, userData, openBank, setOpenBank }: any) => {
+const AddBankPage = ({
+  data,
+  type,
+  userData,
+  openBank,
+  setOpenBank,
+  setOpenChat,
+}: any) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [openChat, setOpenChat] = useState(false);
+
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -115,114 +122,117 @@ const AddBankPage = ({ data, type, userData, openBank, setOpenBank }: any) => {
 
   return (
     <>
-      {openChat && <ChatPage userData={userData} order={data} />}
       {openBank ? (
-        <div className="absolute top-0 bottom-0 right-0 left-0 w-full z-10 bg-white lg:py-20 pt-20 pb-10 lg:px-20 px-10">
-          <div className="flex items-center justify-between lg:pt-4 pt-4">
-            <Button
-              onClick={() => setOpenBank(false)}
-              variant="ghost"
-              className="flex items-center">
-              <FaLongArrowAltLeft className="text-xl" />
-            </Button>
-          </div>
-          <div className="lg:w-5/12 w-12/12 mx-auto pb-10 lg:mt-10 mt-20">
-            <h1 className="font-bold mb-2 text-2xl">Add bank details</h1>
-            <p>Input correct bank details</p>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(handleSubmitForm)}
-                className="space-y-6 mt-8">
-                <div>
-                  <FormField
-                    control={form.control}
-                    name="bankName"
-                    render={({ field }) => (
-                      <FormItem>
-                        {/* <FormLabel>Bank Name</FormLabel> */}
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}>
-                          <FormControl className="p-7 border border-gray-500">
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select bank" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {nigeriaBanks?.map((data) => (
-                              <SelectItem key={data?.code} value={data?.name}>
-                                {data?.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div>
-                  <FormField
-                    control={form.control}
-                    name="accountName"
-                    render={({ field }) => (
-                      <FormItem>
-                        {/* <FormLabel>Account Name</FormLabel> */}
-                        <Input
-                          type="text"
-                          {...field}
-                          placeholder="Account Name"
-                          className="p-7 border border-gray-500"
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div>
-                  <FormField
-                    control={form.control}
-                    name="accountNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        {/* <FormLabel>Account Number</FormLabel> */}
-                        <Input
-                          type="text"
-                          {...field}
-                          placeholder="Account Name"
-                          className="p-7 border border-gray-500"
-                        />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="pt-10">
-                  {isRedirecting ? (
-                    <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-                      <span className="flex items-center justify-center gap-2">
-                        <ClipLoader size={20} color="#fff" />
-                        {<span className="">Redirecting... please wait</span>}
-                      </span>
-                    </Button>
-                  ) : (
-                    <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-                      {isLoading ? (
+        <div className="flex items-center justify-center absolute top-0 bottom-0 right-0 left-0 w-full z-10">
+          <div className=" bg-white pb-10 lg:px-20 px-10 w-full">
+            <div className="mb-6">
+              <Button
+                onClick={() => setOpenBank(false)}
+                variant="ghost"
+                className="flex items-center">
+                <FaLongArrowAltLeft className="text-xl" />
+              </Button>
+            </div>
+            <div className="lg:w-5/12 w-12/12 mx-auto pb-10">
+              <h1 className="font-bold lg:text-2xl text-lg">
+                Add bank details
+              </h1>
+              <p>Input correct bank details</p>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(handleSubmitForm)}
+                  className="space-y-6 mt-8">
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="bankName"
+                      render={({ field }) => (
+                        <FormItem>
+                          {/* <FormLabel>Bank Name</FormLabel> */}
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}>
+                            <FormControl className="py-6 px-7 border border-gray-500">
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select bank" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {nigeriaBanks?.map((data) => (
+                                <SelectItem key={data?.code} value={data?.name}>
+                                  {data?.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="accountName"
+                      render={({ field }) => (
+                        <FormItem>
+                          {/* <FormLabel>Account Name</FormLabel> */}
+                          <Input
+                            type="text"
+                            {...field}
+                            placeholder="Account Name"
+                            className="py-6 px-7 border border-gray-500"
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="accountNumber"
+                      render={({ field }) => (
+                        <FormItem>
+                          {/* <FormLabel>Account Number</FormLabel> */}
+                          <Input
+                            type="text"
+                            {...field}
+                            placeholder="Account Name"
+                            className="py-6 px-7 border border-gray-500"
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="pt-4">
+                    {isRedirecting ? (
+                      <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
                         <span className="flex items-center justify-center gap-2">
                           <ClipLoader size={20} color="#fff" />
-                          {<span className="">Loading...</span>}
+                          {<span className="">Redirecting... please wait</span>}
                         </span>
-                      ) : (
-                        <>
-                          <span className="font-bold">Sell Crypto</span>
-                        </>
-                      )}
-                      <FaLongArrowAltRight className="ml-auto text-2xl" />
-                    </Button>
-                  )}
-                </div>
-              </form>
-            </Form>
+                      </Button>
+                    ) : (
+                      <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                        {isLoading ? (
+                          <span className="flex items-center justify-center gap-2">
+                            <ClipLoader size={20} color="#fff" />
+                            {<span className="">Loading...</span>}
+                          </span>
+                        ) : (
+                          <>
+                            <span className="font-bold">Sell Crypto</span>
+                          </>
+                        )}
+                        <FaLongArrowAltRight className="ml-auto text-2xl" />
+                      </Button>
+                    )}
+                  </div>
+                </form>
+              </Form>
+            </div>
           </div>
         </div>
       ) : null}

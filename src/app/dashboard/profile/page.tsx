@@ -12,6 +12,7 @@ import img4 from "@/public/icons/support.svg";
 import img5 from "@/public/icons/faq.svg";
 import img6 from "@/public/icons/logout.svg";
 import Image from "next/image";
+import LogoutModal from "@/components/LogoutModal";
 
 async function getUser() {
   const cookieStore = cookies();
@@ -140,24 +141,26 @@ const ProfilePage = async () => {
 
           <TiArrowRight className="text-3xl font-bold text-gray-600" />
         </Link>
+        <LogoutModal>
+          <Button
+            variant="ghost"
+            className="flex w-full justify-between items-center hover:bg-orange-50 pt-8 px-4 rounded-lg">
+            <div className="flex items-center space-x-10">
+              <Image
+                src={img6}
+                alt="user level"
+                width={25}
+                height={25}
+                layout="fixed"
+              />
+              <p className="font-semibold lg:text-lg text-sm">Logout</p>
+            </div>
+            <TiArrowRight className="text-3xl font-bold text-gray-600" />
+          </Button>
+        </LogoutModal>
         <Button
           variant="ghost"
-          className="flex w-full justify-between items-center hover:bg-orange-50 py-4 px-4 rounded-lg">
-          <div className="flex items-center space-x-10">
-            <Image
-              src={img6}
-              alt="user level"
-              width={25}
-              height={25}
-              layout="fixed"
-            />
-            <p className="font-semibold lg:text-lg text-sm">Logout</p>
-          </div>
-          <TiArrowRight className="text-3xl font-bold text-gray-600" />
-        </Button>
-        <Button
-          variant="ghost"
-          className="flex w-full justify-between items-center hover:bg-orange-50 mt-3 py-4 px-4 rounded-lg">
+          className="flex w-full justify-between items-center hover:bg-orange-50 lg:mt-8 mt-8 pt-8 px-4 rounded-lg">
           <div className="flex items-center space-x-10">
             <p className="font-semibold lg:text-md text-sm text-red-400">
               Delete Account

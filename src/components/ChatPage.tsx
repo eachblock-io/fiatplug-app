@@ -22,6 +22,7 @@ import { MdError } from "react-icons/md";
 import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
 import toast from "react-hot-toast";
+import ChatBoardScreen from "./ChatBoardScreen";
 
 const ChatPage = ({ userData, order }: any) => {
   const [messages, setMessages] = useState<any>([]);
@@ -32,10 +33,8 @@ const ChatPage = ({ userData, order }: any) => {
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
 
-  
-
   useEffect(() => {
-    const pusher = new Pusher(`${process.env.NEXT_PUBLIC_KEY}`, {
+    const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
       cluster: "mt1",
     });
 
@@ -133,87 +132,55 @@ const ChatPage = ({ userData, order }: any) => {
   };
 
   return (
-    <div className="h-[88vh] absolute top-0 bottom-0 right-0 left-0 w-full z-10 bg-white">
-      <div className="lg:pt-10 pt-[4rem] w-full h-[100vh] flex lg:flex-row flex-col ">
-        <div className="chats w-full  relative">
-          <div className="inputs z-10 px-8 py-3 lg:mt-2 mt-1 lg:h-[10vh] h-[8vh] border bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
-            <div className="flex items-center gap-2">
-              <Link href="/dashboard/chat">
-                <IoIosArrowBack className="text-2xl mr-2" />
-              </Link>
-              <Avatar className="p-0 m-0 h-8 w-8 border border-gray-600">
-                <AvatarImage src={userData?.attributes?.profile_picture} />
-                <AvatarFallback className="text-xs">
-                  {/* {userData?.attributes?.first_name[0]}
-                  {userData?.attributes?.last_name[0]} */}
-                </AvatarFallback>
-              </Avatar>
-              {userData?.attributes?.full_name ? (
-                <div>
-                  <h2 className="font-semibold text-xs">
-                    {userData?.attributes?.full_name}
-                  </h2>
-                </div>
-              ) : (
+    <div className="h-[88vh] lg:h-[90vh] absolute bottom-0 top-0 right-0 left-0 w-full z-10 bg-white overflow-hidden">
+      <div className="chats w-full lg:h-[92vh] h-[81vh] lg:mt-4 mt-14 relative bg-white">
+        <div className="inputs z-10 px-8 py-3  lg:h-[10vh] h-[10vh] border-b bg-gray-200 absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
+          <div className="flex items-center gap-2">
+            <Link href="/dashboard/chat">
+              <IoIosArrowBack className="text-2xl mr-2" />
+            </Link>
+            <Avatar className="p-0 m-0 h-8 w-8 border border-gray-600">
+              <AvatarImage src={userData?.attributes?.profile_picture} />
+              <AvatarFallback className="text-xs"></AvatarFallback>
+            </Avatar>
+            {userData?.attributes?.full_name ? (
+              <div>
                 <h2 className="font-semibold text-xs">
-                  {userData?.attributes?.first_name}{" "}
-                  {userData?.attributes?.last_name}
+                  {userData?.attributes?.full_name}
                 </h2>
-              )}
-            </div>
-          </div>
-          <div>
-            <ScrollArea className="lg:h-[75vh] h-[82vh] relative lg:pb-0 pt-20 pb-34 pr-6 pl-6 ">
-              <ChatBoard data={messages} />
-              {/* <form
-                onSubmit={handlePaidStatus}
-                className=" p-3 lg:w-6/12 lg:mr-auto mx-auto w-full pt-[27rem] pb-[8rem] ">
-                <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
-                  <div>
-                    <MdError className="text-3xl text-orange-400" />
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Only input a valid crypto address. Incorrect addresses may
-                    result in irreversible transactions.
-                  </p>
-                </div>
-                <div className="flex space-x-3 mt-6 mb-8">
-                  <Checkbox id="terms" className="h-6 w-6" />
-                  <label
-                    htmlFor="terms"
-                    className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                    I have recieved the correct amount to my bank. And I hereby
-                    confirm the order as completed.
-                  </label>
-                </div>
-                <Button className="bg-orange-400 hover:bg-orange-500 h-14 font-normal text-white rounded-full text-center w-full">
-                  Confirm order as paid
-                </Button>
-              </form> */}
-            </ScrollArea>
-          </div>
-          {/* Type message input */}
-          <div className="inputs h-[12vh] px-4 pb-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
-            <form
-              onClick={handleSubmit}
-              className="input flex items-center lg:w-10/12 w-full bg-gray-200 rounded-full">
-              <textarea
-                rows={1}
-                value={messageToSend}
-                onChange={(e) => setMessageToSend(e.target.value)}
-                placeholder="Type a message here..."
-                className="w-full px-8 bg-gray-200 rounded-full "
-                onKeyDown={handleKeyPress}
-              />
-              <div className="">
-                <button
-                  type="submit"
-                  className="bg-orange-400 hover:bg-orange-600 lg:h-14 lg:w-14 h-12 w-12 rounded-full flex items-center justify-center">
-                  <RiSendPlaneFill className="lg:text-4xl text-2xl text-white" />
-                </button>
               </div>
-            </form>
+            ) : (
+              <h2 className="font-semibold text-xs">
+                {userData?.attributes?.first_name}{" "}
+                {userData?.attributes?.last_name}
+              </h2>
+            )}
           </div>
+        </div>
+        <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pb-20 pt-20  pr-10 pl-10 bg-gray-100">
+          <ChatBoardScreen data={messages} />
+        </ScrollArea>
+        {/* Type message input */}
+        <div className="inputs h-[12vh] px-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
+          <form
+            onClick={handleSubmit}
+            className="input flex items-center lg:w-10/12 w-full bg-gray-200 rounded-full">
+            <textarea
+              rows={1}
+              value={messageToSend}
+              onChange={(e) => setMessageToSend(e.target.value)}
+              placeholder="Type a message here..."
+              className="w-full px-8 bg-gray-200 rounded-full "
+              onKeyDown={handleKeyPress}
+            />
+            <div className="">
+              <button
+                type="submit"
+                className="bg-orange-400 hover:bg-orange-600 lg:h-14 lg:w-14 h-12 w-12 rounded-full flex items-center justify-center">
+                <RiSendPlaneFill className="lg:text-4xl text-2xl text-white" />
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
