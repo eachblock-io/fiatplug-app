@@ -133,7 +133,7 @@ const ChatPage = ({ userData, order }: any) => {
 
   return (
     <div className="h-[88vh] lg:h-[90vh] absolute bottom-0 top-0 right-0 left-0 w-full z-10 bg-white overflow-hidden">
-      <div className="chats w-full lg:h-[92vh] h-[81vh] lg:mt-0 mt-14 relative bg-white">
+      <div className="chats w-full lg:h-[92vh] h-[81vh] lg:mt-4 mt-14 relative bg-white">
         <div className="inputs z-10 px-8 py-3  lg:h-[10vh] h-[10vh] border-b bg-gray-200 absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
           <div className="flex items-center gap-2">
             <Link href="/dashboard/chat">
@@ -157,7 +157,7 @@ const ChatPage = ({ userData, order }: any) => {
             )}
           </div>
         </div>
-        <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pt-20 pr-10 pl-10 bg-gray-100">
+        <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pb-20 pt-20  pr-10 pl-10 bg-gray-100">
           <ChatBoardScreen data={messages} />
         </ScrollArea>
         {/* Type message input */}

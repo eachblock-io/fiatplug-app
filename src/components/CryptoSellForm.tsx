@@ -21,7 +21,7 @@ import AddBankPage from "./AddBank";
 import ChatPage from "./ChatPage";
 
 const CryptoSellForm = ({ data }: any) => {
-  const [openBank, setOpenBank] = useState(true);
+  const [openBank, setOpenBank] = useState(false);
   const [openChat, setOpenChat] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);

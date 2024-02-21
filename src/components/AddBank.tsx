@@ -122,8 +122,8 @@ const AddBankPage = ({
 
   return (
     <>
-      <div className="flex items-center justify-center absolute top-0 bottom-0 right-0 left-0 w-full z-10">
-        {openBank ? (
+      {openBank ? (
+        <div className="flex items-center justify-center absolute top-0 bottom-0 right-0 left-0 w-full z-10">
           <div className=" bg-white pb-10 lg:px-20 px-10 w-full">
             <div className="mb-6">
               <Button
@@ -234,8 +234,8 @@ const AddBankPage = ({
               </Form>
             </div>
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </>
   );
 };
