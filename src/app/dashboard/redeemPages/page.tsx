@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import magicStar from '../../../public/magic_star_.png'
 import { Button } from "@/components/ui/button";
 // import { useRouter } from 'next/router';
+import Image from "next/image";
+import StarImg from "@/public/magic_star_.png";
 
 
 const RedeemPointsAirtime = () => {
@@ -24,7 +26,7 @@ const RedeemPointsAirtime = () => {
         <Link href="/dashboard/redeemPages/chooseAbeneficiary" passHref>
           <div className="p-2 border border-gray-300 rounded-lg flex">
                   <div className="inline-block  rounded-[9px] py-2 px-2 mr-3 bg-[#FFA048]">
-                      <img src="/magic_star_.png" alt="" className=" w-8 h-8" />
+                      <Image src={StarImg} alt="magic_star_.png" className=" w-8 h-8"/>
                     </div>
                   <div>
                     <p className=" font-bold">Beneficiaries</p>

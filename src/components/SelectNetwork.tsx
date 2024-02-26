@@ -1,6 +1,5 @@
 "use client";
 import { useState } from 'react';
-import mtn from "../../public/glo.png";
 import Image from "next/image";
 
 const networks = [
@@ -42,11 +41,12 @@ const SelectNetwork = () => {
                     onClick={() => selectNetwork(network.id)}
                     style={{ backgroundColor: selectedNetworkId === network.id ? '#28B825' : 'transparent' }}
                 >
-                    <img
-                        className="h-10 w-10 rounded-full"
+                    <Image 
                         src={network.src}
-                        alt={network.alt}
+                        alt={network.alt} 
+                        className="h-10 w-10 rounded-full"
                     />
+
                     {selectedNetworkId === network.id && (
                         <span className="absolute right-0 top-0 block h-4 w-4 rounded-full bg-green-400 ring-2 ring-white" />
                     )}

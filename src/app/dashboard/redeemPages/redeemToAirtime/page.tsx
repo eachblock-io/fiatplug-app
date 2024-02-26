@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import  PhoneInput  from "@/components/phoneNumber";
 import  SelectNetwork  from "@/components/SelectNetwork";
 import { useRouter } from 'next/navigation';
+import GroupImg from "@/public/Group_34373.png";
+import Image from "next/image";
 
 
 const RedeemToAirtime = () => {
@@ -56,7 +58,8 @@ const RedeemToAirtime = () => {
             <div className="flex justify-between">
             <div className="flex items-center text-gray-500">
               <p className="mb-0">1 Point =</p>
-                 <img src="/Group_34373.png" className="w-3 h-3 mx-1" alt="Conversion icon"/>
+              <Image src={GroupImg} alt="magic_star_.png" className=" w-8 h-8"/>
+                
               <p className="mb-0">NGN600</p>
           </div>
               <p>Balance 550</p>
