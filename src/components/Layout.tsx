@@ -15,7 +15,7 @@ const Layout = ({
       <Sidenav data={data?.attributes} />
       <Mobilenav />
       <main className="w-full relative overflow-y-auto">
-        <Header data={data?.attributes} />
+        <Header data={data} />
         {children}
       </main>
     </section>
