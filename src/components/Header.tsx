@@ -100,7 +100,9 @@ const Header = ({ data }: any) => {
           </DropdownMenuItem>
         </DropdownMenuContent> */}
       </DropdownMenu>
-      {/* <h2 className="font-bold lg:block hidden">Hi, {data?.first_name}</h2> */}
+      <h2 className="font-bold lg:block hidden">
+        Hi, {data?.attributes?.first_name}
+      </h2>
       <div className="profile flex items-center space-x-4">
         <div className="relative">
           <IoNotifications
