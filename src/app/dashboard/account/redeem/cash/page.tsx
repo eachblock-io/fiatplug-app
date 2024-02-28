@@ -42,7 +42,7 @@ const RedeemPointsAirtime = () => {
     setPoint(points?.data?.display_data);
   }
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const reqData = {
@@ -80,6 +80,11 @@ const RedeemPointsAirtime = () => {
       setIsLoading(false);
     }
   };
+
+  const handleSubmitPin = async () => {
+    // handleSubmit();
+  };
+
   return (
     <section>
       <EnterPin openModal={openModal} setModal={setOpenModal} />

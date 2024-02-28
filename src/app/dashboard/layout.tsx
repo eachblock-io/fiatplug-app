@@ -5,6 +5,8 @@ import Layout from "@/components/Layout";
 import { Providers } from "@/redux/providers";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import loaderImg from "@/public/fiatplug-loader.gif";
 
 interface userResponse {
   user: String | null;
@@ -34,7 +36,9 @@ export default function RootLayout({
   }, [push]);
 
   if (!isSuccess) {
-    return <p>Loading...</p>;
+    return <div className="flex items-center justify-center h-screen w-full">
+      <Image src={loaderImg} alt="loaderImg" width={300} height={300} layout="fixed" />
+    </div>;
   }
 
   return (
