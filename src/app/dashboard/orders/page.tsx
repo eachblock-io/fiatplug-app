@@ -24,8 +24,8 @@ async function getOrders() {
 const OrdersPage = async () => {
   const orders = await getOrders();
   return (
-    <section className="lg:pt-10 pt-[5rem] w-full relative flex items-center justify-center ">
-      <div className="orders-section lg:w-8/12 w-11/12">
+    <section className="w-full flex items-center justify-center">
+      <div className="orders-section relative mt-4 lg:w-8/12 w-11/12 ">
         <h1 className="font-semibold lg:text-2xl text-xl">Orders</h1>
         <OrderWrapper data={orders?.data} />
       </div>

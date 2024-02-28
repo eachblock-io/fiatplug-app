@@ -7,11 +7,11 @@ import { FaLongArrowAltLeft } from "react-icons/fa";
 import { formatTime } from "@/lib/utils";
 
 const OrderWrapper = ({ data }: any) => {
-  const [displayCount, setDisplayCount] = useState(10);
+  const [displayCount, setDisplayCount] = useState(3);
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
   const handleShowMore = () => {
-    setDisplayCount((prevCount) => prevCount + 10);
+    setDisplayCount((prevCount) => prevCount + 2);
   };
 
   const handleShowLess = () => {
@@ -27,37 +27,45 @@ const OrderWrapper = ({ data }: any) => {
   };
 
   return (
-    <div className="mb-10">
-      <div className="space-y-6 mt-8">
-        {data.slice(0, displayCount).map((orderData: any, i: any) => (
-          <OrderCard key={i} data={orderData} onOrderClick={handleOrderClick} />
-        ))}
-      </div>
-      {displayCount < data.length ? (
-        <button
-          onClick={handleShowMore}
-          className="mt-4 px-4 py-2 bg-orange-100 rounded hover:bg-orange-300">
-          Show More
-        </button>
-      ) : (
-        <button
-          onClick={handleShowLess}
-          className="mt-4 px-4 py-2 bg-orange-100 rounded-full hover:bg-orange-300">
-          Show Less
-        </button>
+    <div className="overflow-hidden">
+      {selectedOrder ? null : (
+        <>
+          <div className="space-y-6 mt-8">
+            {data.slice(0, displayCount).map((orderData: any, i: any) => (
+              <OrderCard
+                key={i}
+                data={orderData}
+                onOrderClick={handleOrderClick}
+              />
+            ))}
+          </div>
+          {displayCount < data.length ? (
+            <button
+              onClick={handleShowMore}
+              className="mt-4 px-4 py-2 bg-orange-100 rounded hover:bg-orange-300">
+              Show More
+            </button>
+          ) : (
+            <button
+              onClick={handleShowLess}
+              className="mt-4 px-4 py-2 bg-orange-100 rounded-full hover:bg-orange-300">
+              Show Less
+            </button>
+          )}
+        </>
       )}
 
       {selectedOrder && (
         <div
           onClick={closeModal}
-          className="absolute top-0 bottom-0 right-0 left-0 w-full z-10 bg-white lg:py-4 pt-16 lg:px-20 px-10 overflow-y-scroll">
+          className="absolute top-0 right-0 left-0 w-full h-screen z-10 bg-white lg:py-4 pt-10 px-10 ">
           <Button
             onClick={() => closeModal}
             variant="ghost"
-            className="flex items-center mt-10">
+            className="flex items-center">
             <FaLongArrowAltLeft className="text-xl" />
           </Button>
-          <div className="orders-section lg:w-8/12 w-12/12 mt-6">
+          <div className="orders-section lg:mt-6 mt-6 lg:w-8/12 w-12/12 ">
             <OrderCard data={selectedOrder} />
             {selectedOrder?.is_crypto === false ? (
               <div className="steps mt-10 relative ml-14">
@@ -82,7 +90,7 @@ const OrderWrapper = ({ data }: any) => {
                   <IoIosCheckmarkCircle
                     className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                       selectedOrder?.other_details?.card_received
-                        ? `border-orange-400`
+                        ? `text-orange-400`
                         : ``
                     } `}
                   />
@@ -118,7 +126,7 @@ const OrderWrapper = ({ data }: any) => {
                   <IoIosCheckmarkCircle
                     className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                       selectedOrder?.other_details?.card_verified
-                        ? `border-orange-400`
+                        ? `text-orange-400`
                         : ``
                     } `}
                   />
@@ -154,7 +162,7 @@ const OrderWrapper = ({ data }: any) => {
                   <IoIosCheckmarkCircle
                     className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                       selectedOrder?.other_details?.payment_received
-                        ? `border-orange-400`
+                        ? `text-orange-400`
                         : ``
                     } `}
                   />
@@ -190,7 +198,7 @@ const OrderWrapper = ({ data }: any) => {
                   <IoIosCheckmarkCircle
                     className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                       selectedOrder?.other_details?.payment_sent
-                        ? `border-orange-400`
+                        ? `text-orange-400`
                         : ``
                     } `}
                   />
@@ -208,7 +216,7 @@ const OrderWrapper = ({ data }: any) => {
             ) : (
               <>
                 {selectedOrder?.other_details?.type === "sell" && (
-                  <div className="steps mt-10 relative ml-14">
+                  <div className="steps relative ml-14">
                     {/* Slide 1 */}
                     <div
                       className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
@@ -233,7 +241,7 @@ const OrderWrapper = ({ data }: any) => {
                         className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                           selectedOrder?.other_details
                             ?.payment_recieved_in_wallet
-                            ? `border-orange-400`
+                            ? `text-orange-400`
                             : ``
                         } `}
                       />
@@ -273,7 +281,7 @@ const OrderWrapper = ({ data }: any) => {
                         className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                           selectedOrder?.other_details
                             ?.payment_sent_to_user_bank
-                            ? `border-orange-400`
+                            ? `text-orange-400`
                             : ``
                         } `}
                       />
@@ -312,7 +320,7 @@ const OrderWrapper = ({ data }: any) => {
                       <IoIosCheckmarkCircle
                         className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                           selectedOrder?.other_details?.payment_recieved_by_user
-                            ? `border-orange-400`
+                            ? `text-orange-400`
                             : ``
                         } `}
                       />
@@ -333,7 +341,7 @@ const OrderWrapper = ({ data }: any) => {
                 {/* Buy order status */}
 
                 {selectedOrder?.other_details?.type === "buy" && (
-                  <div className="steps mt-10 relative ml-14">
+                  <div className="steps relative ml-14">
                     {/* Slide 1 */}
                     <div
                       className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
@@ -355,7 +363,7 @@ const OrderWrapper = ({ data }: any) => {
                       <IoIosCheckmarkCircle
                         className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                           selectedOrder?.other_details?.confirm_received
-                            ? `border-orange-400`
+                            ? `text-orange-400`
                             : ``
                         } `}
                       />
@@ -392,7 +400,7 @@ const OrderWrapper = ({ data }: any) => {
                       <IoIosCheckmarkCircle
                         className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
                           selectedOrder?.other_details?.user_wallet_credited
-                            ? `border-orange-400`
+                            ? `text-orange-400`
                             : ``
                         } `}
                       />
