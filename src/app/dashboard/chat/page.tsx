@@ -16,6 +16,7 @@ import { BsChatSquareDots } from "react-icons/bs";
 import ClipLoader from "react-spinners/ClipLoader";
 import ChatBoard from "@/components/ChatBoard";
 import toast from "react-hot-toast";
+import { dateFormaterAndTime } from "@/utils";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<any>([]);
@@ -49,7 +50,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     fetchRecentChats();
-  }, []);
+  }, [messages]);
 
   const fetchRecentChats = async () => {
     setLoadingChats(true);
@@ -72,6 +73,24 @@ const ChatPage = () => {
     }
   };
 
+  const updateReadMessages = async (roomID: any) => {
+    setActive(roomID);
+    const token = await fetchToken();
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/chat/update-messages-in-chat-room`,
+      {
+        chat_room_id: roomID,
+      },
+      {
+        headers: {
+          "Content-Type": `multipart/form-data`,
+          Authorization: `Bearer ${token?.data?.token}`,
+        },
+      }
+    );
+    fetchRecentChats();
+  };
+
   const fetchActiveMessages = async (roomID: any) => {
     setActive(roomID);
     const token = await fetchToken();
@@ -86,6 +105,7 @@ const ChatPage = () => {
     );
     setActiveUser(data?.data?.attributes?.receipents[0]);
     setMessages(data?.data.attributes?.messages);
+    updateReadMessages(roomID);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -190,53 +210,54 @@ const ChatPage = () => {
           placeholder="Search...."
           className="border w-full px-4 h-[7vh] mt-4 rounded-full"
         />
-        {loadingChats ? (
-          <div className="text-center mt-40">
-            <ClipLoader size={20} color="#000" />
-            <p> Loading chats...</p>
-          </div>
-        ) : (
-          <div className="list space-y-6 mt-6">
-            {chats?.map((user: any) => (
-              <div
-                key={user?.id}
-                onClick={() => fetchActiveMessages(user?.attributes?.id)}
-                className={`border cursor-pointer transition-all hover:bg-gray-100 p-3 bg-white rounded-xl ${
-                  active == user?.attributes?.id && `border border-gray-500`
-                }`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-x-3">
-                    <Avatar className="p-0 m-0 border border-gray-600">
-                      <AvatarImage
-                        src={user?.attributes?.receipents[0]?.profile_picture}
-                      />
-                      <AvatarFallback className="font-bold">
-                        {user?.attributes?.receipents[0]?.first_name[0]}
-                        {user?.attributes?.receipents[0]?.last_name[0]}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h2 className="font-bold text-xs">
-                        {user?.attributes?.receipents[0]?.first_name}{" "}
-                        {user?.attributes?.receipents[0]?.last_name}
-                      </h2>
-                      <p className="text-xs mt-0 text-gray-600 rounded-lg ">
-                        {user?.attributes?.last_message?.message?.slice(0, 26)}
-                        ....
-                      </p>
-                    </div>
-                  </div>
-                  <div className="space-y-1 text-center">
-                    <p className="text-gray-500 text-sm">12:89</p>
-                    <div className="h-6 w-6 mx-auto text-white rounded-full bg-orange-400 flex items-center justify-center">
-                      <p className="text-xs font-semibold">5</p>
-                    </div>
+        <div className="list space-y-6 mt-6">
+          {chats?.map((user: any) => (
+            <div
+              key={user?.id}
+              onClick={() => fetchActiveMessages(user?.attributes?.id)}
+              className={`border cursor-pointer transition-all hover:bg-gray-100 p-3 bg-white rounded-xl ${
+                active == user?.attributes?.id && `border border-gray-500`
+              }`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-x-3">
+                  <Avatar className="p-0 m-0 border border-gray-600">
+                    <AvatarImage
+                      src={user?.attributes?.receipents[0]?.profile_picture}
+                    />
+                    <AvatarFallback className="font-bold">
+                      {user?.attributes?.receipents[0]?.first_name[0]}
+                      {user?.attributes?.receipents[0]?.last_name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h2 className="font-bold text-xs">
+                      {user?.attributes?.receipents[0]?.first_name}{" "}
+                      {user?.attributes?.receipents[0]?.last_name}
+                    </h2>
+                    <p className="text-xs mt-0 text-gray-600 rounded-lg ">
+                      {user?.attributes?.last_message?.message?.slice(0, 26)}
+                      ....
+                    </p>
                   </div>
                 </div>
+                <div className="space-y-1 text-center">
+                  <p className="text-gray-500 text-sm">
+                    {/* {dateFormaterAndTime(
+                        user?.attributes?.last_message?.created_at
+                      )} */}
+                  </p>
+                  {user?.attributes?.unread_messages === 0 ? null : (
+                    <div className="h-6 w-6 mx-auto text-white rounded-full bg-orange-400 flex items-center justify-center">
+                      <p className="text-xs font-semibold">
+                        {user?.attributes?.unread_messages}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {activeUser ? (

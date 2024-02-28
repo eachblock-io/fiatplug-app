@@ -8,7 +8,10 @@ const chooseAbeneficiary = () => {
       <div className="lg:w-8/12 w-11/12 mx-auto">
         {/* <h1 className="font-bold lg:text-2xl">Account</h1> */}
         <div className="my-8 ">
-            <input className="lg:text-lg text-sm md:pl-[44px] bg-white outline-none border-none w-full shadow-bank-details p-2 lg:p-4 flex gap-x-4 items-center justify-between rounded-[10px]" placeholder="Start typing to filter....." />
+          <input
+            className="lg:text-lg text-sm md:pl-[44px] bg-white outline-none border-none w-full shadow-bank-details p-2 lg:p-4 flex gap-x-4 items-center justify-between rounded-[10px]"
+            placeholder="Start typing to filter....."
+          />
         </div>
 
         <Link href="/dashboard/redeemPages/redeemPoints/">
@@ -19,8 +22,12 @@ const chooseAbeneficiary = () => {
               </div>
 
               <div>
-                <p className="text-sm font-medium text-black">Jams, Ethan Hunt</p>
-                <span className="text-xs font-normal text-[#00000099]">2023434318 | Opay</span>
+                <p className="text-sm font-medium text-black">
+                  Jams, Ethan Hunt
+                </p>
+                <span className="text-xs font-normal text-[#00000099]">
+                  2023434318 | Opay
+                </span>
               </div>
             </div>
           </div>
@@ -34,7 +41,9 @@ const chooseAbeneficiary = () => {
 
             <div>
               <p className="text-sm font-medium text-black">Jams, Ethan Hunt</p>
-              <span className="text-xs font-normal text-[#00000099]">2023434318 | Opay</span>
+              <span className="text-xs font-normal text-[#00000099]">
+                2023434318 | Opay
+              </span>
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ import { Button } from "./ui/button";
 import toast from "react-hot-toast";
 import ChatBoardScreen from "./ChatBoardScreen";
 
-const ChatPage = ({ userData, order }: any) => {
+const ChatPage = ({ userData, chatRoomID }: any) => {
   const [messages, setMessages] = useState<any>([]);
   const [chats, setChats] = useState<any>();
   const [loadingChats, setLoadingChats] = useState<any>(false);
@@ -79,6 +79,8 @@ const ChatPage = ({ userData, order }: any) => {
     }
   };
 
+  console.log(messages);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessageToSend("");
@@ -88,7 +90,7 @@ const ChatPage = ({ userData, order }: any) => {
         `${process.env.NEXT_PUBLIC_API_URL}/chat/send`,
         {
           message: messageToSend,
-          receiver_id: userData?.id,
+          chat_room_id: chatRoomID,
         },
         {
           headers: {
@@ -98,6 +100,7 @@ const ChatPage = ({ userData, order }: any) => {
         }
       );
       setRoomID(data?.data?.attributes?.room_id);
+      console.log(data);
       setMessageToSend("");
     }
   };
