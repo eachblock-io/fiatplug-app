@@ -4,8 +4,10 @@ import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import coinImg from "@/public/coin.png";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import RedeemModal from "./RedeemModal";
 
-const AccountCard = ({ openModal }: any) => {
+const AccountCard = ({ data }: any) => {
+  const [openModal, setOpenModal] = useState(false);
   const [active, setActive] = useState(false);
   const handleToggle = () => {
     setActive(!active);
@@ -37,21 +39,22 @@ const AccountCard = ({ openModal }: any) => {
                 height="20"
                 layout="fixed"
               />{" "}
-              <span>500</span>
+              <span>{data?.points_earned}</span>
             </h1>
             <div className="lg:mt-2 mt-1 items-center">
-              <p> = 30,000 NGN</p>
+              <p> = {data?.naira_equivalent} NGN</p>
             </div>
           </div>
         ) : (
           <p className="font-bold text-xl">*********</p>
         )}
         <Button
-          onClick={() => openModal(true)}
+          onClick={() => setOpenModal(true)}
           className="bg-[#F9A21B] hover:bg-[#f3b456] px-14 lg:h-12 lg:text-md mt-4">
           Redeem points
         </Button>
       </div>
+      <RedeemModal openModal={openModal} setModal={setOpenModal} />
     </div>
   );
 };

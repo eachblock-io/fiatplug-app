@@ -21,7 +21,7 @@ const EnterPin = ({ openModal, setModal, handleSuccessModal }: any) => {
             </div>
             <form action="" className="mt-12">
               <div className="flex items-center justify-center gap-[22px] mb-24">
-                <input type="number" min="0" max="9" step="1" className="w-[37px] p-1 border-b-2 border-solid focus:border-[#F9A21B] border-[#C2C2C2] text-3xl font-normal text-black focus:outline-none" />
+                <input type="number" min="0" max="1" step="1" className="w-[37px] p-1 border-b-2 border-solid focus:border-[#F9A21B] border-[#C2C2C2] text-3xl font-normal text-black focus:outline-none" />
                 <input type="number" maxLength={1 as number} pattern="[0-9]" className="w-[37px] p-1 border-b-2 border-solid focus:border-[#F9A21B] border-[#C2C2C2] text-3xl font-normal text-black focus:outline-none" />
                 <input type="number" className="w-[37px] p-1 border-b-2 border-solid focus:border-[#F9A21B] border-[#C2C2C2] text-3xl font-normal text-black focus:outline-none" />
                 <input type="number" className="w-[37px] p-1 border-b-2 border-solid focus:border-[#F9A21B] border-[#C2C2C2] text-3xl font-normal text-black focus:outline-none" />
