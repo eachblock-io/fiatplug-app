@@ -79,8 +79,6 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
     }
   };
 
-  console.log(messages);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessageToSend("");
@@ -100,7 +98,7 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
         }
       );
       setRoomID(data?.data?.attributes?.room_id);
-      console.log(data);
+      // console.log(data);
       setMessageToSend("");
     }
   };
