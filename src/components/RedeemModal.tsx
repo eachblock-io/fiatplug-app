@@ -6,7 +6,7 @@ const RedeemModal = ({ openModal, setModal }: any) => {
   return (
     <>
       {openModal ? (
-        <div className="flex items-center justify-center absolute top-0 bottom-0 right-0 left-0 h-screen w-full z-10 bg-black bg-opacity-75 lg:py-4 pb-10 lg:px-20 px-6">
+        <div className="flex items-center text-black justify-center absolute top-0 bottom-0 right-0 left-0 h-screen w-full z-10 bg-black bg-opacity-75 lg:py-4 pb-10 lg:px-20 px-6">
           <div className="bg-white lg:w-6/12 w-12/12 rounded-[1rem] relative cursor-pointer ">
             <IoCloseCircleSharp
               onClick={() => setModal(false)}
@@ -20,7 +20,7 @@ const RedeemModal = ({ openModal, setModal }: any) => {
             </div>
             <div className="bg-white pt-8 pb-16 lg:px-14 px-10 rounded-[1rem]">
               <div className="mb-16">
-                <Link href="/dashboard/redeemPages" className="mb-20">
+                <Link href="/dashboard/account/redeem/points" className="mb-20">
                   <h2 className="font-semibold lg:text-xl text-lg">
                     Redeem to Airtime 📲{" "}
                   </h2>
@@ -30,7 +30,7 @@ const RedeemModal = ({ openModal, setModal }: any) => {
                   </p>
                 </Link>
               </div>
-              <Link href="/">
+              <Link href="/dashboard/account/redeem/cash">
                 <h2 className="font-semibold lg:text-xl text-lg">
                   Redeem to Cash 💸
                 </h2>

@@ -27,6 +27,7 @@ const CryptoSellForm = ({ data }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [amount, setAmount] = useState("");
+  const [chatRoomID, setChatRoomID] = useState("");
   const [ngnAmount, setNgnAmount] = useState<any>();
   const [point, setPoint] = useState("");
   const [address, setAddress] = useState(
@@ -117,6 +118,7 @@ const CryptoSellForm = ({ data }: any) => {
 
       const resdata = await res.json();
       setTransID(resdata);
+      setChatRoomID(resdata?.data?.relationships?.chat_room_id);
       if (resdata?.status == "success") {
         setIsLoading(false);
         setIsRedirecting(true);
@@ -124,7 +126,7 @@ const CryptoSellForm = ({ data }: any) => {
         toast.success(resdata?.message);
         setOpenBank(true);
       }
-      // console.log(resdata)
+      console.log(resdata);
     } catch (error) {
       console.log(error);
     } finally {
@@ -143,7 +145,12 @@ const CryptoSellForm = ({ data }: any) => {
         setOpenBank={setOpenBank}
         setOpenChat={setOpenChat}
       />
-      {openChat && <ChatPage userData={data?.data?.relationships?.user} />}
+      {openChat && (
+        <ChatPage
+          chatRoomID={chatRoomID}
+          userData={data?.data?.relationships?.user}
+        />
+      )}
       <div className="lg:w-5/12 w-10/12 mx-auto">
         <h1 className="font-bold lg:text-2xl text-lg mb-6">Sell Crypto</h1>
         <form onSubmit={handleSubmit}>

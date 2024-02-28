@@ -3,16 +3,9 @@ import { useState, useEffect } from "react";
 import { IoNotifications } from "react-icons/io5";
 import { NotificationDropdown } from "./NotificationDropdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "./ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import Pusher from "pusher-js";
 import Notify from "@/lib/utils";
-
-import LogoutModal from "./LogoutModal";
 
 const Header = ({ data }: any) => {
   const [toggle, setToggle] = useState(false);
@@ -100,22 +93,10 @@ const Header = ({ data }: any) => {
           </DropdownMenuItem>
         </DropdownMenuContent> */}
       </DropdownMenu>
-      {/* <h2 className="font-bold lg:block hidden">Hi, {data?.first_name}</h2> */}
-      <div className="profile flex items-center space-x-4">
-        <div className="relative">
-          <IoNotifications
-            className="text-3xl text-gray-600"
-            onClick={handleToggleNotify}
-          />
-          <div className="flex items-center justify-center bg-[#FF1A1A] text-white h-5 w-5 rounded-full absolute top-[-0.4rem] right-[-0.4rem] ">
-            <p className="font-bold text-[0.6rem] ">10</p>
-          </div>
-        </div>
-      </div>
-      <NotificationDropdown
-        handleToggleNotify={handleToggleNotify}
-        toggle={toggle}
-      />
+      <h2 className="font-bold lg:block hidden">
+        Hi, {data?.attributes?.first_name}
+      </h2>
+      <NotificationDropdown />
     </div>
   );
 };
