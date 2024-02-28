@@ -3,10 +3,7 @@ import { useState, useEffect } from "react";
 import { IoNotifications } from "react-icons/io5";
 import { NotificationDropdown } from "./NotificationDropdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import Pusher from "pusher-js";
 import Notify from "@/lib/utils";
 
@@ -99,11 +96,7 @@ const Header = ({ data }: any) => {
       <h2 className="font-bold lg:block hidden">
         Hi, {data?.attributes?.first_name}
       </h2>
-      
-      <NotificationDropdown
-        handleToggleNotify={handleToggleNotify}
-        toggle={toggle}
-      />
+      <NotificationDropdown />
     </div>
   );
 };

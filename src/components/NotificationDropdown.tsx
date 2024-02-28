@@ -8,7 +8,8 @@ import { dateFormaterAndTime } from "@/utils";
 import fetchToken from "@/lib/auth";
 import { IoNotifications } from "react-icons/io5";
 
-export const NotificationDropdown = ({ handleToggleNotify, toggle }: any) => {
+export const NotificationDropdown = () => {
+  const [toggle, setToggle] = useState(false);
   const [notification, setNotification] = useState<any>();
   useEffect(() => {
     getNotification();
@@ -33,17 +34,39 @@ export const NotificationDropdown = ({ handleToggleNotify, toggle }: any) => {
     } catch (error) {}
   };
 
+  const handleReadAll = async () => {
+    setToggle(true);
+    try {
+      const token = await fetchToken();
+      const headers = {
+        Authorization: `Bearer ${token?.data?.token}`,
+        "Content-Type": "application/json",
+      };
+      await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/notification/mark-all-notification-read`,
+        {
+          headers,
+        }
+      );
+      getNotification();
+    } catch (error) {}
+  };
+
   return (
     <div>
       <div className="profile flex items-center space-x-4">
         <div className="relative">
           <IoNotifications
-            className="text-3xl text-gray-600"
-            onClick={handleToggleNotify}
+            className="text-3xl text-gray-600 cursor-pointer"
+            onClick={handleReadAll}
           />
-          <div className="flex items-center justify-center bg-[#FF1A1A] text-white h-5 w-5 rounded-full absolute top-[-0.4rem] right-[-0.4rem] ">
-            <p className="font-bold text-[0.6rem] ">10</p>
-          </div>
+          {notification?.no_of_unread === 0 ? null : (
+            <div className="flex items-center justify-center bg-[#FF1A1A] text-white h-5 w-5 rounded-full absolute top-[-0.4rem] right-[-0.4rem] ">
+              <p className="font-bold text-[0.6rem] ">
+                {notification?.no_of_unread}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -83,7 +106,7 @@ export const NotificationDropdown = ({ handleToggleNotify, toggle }: any) => {
         </div>
         <div className="fixed right-6 top-5 flex items-center justify-center bg-white h-10 w-10 rounded-full">
           <RiCloseLine
-            onClick={handleToggleNotify}
+            onClick={() => setToggle(false)}
             className=" text-2xl cursor-pointer text-red-600 "
           />
         </div>
