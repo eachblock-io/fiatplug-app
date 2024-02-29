@@ -12,6 +12,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { handleOpen } from "@/redux/features/toggleSlice";
 import fetchToken from "@/lib/auth";
 import ClipLoader from "react-spinners/ClipLoader";
+import kycImg from "@/public/kyc.svg";
+import { IoIosArrowForward } from "react-icons/io";
 
 const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
   const dispatch = useAppDispatch();
@@ -89,9 +91,26 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
 
   return (
     <>
+      {/* <KycCard /> */}
+      <Link
+        href="/"
+        className="bg-white lg:w-12/12 mr-auto border shadow-lg lg:px-8 px-6 lg:py-4 flex gap-x-4 items-center justify-between rounded-[2rem] mb-8 ">
+        <div className="flex items-center lg:gap-x-6 gap-x-4">
+          <Image src={kycImg} alt="security" />
+          <p className="lg:text-md text-sm">
+            Complete verification process to continue trade
+          </p>
+        </div>
+        <div>
+          <div className="flex items-center justify-center bg-[#F9A21B] h-8 w-8 rounded-full ">
+            <IoIosArrowForward className="text-white" />
+          </div>
+        </div>
+      </Link>
       <div className="w-full px-4 mx-auto">
         {active ? <CardCarousel cards={data} /> : <CryptoCarousel />}{" "}
       </div>
+
       <section className="w-full lg:mb-20 lg:my-10 mt-6">
         <div className="tabs mb-4 rounded-md border lg:w-11/12 w-full mx-auto grid grid-cols-2 gap-2 p-2 bg-gray-100">
           <button
