@@ -22,7 +22,7 @@ import ChatPage from "./ChatPage";
 
 const CryptoSellForm = ({ data }: any) => {
   const [openBank, setOpenBank] = useState(false);
-  const [openChat, setOpenChat] = useState(false);
+  const [openChat, setOpenChat] = useState(true);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -126,7 +126,7 @@ const CryptoSellForm = ({ data }: any) => {
         toast.success(resdata?.message);
         setOpenBank(true);
       }
-      console.log(resdata);
+      // console.log(resdata);
     } catch (error) {
       console.log(error);
     } finally {

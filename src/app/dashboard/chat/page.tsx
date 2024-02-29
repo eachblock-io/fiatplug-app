@@ -17,6 +17,9 @@ import ClipLoader from "react-spinners/ClipLoader";
 import ChatBoard from "@/components/ChatBoard";
 import toast from "react-hot-toast";
 import { dateFormaterAndTime } from "@/utils";
+import { MdError } from "react-icons/md";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<any>([]);
@@ -26,6 +29,7 @@ const ChatPage = () => {
   const [active, setActive] = useState<any>();
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
+  const [triggerModal, setTriggerModal] = useState<any>([]);
 
   useEffect(() => {
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
@@ -41,6 +45,7 @@ const ChatPage = () => {
         ...prevMessages,
         data?.attributes?.message,
       ]);
+      setTriggerModal((prevMessages: any) => [...prevMessages, data]);
     });
 
     return () => {
@@ -159,6 +164,17 @@ const ChatPage = () => {
       toast.success("Payment confirmed ✅");
     } catch (error) {}
   };
+
+  function getTriggerUserModal(arr: string | any[]) {
+    if (arr.length === 0) {
+      return null; // Return null if the array is empty
+    } else {
+      const lastObject = arr[arr.length - 1]; // Get the last object in the array
+      return lastObject.trigger_user_modal; // Return the value of the trigger_user_modal property
+    }
+  }
+
+  const triggerUserModal = getTriggerUserModal(triggerModal);
 
   return (
     <div className=" lg:pt-0 pt-[4rem] w-full h-[92vh] flex lg:flex-row flex-col">
@@ -281,31 +297,35 @@ const ChatPage = () => {
           <div>
             <>
               <ChatBoard data={messages} />
-              {/* <form
-                onSubmit={handlePaidStatus}
-                className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[8rem] ">
-                <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
-                  <div>
-                    <MdError className="text-3xl text-orange-400" />
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Only input a valid crypto address. Incorrect addresses may
-                    result in irreversible transactions.
-                  </p>
+              {triggerUserModal ? (
+                <div>
+                  <form
+                    onSubmit={handlePaidStatus}
+                    className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[8rem] ">
+                    <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
+                      <div>
+                        <MdError className="g:text-2xl text-lg text-orange-400" />
+                      </div>
+                      <p className="lg:text-sm text-xs text-gray-600">
+                        Only input a valid crypto address. Incorrect addresses
+                        may result in irreversible transactions.
+                      </p>
+                    </div>
+                    <div className="flex space-x-3 mt-6 mb-8">
+                      <Checkbox id="terms" className="lg:h-6 lg:w-6 h-4 w-4" />
+                      <label
+                        htmlFor="terms"
+                        className="g:text-sm text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                        I have recieved the correct amount to my bank. And I
+                        hereby confirm the order as completed.
+                      </label>
+                    </div>
+                    <Button className="bg-orange-400 hover:bg-orange-500 lg:h-14 h-10 font-normal text-white rounded-full text-center px-10">
+                      Confirm order as paid
+                    </Button>
+                  </form>
                 </div>
-                <div className="flex space-x-3 mt-6 mb-8">
-                  <Checkbox id="terms" className="h-6 w-6" />
-                  <label
-                    htmlFor="terms"
-                    className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                    I have recieved the correct amount to my bank. And I hereby
-                    confirm the order as completed.
-                  </label>
-                </div>
-                <Button className="bg-orange-400 hover:bg-orange-500 h-14 font-normal text-white rounded-full text-center w-full">
-                  Confirm order as paid
-                </Button>
-              </form> */}
+              ) : null}
             </>
           </div>
           {/* Type message input */}
