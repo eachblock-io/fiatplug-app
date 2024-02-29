@@ -32,6 +32,7 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
   const [active, setActive] = useState<any>();
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
+  const [triggerModal, setTriggerModal] = useState<any>([]);
 
   useEffect(() => {
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
@@ -47,6 +48,7 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
         ...prevMessages,
         data?.attributes?.message,
       ]);
+      setTriggerModal((prevMessages: any) => [...prevMessages, data]);
     });
 
     return () => {
@@ -112,7 +114,6 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
 
   const handlePaidStatus = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Paddy!!!!");
 
     try {
       const token = await fetchToken();
@@ -131,6 +132,17 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
       toast.success("Payment confirmed ✅");
     } catch (error) {}
   };
+
+  function getTriggerUserModal(arr: string | any[]) {
+    if (arr.length === 0) {
+      return null; // Return null if the array is empty
+    } else {
+      const lastObject = arr[arr.length - 1]; // Get the last object in the array
+      return lastObject.trigger_user_modal; // Return the value of the trigger_user_modal property
+    }
+  }
+
+  const triggerUserModal = getTriggerUserModal(triggerModal);
 
   return (
     <div className="h-[88vh] lg:h-[90vh] absolute bottom-0 top-0 right-0 left-0 w-full z-10 bg-white overflow-hidden">
@@ -160,6 +172,35 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
         </div>
         <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pb-20 pt-20  pr-10 pl-10 bg-gray-100">
           <ChatBoardScreen data={messages} />
+          {triggerUserModal ? (
+            <div>
+              <form
+                onSubmit={handlePaidStatus}
+                className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[8rem] ">
+                <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
+                  <div>
+                    <MdError className="g:text-2xl text-lg text-orange-400" />
+                  </div>
+                  <p className="lg:text-sm text-xs text-gray-600">
+                    Only input a valid crypto address. Incorrect addresses may
+                    result in irreversible transactions.
+                  </p>
+                </div>
+                <div className="flex space-x-3 mt-6 mb-8">
+                  <Checkbox id="terms" className="lg:h-6 lg:w-6 h-4 w-4" />
+                  <label
+                    htmlFor="terms"
+                    className="g:text-sm text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    I have recieved the correct amount to my bank. And I hereby
+                    confirm the order as completed.
+                  </label>
+                </div>
+                <Button className="bg-orange-400 hover:bg-orange-500 lg:h-14 h-10 font-normal text-white rounded-full text-center px-10">
+                  Confirm order as paid
+                </Button>
+              </form>
+            </div>
+          ) : null}
         </ScrollArea>
         {/* Type message input */}
         <div className="inputs h-[12vh] px-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
