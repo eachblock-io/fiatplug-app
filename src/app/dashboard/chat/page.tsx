@@ -20,6 +20,8 @@ import { dateFormaterAndTime } from "@/utils";
 import { MdError } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import ChatBoardScreen from "@/components/ChatBoardScreen";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState<any>([]);
@@ -30,6 +32,7 @@ const ChatPage = () => {
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
   const [triggerModal, setTriggerModal] = useState<any>([]);
+  const [chatRoomID, setChatRoomID] = useState("");
 
   useEffect(() => {
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
@@ -111,6 +114,7 @@ const ChatPage = () => {
     setActiveUser(data?.data?.attributes?.receipents[0]);
     setMessages(data?.data.attributes?.messages);
     updateReadMessages(roomID);
+    setChatRoomID(roomID);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -122,7 +126,7 @@ const ChatPage = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/chat/send`,
         {
           message: messageToSend,
-          receiver_id: activeUser?.id,
+          chat_room_id: chatRoomID,
         },
         {
           headers: {
@@ -180,44 +184,37 @@ const ChatPage = () => {
     <div className=" lg:pt-0 pt-[4rem] w-full h-[92vh] flex lg:flex-row flex-col">
       {/* Mobile view */}
       <div className="w-full lg:hidden border bg-gray-100 px-14 h-[10vh] flex items-center justify-center ">
-        {loadingChats ? (
-          <div className="text-center">
-            <ClipLoader size={20} color="#000" />
-            <p> Loading chats...</p>
-          </div>
-        ) : (
-          <Carousel
-            className="w-full"
-            opts={{
-              align: "start",
-              loop: true,
-            }}>
-            <CarouselContent className="-ml-1">
-              {chats?.map((user: any) => (
-                <CarouselItem
-                  key={user?.id}
-                  onClick={() => fetchActiveMessages(user?.attributes?.id)}
-                  className="pl-2 basis-1/1 md:basis-1/2 lg:basis-1/3">
-                  <div className="border transition-all hover:bg-gray-100 p-2 bg-white rounded-full">
-                    <div className="flex items-center lg:gap-4 gap-2">
-                      <Avatar className="p-0 m-0 border border-gray-600">
-                        <AvatarImage
-                          src={user?.attributes?.receipents[0]?.profile_picture}
-                        />
-                        <AvatarFallback className="font-bold">
-                          {user?.attributes?.receipents[0]?.first_name[0]}
-                          {user?.attributes?.receipents[0]?.last_name[0]}
-                        </AvatarFallback>
-                      </Avatar>
-                    </div>
+        <Carousel
+          className="w-full"
+          opts={{
+            align: "start",
+            loop: true,
+          }}>
+          <CarouselContent className="-ml-1">
+            {chats?.map((user: any) => (
+              <CarouselItem
+                key={user?.id}
+                onClick={() => fetchActiveMessages(user?.attributes?.id)}
+                className="pl-2 basis-1/1 md:basis-1/2 lg:basis-1/3">
+                <div className="border transition-all hover:bg-gray-100 p-2 bg-white rounded-full">
+                  <div className="flex items-center lg:gap-4 gap-2">
+                    <Avatar className="p-0 m-0 border border-gray-600">
+                      <AvatarImage
+                        src={user?.attributes?.receipents[0]?.profile_picture}
+                      />
+                      <AvatarFallback className="font-bold">
+                        {user?.attributes?.receipents[0]?.first_name[0]}
+                        {user?.attributes?.receipents[0]?.last_name[0]}
+                      </AvatarFallback>
+                    </Avatar>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        )}
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
       {/* Desktop sidenav */}
       <div className="messages drop-shadow-lg w-[30vw] lg:block hidden border bg-gray-100 px-4 ">
@@ -295,8 +292,8 @@ const ChatPage = () => {
             </div>
           </div>
           <div>
-            <>
-              <ChatBoard data={messages} />
+            <ScrollArea className="lg:h-[75vh] h-[70vh] lg:pb-0 pt-16 pr-10 pl-10 pb-28">
+              <ChatBoardScreen data={messages} />
               {triggerUserModal ? (
                 <div>
                   <form
@@ -326,10 +323,10 @@ const ChatPage = () => {
                   </form>
                 </div>
               ) : null}
-            </>
+            </ScrollArea>
           </div>
           {/* Type message input */}
-          <div className="inputs h-[12vh] px-4 pb-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
+          <div className="inputs h-[12vh] px-4 pb-2 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
             <form
               onClick={handleSubmit}
               className="input flex items-center lg:w-10/12 w-full bg-gray-200 rounded-full">
@@ -338,7 +335,7 @@ const ChatPage = () => {
                 value={messageToSend}
                 onChange={(e) => setMessageToSend(e.target.value)}
                 placeholder="Type a message here..."
-                className="w-full px-8 bg-gray-200 rounded-full "
+                className="w-full px-8 bg-gray-200 rounded-full py-4 "
                 onKeyDown={handleKeyPress}
               />
               <div className="">
