@@ -21,7 +21,7 @@ const ChatBoard = ({ data }: any) => {
   }, []);
 
   return (
-    <ScrollArea className="lg:h-[75vh] h-[70vh] lg:pb-0 pt-16 pr-10 pl-10">
+    <>
       {data?.map((message: any, i: any) => {
         const currentUser = message?.user?.id == user?.id;
         return (
@@ -50,7 +50,7 @@ const ChatBoard = ({ data }: any) => {
         );
       })}
       <div ref={divRef}></div>
-    </ScrollArea>
+    </>
   );
 };
 
