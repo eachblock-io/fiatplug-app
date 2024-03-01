@@ -85,7 +85,7 @@ const SettingsForm = ({ user }: any) => {
         />
 
         <div className="">
-          <Button className="w-full bg-[#F9A21B] hover:bg-[#F9A21B] text-lg font-demibold rounded-full p-8 mt-10">
+          <Button className="w-full bg-[#F9A21B] hover:bg-[#F9A21B] text-lg font-demibold rounded-full p-6 mt-10">
             Save
           </Button>
         </div>
