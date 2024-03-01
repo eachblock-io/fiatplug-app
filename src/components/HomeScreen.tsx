@@ -14,6 +14,7 @@ import fetchToken from "@/lib/auth";
 import ClipLoader from "react-spinners/ClipLoader";
 import kycImg from "@/public/kyc.svg";
 import { IoIosArrowForward } from "react-icons/io";
+import { CurrencyCarousel } from "./ui/CurrencyCarousel";
 
 const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
   const dispatch = useAppDispatch();
@@ -98,7 +99,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
       {/* <KycCard /> */}
       <Link
         href="/"
-        className="bg-white lg:w-12/12 w-10/12 mx-auto border shadow-lg lg:px-8 px-6 py-3 mt-4 lg:py-4 flex gap-x-4 items-center justify-between rounded-[2rem] mb-4 ">
+        className="bg-white lg:w-12/12 w-12/12 mx-auto border lg:px-8 px-6 py-3 mt-4 lg:py-4 flex gap-x-4 items-center justify-between rounded-[2rem] mb-4 ">
         <div className="flex items-center lg:gap-x-6 gap-x-4">
           <Image src={kycImg} alt="security" className="w-5" />
           <p className="lg:text-md text-xs">
@@ -225,7 +226,12 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                 <div>
                   {/* Buy Currencies list */}
                   <div className="flex items-center lg:space-x-10 space-x-4">
-                    {buyOffers?.currencies?.map((data: any) => (
+                    <CurrencyCarousel
+                      data={buyOffers?.currencies}
+                      onClick={handleFetchBuyOffers}
+                      activeCurr={activeCurr}
+                    />
+                    {/* {buyOffers?.currencies?.map((data: any) => (
                       <button
                         key={data?.id}
                         onClick={() => handleFetchBuyOffers(data?.id)}
@@ -235,7 +241,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                         }`}>
                         {data?.attributes?.symbol}
                       </button>
-                    ))}
+                    ))} */}
                   </div>
                   <h1 className="font-semibold lg:text-2xl text-lg mb-4 mt-7 lg:mt-10">
                     Available offers
@@ -274,7 +280,12 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                 <div>
                   {/*  Sell Currency */}
                   <div className="flex items-center lg:space-x-10 space-x-4 mb-4">
-                    {sellOffers?.currencies?.map((data: any) => (
+                    <CurrencyCarousel
+                      data={buyOffers?.currencies}
+                      onClick={handleFetchBuyOffers}
+                      activeCurr={activeCurr}
+                    />
+                    {/* {sellOffers?.currencies?.map((data: any) => (
                       <button
                         key={data?.id}
                         onClick={() => handleFetchSellOffers(data?.id)}
@@ -284,7 +295,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                         }`}>
                         {data?.attributes?.symbol}
                       </button>
-                    ))}
+                    ))} */}
                   </div>
                   <h1 className="font-bold lg:text-2xl text-lg mb-4 mt-10">
                     Available offers

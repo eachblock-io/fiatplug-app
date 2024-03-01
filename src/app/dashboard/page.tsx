@@ -70,7 +70,7 @@ export default async function AccountPage() {
   ]);
 
   return (
-    <section className="lg:pt-10 pt-[6rem] pb-40 lg:pb-20 overflow-hidden">
+    <section className="lg:pt-10 pt-[5rem] pb-40 lg:pb-20 overflow-hidden">
       <MaxWidth>
         <HomeScreen
           data={giftcards}
