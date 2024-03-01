@@ -33,24 +33,24 @@ export function CardCarousel({ cards }: any) {
               className="pl-4 md:basis-1/2 lg:basis-1/3">
               <Link
                 href={`/dashboard/giftcard/${data?.id}`}
-                className="rounded-2xl">
-                <div className="p-1">
-                  <Card className="lg:h-48 h-40 relative rounded-2xl w-full flex aspect-square items-center justify-center lg:p-6">
-                    <Image
-                      src={data?.attributes?.image}
-                      alt={data?.attributes?.title}
-                      priority
-                      fill
-                      className="rounded-2xl"
-                    />
-                  </Card>
+                className="rounded-2xl lg:py-6">
+                <div className="lg:h-48 h-40 shadow relative rounded-2xl w-full flex aspect-square items-center justify-center overflow-hidden p-2">
+                  <Image
+                    src={data?.attributes?.image}
+                    alt={data?.attributes?.title}
+                    priority
+                    objectFit="fill"
+                    height={300}
+                    width={400}
+                    className="rounded-2xl w-full"
+                  />
                 </div>
               </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        {/* <CarouselPrevious className="lg:hidden" />
+        <CarouselNext /> */}
       </Carousel>
     </section>
   );

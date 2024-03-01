@@ -24,8 +24,8 @@ const SettingsPage = async () => {
   const userPromise = getUser();
   const [user] = await Promise.all([userPromise]);
   return (
-    <section className=" lg:w-11/12 w-11/12 mx-auto mt-6">
-      <h1 className="font-bold text-2xl">Settings Profile</h1>
+    <section className=" lg:w-11/12 w-10/12 mx-auto mt-20">
+      <h1 className="font-bold lg:text-2xl text-lg pt-6">Settings Profile</h1>
       <SettingsForm user={user} />
     </section>
   );

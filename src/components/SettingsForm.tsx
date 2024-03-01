@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 const SettingsForm = ({ user }: any) => {
   const [previewSrc, setPreviewSrc] = useState("");
   const [fullName, setFullName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -28,13 +28,14 @@ const SettingsForm = ({ user }: any) => {
       setPreviewSrc("");
     }
   };
+
   return (
     <div>
-      <div className="flex items-center justify-center mt-10 ">
-        <div className="lg:w-24 lg:h-24 w-14 h-14 relative">
-          <Avatar className="p-0 m-0 lg:w-24 lg:h-24 w-14 h-14 border border-gray-600">
+      <div className="flex items-center justify-center mt-14 ">
+        <div className="lg:w-24 lg:h-24 w-20 h-20 relative">
+          <Avatar className="p-0 m-0 lg:w-24 lg:h-24 w-20 h-20 border border-gray-600">
             <AvatarImage
-              className="w-80"
+              className="w-100"
               src={previewSrc ? previewSrc : user?.attributes?.profile_picture}
             />
             <AvatarFallback className="font-bold lg:text-2xl">
@@ -57,11 +58,11 @@ const SettingsForm = ({ user }: any) => {
         </div>
       </div>
       <p className="text-center mt-2">Edit Profile</p>
-      <form className="mt-8 space-y-6 mx-auto w-6/12">
+      <form className="mt-8 space-y-6 mx-auto w-full">
         <Input
           type="text"
           required
-          value={fullName}
+          value={fullName ? fullName : user?.attributes?.first_name}
           placeholder="Full Name"
           className="w-full h-14 px-6 border border-gray-500"
           onChange={(e) => setFullName(e.target.value)}
@@ -69,15 +70,15 @@ const SettingsForm = ({ user }: any) => {
         <Input
           type="text"
           required
-          value={userName}
-          placeholder="Username"
+          value={lastName ? lastName : user?.attributes?.last_name}
+          placeholder="Last name"
           className="w-full h-14 px-6 border border-gray-500"
-          onChange={(e) => setUserName(e.target.value)}
+          onChange={(e) => setLastName(e.target.value)}
         />
         <Input
           type="email"
           required
-          value={email}
+          value={email ? email : user?.attributes?.email}
           placeholder="Email Address"
           className="w-full h-14 px-6 border border-gray-500"
           onChange={(e) => setEmail(e.target.value)}

@@ -42,7 +42,7 @@ const OrderWrapper = ({ data }: any) => {
           {displayCount < data.length ? (
             <button
               onClick={handleShowMore}
-              className="mt-4 px-4 py-2 bg-orange-100 rounded hover:bg-orange-300">
+              className="mt-4 px-4 py-2 text-sm bg-orange-100 rounded hover:bg-orange-300">
               Show More
             </button>
           ) : (
@@ -58,7 +58,7 @@ const OrderWrapper = ({ data }: any) => {
       {selectedOrder && (
         <div
           onClick={closeModal}
-          className="absolute top-0 right-0 left-0 w-full h-screen z-10 bg-white lg:py-4 pt-10 px-10 ">
+          className="absolute top-0 right-0 left-0 w-full h-screen z-10 bg-white lg:py-4 pt-20 ">
           <Button
             onClick={() => closeModal}
             variant="ghost"
@@ -67,357 +67,364 @@ const OrderWrapper = ({ data }: any) => {
           </Button>
           <div className="orders-section lg:mt-6 mt-6 lg:w-8/12 w-12/12 ">
             <OrderCard data={selectedOrder} />
-            {selectedOrder?.is_crypto === false ? (
-              <div className="steps mt-10 relative ml-14">
-                {/* Slide 1 */}
-                <div
-                  className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                    selectedOrder?.other_details?.card_received
-                      ? `border-orange-400`
-                      : ``
-                  }`}></div>
-                <div
-                  className={`flex items-center ${
-                    selectedOrder?.other_details?.card_received
-                      ? `text-orange-400`
-                      : `text-gray-400`
-                  } `}>
-                  <p className="absolute left-[-4rem] ">
-                    {selectedOrder?.other_details?.card_received_at
-                      ? selectedOrder?.other_details?.card_received_at
-                      : `00:00`}
-                  </p>
-                  <IoIosCheckmarkCircle
-                    className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+            <div className="px-10">
+              {selectedOrder?.is_crypto === false ? (
+                <div className="steps mt-10 relative ml-14">
+                  {/* Slide 1 */}
+                  <div
+                    className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                      selectedOrder?.other_details?.card_received
+                        ? `border-orange-400`
+                        : ``
+                    }`}></div>
+                  <div
+                    className={`flex items-center ${
                       selectedOrder?.other_details?.card_received
                         ? `text-orange-400`
-                        : ``
-                    } `}
-                  />
-                  {selectedOrder?.other_details?.card_received ? (
-                    <p className="ml-8 font-medium lg:text-sm text-xs">
-                      Your card has been verified
+                        : `text-gray-400`
+                    } `}>
+                    <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                      {selectedOrder?.other_details?.card_received_at
+                        ? selectedOrder?.other_details?.card_received_at
+                        : `00:00`}
                     </p>
-                  ) : (
-                    <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                      Your card has been verified
-                    </p>
-                  )}
-                </div>
+                    <IoIosCheckmarkCircle
+                      className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                        selectedOrder?.other_details?.card_received
+                          ? `text-orange-400`
+                          : ``
+                      } `}
+                    />
+                    {selectedOrder?.other_details?.card_received ? (
+                      <p className="ml-8 font-medium lg:text-sm text-xs">
+                        Your card has been verified
+                      </p>
+                    ) : (
+                      <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                        Your card has been verified
+                      </p>
+                    )}
+                  </div>
 
-                {/* Slide 2 */}
-                <div
-                  className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                    selectedOrder?.other_details?.card_verified
-                      ? `border-orange-400`
-                      : ``
-                  }`}></div>
-                <div
-                  className={`flex items-center ${
-                    selectedOrder?.other_details?.card_verified
-                      ? `text-orange-400`
-                      : `text-gray-400`
-                  } `}>
-                  <p className="absolute left-[-4rem] ">
-                    {selectedOrder?.other_details?.card_verified_at
-                      ? selectedOrder?.other_details?.card_verified_at
-                      : `00:00`}
-                  </p>
-                  <IoIosCheckmarkCircle
-                    className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                  {/* Slide 2 */}
+                  <div
+                    className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                      selectedOrder?.other_details?.card_verified
+                        ? `border-orange-400`
+                        : ``
+                    }`}></div>
+                  <div
+                    className={`flex items-center ${
                       selectedOrder?.other_details?.card_verified
                         ? `text-orange-400`
-                        : ``
-                    } `}
-                  />
-                  {selectedOrder?.other_details?.card_verified ? (
-                    <p className="ml-8 font-medium lg:text-sm text-xs">
-                      Your card has been verified
+                        : `text-gray-400`
+                    } `}>
+                    <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                      {selectedOrder?.other_details?.card_verified_at
+                        ? selectedOrder?.other_details?.card_verified_at
+                        : `00:00`}
                     </p>
-                  ) : (
-                    <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                      Your card has been verified
-                    </p>
-                  )}
-                </div>
+                    <IoIosCheckmarkCircle
+                      className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                        selectedOrder?.other_details?.card_verified
+                          ? `text-orange-400`
+                          : ``
+                      } `}
+                    />
+                    {selectedOrder?.other_details?.card_verified ? (
+                      <p className="ml-8 font-medium lg:text-sm text-xs">
+                        Your card has been verified
+                      </p>
+                    ) : (
+                      <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                        Your card has been verified
+                      </p>
+                    )}
+                  </div>
 
-                {/* Slide 3 */}
-                <div
-                  className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                    selectedOrder?.other_details?.payment_received
-                      ? `border-orange-400`
-                      : ``
-                  }`}></div>
-                <div
-                  className={`flex items-center ${
-                    selectedOrder?.other_details?.payment_received
-                      ? `text-orange-400`
-                      : `text-gray-400`
-                  } `}>
-                  <p className="absolute left-[-4rem] ">
-                    {selectedOrder?.other_details?.payment_received_at
-                      ? selectedOrder?.other_details?.payment_received_at
-                      : `00:00`}
-                  </p>
-                  <IoIosCheckmarkCircle
-                    className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                  {/* Slide 3 */}
+                  <div
+                    className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                      selectedOrder?.other_details?.payment_received
+                        ? `border-orange-400`
+                        : ``
+                    }`}></div>
+                  <div
+                    className={`flex items-center ${
                       selectedOrder?.other_details?.payment_received
                         ? `text-orange-400`
-                        : ``
-                    } `}
-                  />
-                  {selectedOrder?.other_details?.payment_received ? (
-                    <p className="ml-8 font-medium lg:text-sm text-xs">
-                      Your payment has been received
+                        : `text-gray-400`
+                    } `}>
+                    <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                      {selectedOrder?.other_details?.payment_received_at
+                        ? selectedOrder?.other_details?.payment_received_at
+                        : `00:00`}
                     </p>
-                  ) : (
-                    <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                      Your payment has been received
-                    </p>
-                  )}
-                </div>
+                    <IoIosCheckmarkCircle
+                      className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                        selectedOrder?.other_details?.payment_received
+                          ? `text-orange-400`
+                          : ``
+                      } `}
+                    />
+                    {selectedOrder?.other_details?.payment_received ? (
+                      <p className="ml-8 font-medium lg:text-sm text-xs">
+                        Your payment has been received
+                      </p>
+                    ) : (
+                      <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                        Your payment has been received
+                      </p>
+                    )}
+                  </div>
 
-                {/* Slide 4 */}
-                <div
-                  className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                    selectedOrder?.other_details?.payment_received
-                      ? `border-orange-400`
-                      : ``
-                  }`}></div>
-                <div
-                  className={`flex items-center ${
-                    selectedOrder?.other_details?.payment_sent
-                      ? `text-orange-400`
-                      : `text-gray-400`
-                  } `}>
-                  <p className="absolute left-[-4rem] ">
-                    {selectedOrder?.other_details?.payment_sent_at
-                      ? selectedOrder?.other_details?.payment_sent_at
-                      : `00:00`}
-                  </p>
-                  <IoIosCheckmarkCircle
-                    className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                  {/* Slide 4 */}
+                  <div
+                    className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                      selectedOrder?.other_details?.payment_received
+                        ? `border-orange-400`
+                        : ``
+                    }`}></div>
+                  <div
+                    className={`flex items-center ${
                       selectedOrder?.other_details?.payment_sent
                         ? `text-orange-400`
-                        : ``
-                    } `}
-                  />
-                  {selectedOrder?.other_details?.payment_sent ? (
-                    <p className="ml-8 font-medium lg:text-sm text-xs">
-                      Your payment has been sent
+                        : `text-gray-400`
+                    } `}>
+                    <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                      {selectedOrder?.other_details?.payment_sent_at
+                        ? selectedOrder?.other_details?.payment_sent_at
+                        : `00:00`}
                     </p>
-                  ) : (
-                    <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                      Your payment has been sent
-                    </p>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <>
-                {selectedOrder?.other_details?.type === "sell" && (
-                  <div className="steps relative ml-14">
-                    {/* Slide 1 */}
-                    <div
-                      className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                        selectedOrder?.other_details?.payment_recieved_in_wallet
-                          ? `border-orange-400`
-                          : ``
-                      }`}></div>
-                    <div
-                      className={`flex items-center ${
-                        selectedOrder?.other_details?.payment_recieved_in_wallet
+                    <IoIosCheckmarkCircle
+                      className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                        selectedOrder?.other_details?.payment_sent
                           ? `text-orange-400`
-                          : `text-gray-400`
-                      } `}>
-                      <p className="absolute left-[-4rem] ">
-                        {selectedOrder?.other_details
-                          ?.payment_recieved_in_wallet_at
-                          ? selectedOrder?.other_details
-                              ?.payment_recieved_in_wallet_at
-                          : `00:00`}
+                          : ``
+                      } `}
+                    />
+                    {selectedOrder?.other_details?.payment_sent ? (
+                      <p className="ml-8 font-medium lg:text-sm text-xs">
+                        Your payment has been sent
                       </p>
-                      <IoIosCheckmarkCircle
-                        className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                    ) : (
+                      <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                        Your payment has been sent
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {selectedOrder?.other_details?.type === "sell" && (
+                    <div className="steps relative ml-14">
+                      {/* Slide 1 */}
+                      <div
+                        className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                          selectedOrder?.other_details
+                            ?.payment_recieved_in_wallet
+                            ? `border-orange-400`
+                            : ``
+                        }`}></div>
+                      <div
+                        className={`flex items-center ${
                           selectedOrder?.other_details
                             ?.payment_recieved_in_wallet
                             ? `text-orange-400`
-                            : ``
-                        } `}
-                      />
-                      {selectedOrder?.other_details
-                        ?.payment_recieved_in_wallet ? (
-                        <p className="ml-8 font-medium lg:text-sm text-xs">
-                          Your crypto payment has been recieved
+                            : `text-gray-400`
+                        } `}>
+                        <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                          {selectedOrder?.other_details
+                            ?.payment_recieved_in_wallet_at
+                            ? selectedOrder?.other_details
+                                ?.payment_recieved_in_wallet_at
+                            : `00:00`}
                         </p>
-                      ) : (
-                        <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                          Your crypto payment has been recieved
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Slide 2 */}
-                    <div
-                      className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                        selectedOrder?.other_details?.payment_sent_to_user_bank
-                          ? `border-orange-400`
-                          : ``
-                      }`}></div>
-                    <div
-                      className={`flex items-center ${
-                        selectedOrder?.other_details?.payment_sent_to_user_bank
-                          ? `text-orange-400`
-                          : `text-gray-400`
-                      } `}>
-                      <p className="absolute left-[-4rem] ">
+                        <IoIosCheckmarkCircle
+                          className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                            selectedOrder?.other_details
+                              ?.payment_recieved_in_wallet
+                              ? `text-orange-400`
+                              : ``
+                          } `}
+                        />
                         {selectedOrder?.other_details
-                          ?.payment_sent_to_user_bank_at
-                          ? selectedOrder?.other_details
-                              ?.payment_sent_to_user_bank_at
-                          : `00:00`}
-                      </p>
-                      <IoIosCheckmarkCircle
-                        className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                          ?.payment_recieved_in_wallet ? (
+                          <p className="ml-8 font-medium lg:text-sm text-xs">
+                            Your crypto payment has been recieved
+                          </p>
+                        ) : (
+                          <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                            Your crypto payment has been recieved
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Slide 2 */}
+                      <div
+                        className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                          selectedOrder?.other_details
+                            ?.payment_sent_to_user_bank
+                            ? `border-orange-400`
+                            : ``
+                        }`}></div>
+                      <div
+                        className={`flex items-center ${
                           selectedOrder?.other_details
                             ?.payment_sent_to_user_bank
                             ? `text-orange-400`
-                            : ``
-                        } `}
-                      />
-                      {selectedOrder?.other_details
-                        ?.payment_sent_to_user_bank ? (
-                        <p className="ml-8 font-medium lg:text-sm text-xs">
-                          Your payment has been sent to your bank
+                            : `text-gray-400`
+                        } `}>
+                        <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                          {selectedOrder?.other_details
+                            ?.payment_sent_to_user_bank_at
+                            ? selectedOrder?.other_details
+                                ?.payment_sent_to_user_bank_at
+                            : `00:00`}
                         </p>
-                      ) : (
-                        <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                          Your payment has been sent to your bank
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Slide 3 */}
-                    <div
-                      className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                        selectedOrder?.other_details?.payment_recieved_by_user
-                          ? `border-orange-400`
-                          : ``
-                      }`}></div>
-                    <div
-                      className={`flex items-center ${
-                        selectedOrder?.other_details?.payment_recieved_by_user
-                          ? `text-orange-400`
-                          : `text-gray-400`
-                      } `}>
-                      <p className="absolute left-[-4rem] ">
+                        <IoIosCheckmarkCircle
+                          className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                            selectedOrder?.other_details
+                              ?.payment_sent_to_user_bank
+                              ? `text-orange-400`
+                              : ``
+                          } `}
+                        />
                         {selectedOrder?.other_details
-                          ?.payment_recieved_by_user_at
-                          ? selectedOrder?.other_details
-                              ?.payment_recieved_by_user_at
-                          : `00:00`}
-                      </p>
-                      <IoIosCheckmarkCircle
-                        className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                          ?.payment_sent_to_user_bank ? (
+                          <p className="ml-8 font-medium lg:text-sm text-xs">
+                            Your payment has been sent to your bank
+                          </p>
+                        ) : (
+                          <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                            Your payment has been sent to your bank
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Slide 3 */}
+                      <div
+                        className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                          selectedOrder?.other_details?.payment_recieved_by_user
+                            ? `border-orange-400`
+                            : ``
+                        }`}></div>
+                      <div
+                        className={`flex items-center ${
                           selectedOrder?.other_details?.payment_recieved_by_user
                             ? `text-orange-400`
-                            : ``
-                        } `}
-                      />
-                      {selectedOrder?.other_details
-                        ?.payment_recieved_by_user ? (
-                        <p className="ml-8 font-medium lg:text-sm text-xs">
-                          You have recieved payment
+                            : `text-gray-400`
+                        } `}>
+                        <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                          {selectedOrder?.other_details
+                            ?.payment_recieved_by_user_at
+                            ? selectedOrder?.other_details
+                                ?.payment_recieved_by_user_at
+                            : `00:00`}
                         </p>
-                      ) : (
-                        <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                          You have recieved payment
-                        </p>
-                      )}
+                        <IoIosCheckmarkCircle
+                          className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                            selectedOrder?.other_details
+                              ?.payment_recieved_by_user
+                              ? `text-orange-400`
+                              : ``
+                          } `}
+                        />
+                        {selectedOrder?.other_details
+                          ?.payment_recieved_by_user ? (
+                          <p className="ml-8 font-medium lg:text-sm text-xs">
+                            You have recieved payment
+                          </p>
+                        ) : (
+                          <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                            You have recieved payment
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Buy order status */}
+                  {/* Buy order status */}
 
-                {selectedOrder?.other_details?.type === "buy" && (
-                  <div className="steps relative ml-14">
-                    {/* Slide 1 */}
-                    <div
-                      className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                        selectedOrder?.other_details?.confirm_received
-                          ? `border-orange-400`
-                          : ``
-                      }`}></div>
-                    <div
-                      className={`flex items-center ${
-                        selectedOrder?.other_details?.confirm_received
-                          ? `text-orange-400`
-                          : `text-gray-400`
-                      } `}>
-                      <p className="absolute left-[-4rem] ">
-                        {selectedOrder?.other_details?.confirm_received_at
-                          ? selectedOrder?.other_details?.confirm_received_at
-                          : `00:00`}
-                      </p>
-                      <IoIosCheckmarkCircle
-                        className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                  {selectedOrder?.other_details?.type === "buy" && (
+                    <div className="steps relative ml-14 ">
+                      {/* Slide 1 */}
+                      <div
+                        className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                          selectedOrder?.other_details?.confirm_received
+                            ? `border-orange-400`
+                            : ``
+                        }`}></div>
+                      <div
+                        className={`flex items-center ${
                           selectedOrder?.other_details?.confirm_received
                             ? `text-orange-400`
-                            : ``
-                        } `}
-                      />
-                      {selectedOrder?.other_details?.confirm_received ? (
-                        <p className="ml-8 font-medium lg:text-sm text-xs">
-                          Your payment has been recieved
+                            : `text-gray-400`
+                        } `}>
+                        <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                          {selectedOrder?.other_details?.confirm_received_at
+                            ? selectedOrder?.other_details?.confirm_received_at
+                            : `00:00`}
                         </p>
-                      ) : (
-                        <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                          Your payment has been recieved
-                        </p>
-                      )}
-                    </div>
+                        <IoIosCheckmarkCircle
+                          className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                            selectedOrder?.other_details?.confirm_received
+                              ? `text-orange-400`
+                              : ``
+                          } `}
+                        />
+                        {selectedOrder?.other_details?.confirm_received ? (
+                          <p className="ml-8 font-medium lg:text-sm text-xs">
+                            Your payment has been recieved
+                          </p>
+                        ) : (
+                          <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                            Your payment has been recieved
+                          </p>
+                        )}
+                      </div>
 
-                    {/* Slide 2 */}
-                    <div
-                      className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
-                        selectedOrder?.other_details?.user_wallet_credited
-                          ? `border-orange-400`
-                          : ``
-                      }`}></div>
-                    <div
-                      className={`flex items-center ${
-                        selectedOrder?.other_details?.user_wallet_credited
-                          ? `text-orange-400`
-                          : `text-gray-400`
-                      } `}>
-                      <p className="absolute left-[-4rem] ">
-                        {selectedOrder?.other_details?.user_wallet_credited_at
-                          ? selectedOrder?.other_details
-                              ?.user_wallet_credited_at
-                          : `00:00`}
-                      </p>
-                      <IoIosCheckmarkCircle
-                        className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                      {/* Slide 2 */}
+                      <div
+                        className={`line lg:border-l-8 border-l-[0.4rem] border-gray-400 lg:h-20 h-[4rem] mb-1 mt-1 ${
+                          selectedOrder?.other_details?.user_wallet_credited
+                            ? `border-orange-400`
+                            : ``
+                        }`}></div>
+                      <div
+                        className={`flex items-center ${
                           selectedOrder?.other_details?.user_wallet_credited
                             ? `text-orange-400`
-                            : ``
-                        } `}
-                      />
-                      {selectedOrder?.other_details?.user_wallet_credited ? (
-                        <p className="ml-8 font-medium lg:text-sm text-xs">
-                          Your wallet has been credited
+                            : `text-gray-400`
+                        } `}>
+                        <p className="absolute lg:text-sm text-xs left-[-4rem] ">
+                          {selectedOrder?.other_details?.user_wallet_credited_at
+                            ? selectedOrder?.other_details
+                                ?.user_wallet_credited_at
+                            : `00:00`}
                         </p>
-                      ) : (
-                        <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
-                          Your wallet has been credited
-                        </p>
-                      )}
+                        <IoIosCheckmarkCircle
+                          className={`lg:text-3xl text-2xl text-gray-400 absolute lg:left-[-0.7rem] left-[-0.5rem] ${
+                            selectedOrder?.other_details?.user_wallet_credited
+                              ? `text-orange-400`
+                              : ``
+                          } `}
+                        />
+                        {selectedOrder?.other_details?.user_wallet_credited ? (
+                          <p className="ml-8 font-medium lg:text-sm text-xs">
+                            Your wallet has been credited
+                          </p>
+                        ) : (
+                          <p className="ml-8 font-medium text-gray-400 lg:text-sm text-xs">
+                            Your wallet has been credited
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </>
-            )}
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}
