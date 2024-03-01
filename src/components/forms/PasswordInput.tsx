@@ -47,13 +47,8 @@ const PasswordInput: React.FC<InputFieldProps> = ({
   };
 
   return (
-    <div className="mb-4">
-      <div className="flex justify-between items-center">
-        <label
-          htmlFor={props.name}
-          className="block font-medium text-xs mb-1 text-gray-500">
-          {label}
-        </label>
+    <div className="relative">
+      <div className="flex justify-end items-center mb-1">
         {isLogin && (
           <Link href="/signup" className="text-sm font-medium text-green-700">
             Forgot Password?
@@ -61,6 +56,11 @@ const PasswordInput: React.FC<InputFieldProps> = ({
         )}
       </div>
       <div className="relative">
+        <label
+          htmlFor={props.name}
+          className="absolute left-4 top-[-0.5rem] bg-white block font-medium text-xs mb-1 text-gray-500">
+          {label}
+        </label>
         <input
           {...field}
           {...props}
