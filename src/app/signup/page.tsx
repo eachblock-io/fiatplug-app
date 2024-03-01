@@ -67,7 +67,7 @@ const LoginPage = () => {
     <section className="flex items-center justify-center w-full h-screen bg-white">
       <div className="bg-white flex flex-col py-10 rounded-xl lg:w-4/12 md:w-5/12 w-9/12 md:px-4">
         <Image src={Logo} width="150" alt="Logo" className="lg:w-40 w-[8rem]" />
-        <div className="mt-6 text-left mb-4">
+        <div className="mt-6 text-left mb-8">
           <h1 className="font-bold lg:text-2xl text-lg text-gray-700">
             Sign Up With Fiatplug!👋
           </h1>
@@ -78,16 +78,16 @@ const LoginPage = () => {
           validationSchema={validationSchema}>
           {() => (
             <Form className="w-full rounded-lg">
-              <div className="mb-2 grid lg:grid-cols-2 grid-cols-1 lg:gap-x-4 gap-y-2">
+              <div className="mb-4 grid lg:grid-cols-2 grid-cols-1 lg:gap-x-4 gap-y-6">
                 <InputField
-                  label="Your First Name"
+                  label="First Name"
                   name="first_name"
                   placeholder="Enter First Name"
                   type="text"
                   ariaLabel="firstname"
                 />
                 <InputField
-                  label="Your Last Name"
+                  label="Last Name"
                   name="last_name"
                   placeholder="Enter Last Name"
                   type="text"
@@ -95,7 +95,7 @@ const LoginPage = () => {
                 />
               </div>
               <InputField
-                label="Your Email"
+                label="Email"
                 name="email"
                 placeholder="Enter Email"
                 type="email"
@@ -103,7 +103,7 @@ const LoginPage = () => {
               />
               <div className="mt-4">
                 <PasswordInput
-                  label="Your Password"
+                  label="Password"
                   name="password"
                   placeholder="Password@347"
                   ariaLabel="password"
@@ -115,7 +115,7 @@ const LoginPage = () => {
                 type="password"
                 ariaLabel="password_confirmation"
               />
-              <div className="mb-4">
+              <div className="my-4">
                 <InputField
                   label="Referral Code"
                   name="referralCode"

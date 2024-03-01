@@ -7,6 +7,14 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import loaderImg from "@/public/fiatplug-loader.gif";
+import type { Viewport } from "next";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 interface userResponse {
   user: String | null;

@@ -71,13 +71,13 @@ const LoginPage = () => {
           {() => (
             <Form className="w-full rounded-lg">
               <InputField
-                label="Your Email"
+                label="Email"
                 name="email"
                 placeholder="Enter Email"
                 type="email"
                 ariaLabel="email"
               />
-              <div className="lg:mt-8 mt-4">
+              <div className="lg:mt-4 mt-4">
                 <PasswordInput
                   label="Your Password"
                   isLogin={true}
