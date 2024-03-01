@@ -50,10 +50,10 @@ const OrderCard = ({ data, onOrderClick }: any) => {
             )}
           </div>
           <div className="text-right">
-            <p className="font-medium lg:text-xl text-md">
+            <p className="font-medium lg:text-xl text-sm">
               {data?.display_data?.deal}
             </p>
-            <p className="font-medium lg:text-xl text-md text-orange-500">
+            <p className="font-medium lg:text-xl text-sm text-orange-500">
               ${formatCurrency(data?.display_data?.amount)}
             </p>
             <p className="text-gray-500 text-xs">
@@ -70,7 +70,7 @@ const OrderCard = ({ data, onOrderClick }: any) => {
             <span className="bg-gray-300 py-2 px-4 rounded-full text-center text-xs">
               Crypto
             </span>
-            <p className="lg:text-md text-sm mt-4">
+            <p className="lg:text-md text-sm mt-2">
               Status:{" "}
               <span className="font-medium capitalize text-orange-800">
                 {data?.display_data?.status}
@@ -78,10 +78,10 @@ const OrderCard = ({ data, onOrderClick }: any) => {
             </p>
           </div>
           <div className="text-right">
-            <p className="font-medium lg:text-xl text-md">
+            <p className="font-medium lg:text-xl text-sm">
               {data?.display_data?.deal}
             </p>
-            <p className="font-medium lg:text-xl text-md text-orange-500">
+            <p className="font-medium lg:text-xl text-sm text-orange-500">
               {formatCurrency(data?.display_data?.amount)}
             </p>
             <p className="text-gray-500 text-xs">

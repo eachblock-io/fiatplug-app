@@ -91,27 +91,28 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
 
   return (
     <>
+      <div className="w-full mx-auto">
+        {active ? <CardCarousel cards={data} /> : <CryptoCarousel />}{" "}
+      </div>
+
       {/* <KycCard /> */}
       <Link
         href="/"
-        className="bg-white lg:w-12/12 mr-auto border shadow-lg lg:px-8 px-6 lg:py-4 flex gap-x-4 items-center justify-between rounded-[2rem] mb-8 ">
+        className="bg-white lg:w-12/12 w-10/12 mx-auto border shadow-lg lg:px-8 px-6 py-3 mt-4 lg:py-4 flex gap-x-4 items-center justify-between rounded-[2rem] mb-4 ">
         <div className="flex items-center lg:gap-x-6 gap-x-4">
-          <Image src={kycImg} alt="security" />
-          <p className="lg:text-md text-sm">
+          <Image src={kycImg} alt="security" className="w-5" />
+          <p className="lg:text-md text-xs">
             Complete verification process to continue trade
           </p>
         </div>
         <div>
-          <div className="flex items-center justify-center bg-[#F9A21B] h-8 w-8 rounded-full ">
+          <div className="flex items-center justify-center bg-[#F9A21B] lg:h-8 lg:w-8 h-6 w-6 rounded-full ">
             <IoIosArrowForward className="text-white" />
           </div>
         </div>
       </Link>
-      <div className="w-full px-4 mx-auto">
-        {active ? <CardCarousel cards={data} /> : <CryptoCarousel />}{" "}
-      </div>
 
-      <section className="w-full lg:mb-20 lg:my-10 mt-6">
+      <section className="w-full mt-4">
         <div className="tabs mb-4 rounded-md border lg:w-11/12 w-full mx-auto grid grid-cols-2 gap-2 p-2 bg-gray-100">
           <button
             onClick={handleToggle}
@@ -272,7 +273,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
               ) : (
                 <div>
                   {/*  Sell Currency */}
-                  <div className="flex items-center lg:space-x-10 space-x-4 mb-6">
+                  <div className="flex items-center lg:space-x-10 space-x-4 mb-4">
                     {sellOffers?.currencies?.map((data: any) => (
                       <button
                         key={data?.id}
