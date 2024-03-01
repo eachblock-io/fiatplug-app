@@ -1,5 +1,5 @@
-import React, { InputHTMLAttributes } from 'react';
-import { useField } from 'formik';
+import React, { InputHTMLAttributes } from "react";
+import { useField } from "formik";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -15,10 +15,10 @@ const InputField: React.FC<InputFieldProps> = ({
   const [field, meta] = useField(props);
 
   return (
-    <div className="mb-2">
+    <div className="relative">
       <label
         htmlFor={props.name}
-        className="mb-1 block text-xs font-medium text-gray-500">
+        className="absolute bg-white top-[-0.5rem] left-4 mb-1 block text-xs font-medium text-gray-500">
         {label}
       </label>
       <input
