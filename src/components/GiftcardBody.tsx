@@ -89,8 +89,6 @@ const GiftcardBody = ({ cardInfo }: any) => {
     );
   });
 
-  console.log(cardInfo);
-
   return (
     <div className="flex lg:flex-row flex-col-reverse gap-8">
       {cardInfo?.length > 0 ? (

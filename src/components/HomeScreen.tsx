@@ -144,7 +144,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                 </Link>
                 <div className="flex flex-col lg:gap-10 gap-y-4 lg:w-full w-[250px]">
                   <Link
-                    href="/"
+                    href="/dashboard/recharge"
                     className="recharge-card lg:p-8 pl-3 pr-3 pb-3 pt-2 rounded-[1rem] bg-[#FFE3F1] hover:bg-[#f0c0d8] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
                     <div>
                       <h2 className="font-semibold lg:text-3xl text-base text-black ">
@@ -162,7 +162,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                     />
                   </Link>
                   <Link
-                    href="/"
+                    href="/dashboard/bills"
                     className="bills-card lg:p-8 pl-3 pr-3 pb-3 rounded-[1rem] bg-[#DAF2FF] hover:bg-[#abdbf3] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
                     <div className="w-full">
                       <h2 className="font-semibold lg:text-3xl text-md text-gray-700 ">
