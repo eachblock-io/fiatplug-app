@@ -96,23 +96,6 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
         {active ? <CardCarousel cards={data} /> : <CryptoCarousel />}{" "}
       </div>
 
-      {/* <KycCard /> */}
-      <Link
-        href="/"
-        className="bg-white lg:w-12/12 w-12/12 mx-auto border lg:px-8 px-6 py-3 mt-4 lg:py-4 flex gap-x-4 items-center justify-between rounded-[2rem] mb-4 ">
-        <div className="flex items-center lg:gap-x-6 gap-x-4">
-          <Image src={kycImg} alt="security" className="w-5" />
-          <p className="lg:text-md text-xs">
-            Complete verification process to continue trade
-          </p>
-        </div>
-        <div>
-          <div className="flex items-center justify-center bg-[#F9A21B] lg:h-8 lg:w-8 h-6 w-6 rounded-full ">
-            <IoIosArrowForward className="text-white" />
-          </div>
-        </div>
-      </Link>
-
       <section className="w-full mt-4">
         <div className="tabs mb-4 rounded-md border lg:w-11/12 w-full mx-auto grid grid-cols-2 gap-2 p-2 bg-gray-100">
           <button
@@ -140,15 +123,15 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
               <h2 className="font-semibold lg:text-3xl text-xl text-gray-700 mb-4">
                 Function
               </h2>
-              <div className="grid lg:grid-cols-2 grid-cols-2 lg:gap-10 gap-2">
+              <div className="lg:grid lg:grid-cols-2 flex lg:gap-10 gap-4">
                 <Link
                   href="/dashboard/giftcard"
-                  className="card-bg relative overflow-hidden rounded-[1rem] ">
+                  className="card-bg relative overflow-hidden rounded-[1rem] w-full ">
                   <div className=" lg:p-10 p-4 text-white ">
-                    <h2 className="font-semibold lg:text-3xl text-lg">
+                    <h2 className="font-medium lg:text-3xl text-xl pt-3">
                       Redeem Gift Card
                     </h2>
-                    <p className="text-md lg:mt-2 mt-1 lg:text-lg text-sm">
+                    <p className="text-md lg:mt-2 mt-1 lg:text-lg text-xs font-thin mr-6">
                       Sell gifts card fast and easy
                     </p>
                     <Image
@@ -159,15 +142,15 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                     />
                   </div>
                 </Link>
-                <div className="flex flex-col lg:gap-10 gap-2">
+                <div className="flex flex-col lg:gap-10 gap-y-4 lg:w-full w-[250px]">
                   <Link
                     href="/"
-                    className="recharge-card lg:p-8 p-4 rounded-[1rem] bg-[#FFE3F1] hover:bg-[#f0c0d8] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
+                    className="recharge-card lg:p-8 pl-3 pr-3 pb-3 pt-2 rounded-[1rem] bg-[#FFE3F1] hover:bg-[#f0c0d8] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
                     <div>
-                      <h2 className="font-semibold lg:text-3xl text-lg text-gray-700 ">
+                      <h2 className="font-semibold lg:text-3xl text-base text-black ">
                         Recharge
                       </h2>
-                      <p className="lg:text-md lg:mt-2 mt-1 text-gray-500 lg:text-lg text-xs">
+                      <p className="lg:text-md lg:mt-2 mt-1 font-normal text-gray-500 lg:text-lg text-xs">
                         Recharge airtime and buy data
                       </p>
                     </div>
@@ -175,12 +158,12 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       src={rechargeImg}
                       alt="recharge card"
                       width="200"
-                      className="lg:w-[100px] w-[40px] ml-auto"
+                      className="lg:w-[100px] w-[60px] ml-auto mt-1"
                     />
                   </Link>
                   <Link
                     href="/"
-                    className="bills-card lg:p-8 p-4 rounded-[1rem] bg-[#DAF2FF] hover:bg-[#abdbf3] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
+                    className="bills-card lg:p-8 pl-3 pr-3 pb-3 rounded-[1rem] bg-[#DAF2FF] hover:bg-[#abdbf3] transition-all lg:pr-20 flex items-center justify-between lg:flex-row flex-col-reverse">
                     <div className="w-full">
                       <h2 className="font-semibold lg:text-3xl text-md text-gray-700 ">
                         Pay Bills
@@ -193,7 +176,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       src={payImg}
                       alt="recharge card"
                       width="200"
-                      className="lg:w-[100px] w-[40px] ml-auto "
+                      className="lg:w-[100px] w-[70px] ml-auto "
                     />
                   </Link>
                 </div>
@@ -335,6 +318,27 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
           )}
         </div>
       </section>
+
+      {/* <KycCard /> */}
+      <Link
+        href="/"
+        className="bg-white lg:w-10/12 w-12/12 mx-auto border lg:px-8 px-6 py-3 mt-4 lg:py-4 flex gap-x-4 items-center justify-between rounded-xl mb-4 ">
+        <div className="flex items-center lg:gap-x-6 gap-x-4">
+          <Image src={kycImg} alt="security" className="lg:w-10 w-5" />
+          <p className="lg:text-base text-xs">
+            Complete verification process to continue trade
+          </p>
+        </div>
+        <div>
+          <div className="flex items-center justify-center bg-[#F9A21B] lg:h-8 lg:w-8 h-6 w-6 rounded-full ">
+            <IoIosArrowForward className="text-white" />
+          </div>
+        </div>
+      </Link>
+
+      <div className="mt-4">
+        <CryptoCarousel />
+      </div>
     </>
   );
 };

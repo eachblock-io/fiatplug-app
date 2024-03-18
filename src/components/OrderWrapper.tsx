@@ -4,7 +4,7 @@ import OrderCard from "@/components/OrderCard";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { Button } from "./ui/button";
 import { FaLongArrowAltLeft } from "react-icons/fa";
-import { formatTime } from "@/lib/utils";
+// import { formatTime } from "@/lib/utils";
 
 const OrderWrapper = ({ data }: any) => {
   const [displayCount, setDisplayCount] = useState(3);
@@ -31,7 +31,7 @@ const OrderWrapper = ({ data }: any) => {
       {selectedOrder ? null : (
         <>
           <div className="space-y-6 mt-8">
-            {data.slice(0, displayCount).map((orderData: any, i: any) => (
+            {data?.slice(0, displayCount)?.map((orderData: any, i: any) => (
               <OrderCard
                 key={i}
                 data={orderData}
@@ -39,18 +39,22 @@ const OrderWrapper = ({ data }: any) => {
               />
             ))}
           </div>
-          {displayCount < data.length ? (
-            <button
-              onClick={handleShowMore}
-              className="mt-4 px-4 py-2 text-sm bg-orange-100 rounded hover:bg-orange-300">
-              Show More
-            </button>
-          ) : (
-            <button
-              onClick={handleShowLess}
-              className="mt-4 px-4 py-2 bg-orange-100 rounded-full hover:bg-orange-300">
-              Show Less
-            </button>
+          {data && (
+            <div>
+              {displayCount < data?.length ? (
+                <button
+                  onClick={handleShowMore}
+                  className="mt-4 px-4 py-2 text-sm bg-orange-100 rounded hover:bg-orange-300">
+                  Show More
+                </button>
+              ) : (
+                <button
+                  onClick={handleShowLess}
+                  className="mt-4 px-4 py-2 bg-orange-100 rounded-full hover:bg-orange-300">
+                  Show Less
+                </button>
+              )}
+            </div>
           )}
         </>
       )}

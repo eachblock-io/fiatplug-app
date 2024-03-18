@@ -1,12 +1,10 @@
 "use client";
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import FlashScreen from "@/components/FlashScreen";
 
 const HomePage = () => {
   const { push } = useRouter();
-  const [firstTime, setFirstTime] = useState<any>("" || null);
 
   useEffect(() => {
     if (window != undefined) {
