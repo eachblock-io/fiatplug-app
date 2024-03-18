@@ -34,7 +34,7 @@ export function CardCarousel({ cards }: any) {
               <Link
                 href={`/dashboard/giftcard/${data?.id}`}
                 className="rounded-2xl lg:py-6">
-                <div className="lg:h-48 h-40 shadow relative rounded-2xl w-full flex aspect-square items-center justify-center overflow-hidden p-2">
+                <div className="lg:h-48 h-40 shadow relative rounded-xl w-full flex aspect-square items-center justify-center overflow-hidden">
                   <Image
                     src={data?.attributes?.image}
                     alt={data?.attributes?.title}
@@ -42,7 +42,7 @@ export function CardCarousel({ cards }: any) {
                     objectFit="fill"
                     height={300}
                     width={400}
-                    className="rounded-2xl w-full"
+                    className="rounded-lg w-full"
                   />
                 </div>
               </Link>
