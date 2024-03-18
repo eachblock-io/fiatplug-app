@@ -48,13 +48,6 @@ const PasswordInput: React.FC<InputFieldProps> = ({
 
   return (
     <div className="relative">
-      <div className="flex justify-end items-center mb-1">
-        {isLogin && (
-          <Link href="/signup" className="text-sm font-medium text-green-700">
-            Forgot Password?
-          </Link>
-        )}
-      </div>
       <div className="relative">
         <label
           htmlFor={props.name}
@@ -66,7 +59,7 @@ const PasswordInput: React.FC<InputFieldProps> = ({
           {...props}
           type={showPassword ? "text" : "password"}
           aria-label={ariaLabel}
-          className={`w-full px-4 sm:py-4 py-3 sm:text-md text-sm border border-primary rounded-sm shadow-sm text-zinc-900 bg-transparent focus:outline-none focus:border-main ${
+          className={`w-full px-4 placeholder:text-black placeholder:font-semibold py-4 sm:text-md text-sm border border-gray-300 rounded-sm shadow-sm text-zinc-900 bg-transparent focus:outline-none focus:border-main ${
             meta.touched && meta.error ? "border-red-500" : "border-gray-300"
           }`}
           onChange={handlePasswordChange}

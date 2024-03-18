@@ -25,8 +25,8 @@ const InputField: React.FC<InputFieldProps> = ({
         {...field}
         {...props}
         aria-label={ariaLabel}
-        className={`w-full px-4 sm:py-4 py-3 sm:text-md text-sm border border-primary rounded-sm shadow-sm text-zinc-900 bg-white focus:outline-none focus:border-main ${
-          meta.touched && meta.error ? "border-red-500" : "border-gray-300"
+        className={`w-full px-4 border-gray-300 placeholder:text-black placeholder:font-semibold py-4 sm:text-md text-sm border rounded-sm shadow-sm text-zinc-900 bg-white focus:outline-none focus:border-main ${
+          meta.touched && meta.error ? "border-red-500" : "border-gray-200"
         }`}
       />
       {meta.touched && meta.error ? (
