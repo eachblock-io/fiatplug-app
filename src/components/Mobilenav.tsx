@@ -30,7 +30,7 @@ const Mobilenav = () => {
       title: "Home",
       icon: (
         <MdSpaceDashboard
-          className={`text-3xl mx-auto text-gray-500 ${
+          className={`text-2xl mx-auto text-gray-500 ${
             pathname === "/dashboard" && ` text-orange-400`
           }`}
         />
@@ -42,7 +42,7 @@ const Mobilenav = () => {
       title: "Account",
       icon: (
         <IoWallet
-          className={`text-3xl mx-auto text-gray-500 ${
+          className={`text-2xl mx-auto text-gray-500 ${
             pathname === "/dashboard/account" && ` text-orange-400`
           }`}
         />
@@ -54,7 +54,7 @@ const Mobilenav = () => {
       title: "Orders",
       icon: (
         <SiBookstack
-          className={`text-3xl mx-auto text-gray-500 ${
+          className={`text-2xl mx-auto text-gray-500 ${
             pathname === "/dashboard/orders" && ` text-orange-400`
           }`}
         />
@@ -66,7 +66,7 @@ const Mobilenav = () => {
       title: "Message",
       icon: (
         <AiFillMessage
-          className={`text-3xl mx-auto text-gray-500 ${
+          className={`text-2xl mx-auto text-gray-500 ${
             pathname === "/dashboard/chat" && ` text-orange-400`
           }`}
         />
@@ -78,7 +78,7 @@ const Mobilenav = () => {
       title: "Profile",
       icon: (
         <FaUserCircle
-          className={`text-3xl mx-auto text-gray-500 ${
+          className={`text-2xl mx-auto text-gray-500 ${
             pathname === "/dashboard/profile" && ` text-orange-400`
           }`}
         />
@@ -87,7 +87,7 @@ const Mobilenav = () => {
     },
   ];
   return (
-    <div className="border lg:hidden px-6 flex items-center justify-center h-[12vh] w-full fixed left-0 bottom-0 right-0 z-40 bg-white">
+    <div className="border lg:hidden px-6 flex items-center justify-center h-[10vh] w-full fixed left-0 bottom-0 right-0 z-40 bg-white">
       <nav className="w-full flex items-center justify-between">
         {links?.map((data) => (
           <Link
