@@ -4,15 +4,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IoCameraOutline } from "react-icons/io5";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import fetchToken from "@/lib/auth";
+import toast from "react-hot-toast";
 
 const SettingsForm = ({ user }: any) => {
   const [previewSrc, setPreviewSrc] = useState("");
   const [fullName, setFullName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleFileChange = (e: any) => {
+  const handleFileChange = async (e: any) => {
     const file = e.target.files?.[0];
 
     if (file) {
@@ -27,6 +30,66 @@ const SettingsForm = ({ user }: any) => {
     } else {
       setPreviewSrc("");
     }
+  };
+
+  const saveProfileImage = async () => {
+    setLoading(true);
+    try {
+      if (selectedFile) {
+        const formdata = new FormData();
+        formdata.append("profile_picture", selectedFile);
+
+        const token = await fetchToken();
+        const headers = {
+          Authorization: `Bearer ${token?.data?.token}`,
+          Accept: "application/json",
+        };
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/mobile/user-update`,
+          {
+            method: "POST",
+            headers,
+            body: formdata,
+          }
+        );
+
+        const resdata = await res.json();
+        if (resdata?.status == "success") {
+          setLoading(false);
+          toast.success("Image Saved ✅");
+        }
+      }
+    } catch (error) {}
+  };
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const formData = {
+        first_name: fullName ? fullName : user?.attributes?.first_name,
+        last_name: lastName ? lastName : user?.attributes?.last_name,
+      };
+      const token = await fetchToken();
+      const headers = {
+        Authorization: `Bearer ${token?.data?.token}`,
+        "Content-Type": "application/json",
+      };
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/mobile/user-update`,
+        {
+          method: "POST",
+          headers,
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const resdata = await res.json();
+      if (resdata?.status == "success") {
+        setLoading(false);
+        toast.success("Saved ✅");
+      }
+    } catch (error) {}
   };
 
   return (
@@ -57,8 +120,18 @@ const SettingsForm = ({ user }: any) => {
           </label>
         </div>
       </div>
-      <p className="text-center mt-2">Edit Profile</p>
-      <form className="mt-8 space-y-6 mx-auto w-full">
+      {selectedFile ? (
+        <div className="text-center">
+          <button
+            onClick={saveProfileImage}
+            className="text-center mx-auto bg-orange-400 px-6 py-2 mt-2 rounded-lg text-white">
+            {loading ? "Saving... " : "Save"}
+          </button>
+        </div>
+      ) : (
+        <p className="text-center mt-2">Edit Profile</p>
+      )}
+      <form onSubmit={handleSubmit} className="mt-8 space-y-6 mx-auto w-full">
         <Input
           type="text"
           required
@@ -77,6 +150,7 @@ const SettingsForm = ({ user }: any) => {
         />
         <Input
           type="email"
+          disabled
           required
           value={email ? email : user?.attributes?.email}
           placeholder="Email Address"
@@ -85,8 +159,8 @@ const SettingsForm = ({ user }: any) => {
         />
 
         <div className="">
-          <Button className="w-full bg-[#F9A21B] hover:bg-[#F9A21B] text-lg font-demibold rounded-full p-6 mt-10">
-            Save
+          <Button className="w-full bg-[#F9A21B] hover:bg-[#F9A21B] text-lg font-demibold rounded-full py-8 mt-10">
+            {loading ? "Saving... " : "Save"}
           </Button>
         </div>
       </form>

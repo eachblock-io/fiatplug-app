@@ -2,11 +2,8 @@ import React from "react";
 import giftcard from "@/public/cards/Greendot.png";
 import Image from "next/image";
 import MaxWidth from "@/components/MaxWidth";
-import OfferCard from "@/components/OfferCard";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import GiftcardOffer from "@/components/GiftcardOffer";
-import { Button } from "@/components/ui/button";
 import GiftcardBody from "@/components/GiftcardBody";
 import { FaArrowLeft } from "react-icons/fa6";
 

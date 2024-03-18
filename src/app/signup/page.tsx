@@ -44,7 +44,7 @@ const LoginPage = () => {
   const onSubmit = async (values: typeof initialValues) => {
     setIsLoading(true);
     try {
-      await axios.post(`/api/register`, {
+      const res = await axios.post(`/api/register`, {
         first_name: values?.first_name,
         last_name: values?.last_name,
         email: values?.email,
@@ -56,7 +56,9 @@ const LoginPage = () => {
         localStorage.setItem("userEmail", values?.email);
         localStorage.setItem("userName", values?.first_name);
       }
-      
+
+      console.log(res);
+
       push("/verify");
       setIsRedirecting(true);
     } catch (error) {
@@ -131,7 +133,11 @@ const LoginPage = () => {
                 />
               </div>
               <div className="flex items-center space-x-2">
-                <Checkbox id="terms" className="w-6 h-6" required />
+                <Checkbox
+                  id="terms"
+                  required
+                  className="w-6 h-6 data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500"
+                />
                 <label
                   htmlFor="terms"
                   className="lg:text-sm text-xs font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col">
