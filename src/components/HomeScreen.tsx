@@ -243,7 +243,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       </button>
                     ))} */}
                   </div>
-                  <h1 className="font-semibold lg:text-2xl text-lg mb-4 mt-7 lg:mt-10">
+                  <h1 className="font-semibold lg:text-2xl text-lg mb-4 mt-3 lg:mt-10">
                     Available offers
                   </h1>
                   <>
@@ -297,7 +297,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       </button>
                     ))} */}
                   </div>
-                  <h1 className="font-bold lg:text-2xl text-lg mb-4 mt-10">
+                  <h1 className="font-semibold lg:text-2xl text-lg mb-4 lg:mt-10">
                     Available offers
                   </h1>
                   <>
