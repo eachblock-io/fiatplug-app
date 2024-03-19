@@ -7,18 +7,18 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { Input } from "./ui/input";
 import coinImg from "@/public/coin.png";
 import { MdError } from "react-icons/md";
-import { FaLongArrowAltRight } from "react-icons/fa";
 import { formatCurrency } from "@/utils";
 import fetchToken from "@/lib/auth";
-import PreviewPayment from "@/components/PreviewPayment";
 import { BsPlus } from "react-icons/bs";
 import AddBankPage from "./AddBank";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import { CryptoCarousel } from "./ui/CryptoCarousel";
 import Link from "next/link";
+import ChatPage from "./ChatPage";
 
 const GiftcardSellForm = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -30,6 +30,7 @@ const GiftcardSellForm = ({ data }: any) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [transID, setTransID] = useState({});
   const [ngnAmount, setNgnAmount] = useState<any>();
+  const [chatRoomID, setChatRoomID] = useState("");
 
 
   const handleInputChange = async (event: { target: { value: any } }) => {
@@ -118,6 +119,7 @@ const GiftcardSellForm = ({ data }: any) => {
       );
 
       const resdata = await res.json();
+      setChatRoomID(resdata?.data?.relationships?.chat_room_id);
       setTransID(resdata);
       if (resdata?.status === "success") {
         setIsLoading(false);
@@ -127,7 +129,6 @@ const GiftcardSellForm = ({ data }: any) => {
         setIsOpen(true);
       }
       setPreviewInfo(resdata?.data);
-      console.log(resdata);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -174,7 +175,14 @@ const GiftcardSellForm = ({ data }: any) => {
         userData={data?.data?.offer?.relationships?.merchant}
         openBank={isOpen}
         setOpenBank={setIsOpen}
+        setOpenChat={setOpenChat}
       />
+      {openChat && (
+        <ChatPage
+          chatRoomID={chatRoomID}
+          userData={data?.data?.offer?.relationships?.merchant}
+        />
+      )}
       <div className="relative">
         <Link
           href={`/dashboard/giftcard/${data?.data?.offer?.relationships?.gift_cards?.id}`}>
