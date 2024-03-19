@@ -1,6 +1,7 @@
 import React from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import Link from "next/link";
+import Mobilenav from "@/components/Mobilenav";
 
 const BillsPage = () => {
   return (
@@ -13,6 +14,7 @@ const BillsPage = () => {
           Pay Bills Coming Soon 👋🚀💡
         </h1>
       </div>
+      <Mobilenav />
     </section>
   );
 };

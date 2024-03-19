@@ -62,6 +62,10 @@ const Layout = ({
         return;
       }
 
+      if (window != undefined) {
+        localStorage.setItem("userData", JSON.stringify(user));
+      }
+
       setIsSuccess(true);
     })();
   }, [push]);
@@ -83,9 +87,10 @@ const Layout = ({
   return (
     <section className="flex sm:h-screen h-screen w-full overflow-hidden">
       <Sidenav data={user?.attributes} />
-      <Mobilenav />
       <main className="w-full relative overflow-y-auto">
-        <Header data={user} />
+        <div className="lg:flex hidden">
+          <Header data={user} />
+        </div>
         {children}
       </main>
     </section>

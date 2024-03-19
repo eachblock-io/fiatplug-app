@@ -145,14 +145,14 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
   const triggerUserModal = getTriggerUserModal(triggerModal);
 
   return (
-    <div className="h-[88vh] lg:h-[90vh] absolute bottom-0 top-0 right-0 left-0 w-full z-10 bg-white overflow-hidden">
-      <div className="chats w-full lg:h-[92vh] h-[81vh] lg:mt-4 mt-14 relative bg-white">
-        <div className="inputs z-10 px-8 py-3  lg:h-[10vh] h-[10vh] border-b bg-gray-200 absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
+    <div className="h-[100vh] lg:h-[92vh] lg:absolute fixed bottom-0 top-0 right-0 left-0 w-full z-20 bg-white overflow-hidden">
+      <div className="chats w-full lg:h-[92vh] h-[100vh] lg:mt-4 mt-14 relative bg-white">
+        <div className="inputs z-10 px-8 py-3  lg:h-[10vh] h-[10vh] shadow bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
           <div className="flex items-center gap-2">
             <Link href="/dashboard/chat">
               <IoIosArrowBack className="text-2xl mr-2" />
             </Link>
-            <Avatar className="p-0 m-0 h-8 w-8 border border-gray-600">
+            <Avatar className="p-0 m-0 h-10 w-10 border border-gray-600">
               <AvatarImage src={userData?.attributes?.profile_picture} />
               <AvatarFallback className="text-xs"></AvatarFallback>
             </Avatar>
@@ -170,7 +170,7 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
             )}
           </div>
         </div>
-        <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pb-20 pt-20  pr-10 pl-10 bg-gray-100">
+        <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pb-20 pt-20  pr-10 pl-10 bg-white">
           <ChatBoardScreen data={messages} />
           {triggerUserModal ? (
             <div>
@@ -206,19 +206,19 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
         <div className="inputs h-[12vh] px-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
           <form
             onClick={handleSubmit}
-            className="input flex items-center lg:w-10/12 w-full bg-gray-200 rounded-full">
+            className="input flex items-center space-x-4 lg:w-10/12 w-full">
             <textarea
-              rows={1}
+              rows={2}
               value={messageToSend}
               onChange={(e) => setMessageToSend(e.target.value)}
-              placeholder="Type a message here..."
-              className="w-full px-8 bg-gray-200 rounded-full "
+              placeholder="Message"
+              className="w-full px-8 pt-2 bg-white border rounded-lg "
               onKeyDown={handleKeyPress}
             />
             <div className="">
               <button
                 type="submit"
-                className="bg-orange-400 hover:bg-orange-600 lg:h-14 lg:w-14 h-12 w-12 rounded-full flex items-center justify-center">
+                className="bg-orange-400 rounded-lg hover:bg-orange-600 lg:h-14 lg:w-14 h-12 w-12 flex items-center justify-center">
                 <RiSendPlaneFill className="lg:text-4xl text-2xl text-white" />
               </button>
             </div>

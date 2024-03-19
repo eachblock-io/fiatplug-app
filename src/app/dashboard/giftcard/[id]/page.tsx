@@ -6,6 +6,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import GiftcardBody from "@/components/GiftcardBody";
 import { FaArrowLeft } from "react-icons/fa6";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 async function getCard(id: string) {
   const cookieStore = cookies();
@@ -30,14 +31,17 @@ const GiftcardPurchase = async ({ params }: any) => {
   const [cardData] = await Promise.all([cardPromise]);
 
   const cardInfo = cardData?.data;
+
   return (
-    <section className="lg:pt-10 pt-[4rem] overflow-hidden">
-      <div className="bg-[#323232] h-[7rem] text-white w-full flex items-center justify-center ">
-        <div className="flex items-center mb-7 relative w-full ">
-          <Link href="/dashboard/giftcard" className="text-2xl absolute left-6">
-            <FaArrowLeft />
+    <section className="lg:pt-10 overflow-hidden">
+      <div className="bg-[#323232] h-[10rem] text-white w-full flex items-center justify-center ">
+        <div className="text-center mb-4 relative w-full ">
+          <Link href="/dashboard/giftcard">
+            <IoIosArrowRoundBack className="absolute left-4 top-0 text-4xl" />
           </Link>
-          <h2 className="text-center absolute right-40">{cardInfo?.gift_card?.attributes?.title}</h2>
+          <h2 className="text-center font-semibold">
+            {cardInfo?.gift_card?.attributes?.title}
+          </h2>
         </div>
       </div>
       <div className="rounded-[3rem] mt-[-2.5rem] bg-white w-full">

@@ -7,15 +7,18 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { Input } from "./ui/input";
 import coinImg from "@/public/coin.png";
 import { MdError } from "react-icons/md";
-import { FaLongArrowAltRight } from "react-icons/fa";
 import { formatCurrency } from "@/utils";
 import fetchToken from "@/lib/auth";
-import PreviewPayment from "@/components/PreviewPayment";
 import { BsPlus } from "react-icons/bs";
 import AddBankPage from "./AddBank";
+import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
+import { CryptoCarousel } from "./ui/CryptoCarousel";
+import Link from "next/link";
+import ChatPage from "./ChatPage";
 
 const GiftcardSellForm = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -27,8 +30,8 @@ const GiftcardSellForm = ({ data }: any) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [transID, setTransID] = useState({});
   const [ngnAmount, setNgnAmount] = useState<any>();
+  const [chatRoomID, setChatRoomID] = useState("");
 
-  // console.log(data);
 
   const handleInputChange = async (event: { target: { value: any } }) => {
     const inputValue = event.target.value;
@@ -116,6 +119,7 @@ const GiftcardSellForm = ({ data }: any) => {
       );
 
       const resdata = await res.json();
+      setChatRoomID(resdata?.data?.relationships?.chat_room_id);
       setTransID(resdata);
       if (resdata?.status === "success") {
         setIsLoading(false);
@@ -125,7 +129,6 @@ const GiftcardSellForm = ({ data }: any) => {
         setIsOpen(true);
       }
       setPreviewInfo(resdata?.data);
-      console.log(resdata);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -165,24 +168,44 @@ const GiftcardSellForm = ({ data }: any) => {
   };
 
   return (
-    <div className="lg:w-5/12 w-10/12 mx-auto pb-40 lg:mt-0  mt-6">
+    <div className=" lg:mt-0  mt-8">
       <AddBankPage
         data={transID}
         type="gift_card_transaction"
         userData={data?.data?.offer?.relationships?.merchant}
         openBank={isOpen}
         setOpenBank={setIsOpen}
+        setOpenChat={setOpenChat}
       />
-      <h1 className="font-bold lg:text-2xl text-xl mb-6">Sell Giftcard</h1>
-      <form onSubmit={handleSubmit}>
+      {openChat && (
+        <ChatPage
+          chatRoomID={chatRoomID}
+          userData={data?.data?.offer?.relationships?.merchant}
+        />
+      )}
+      <div className="relative">
+        <Link
+          href={`/dashboard/giftcard/${data?.data?.offer?.relationships?.gift_cards?.id}`}>
+          <IoIosArrowRoundBack className="absolute left-4 top-0 text-3xl" />
+        </Link>
+        <h1 className="font-semibold lg:text-2xl text-lg text-center mb-4">
+          Sell Giftcard
+        </h1>
+      </div>
+      <div className="my-8">
+        <CryptoCarousel />
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="lg:w-5/12 w-10/12 mx-auto pb-[9rem] mt-8">
         <div>
           <div className="relative flex items-center">
             <Input
               type="text"
               required
               value={amount}
-              placeholder="Enter Amount"
-              className="w-full h-14 px-4 border border-gray-500"
+              placeholder="Enter amount"
+              className="w-full h-14 px-4 border border-gray-300"
               onChange={handleInputChange}
             />
             <span className="ml-[-3rem]">NGN</span>
@@ -227,18 +250,19 @@ const GiftcardSellForm = ({ data }: any) => {
               type="text"
               value={code}
               placeholder="Enter code"
-              className="w-full h-14 px-6 text-gray-600 font-medium overflow-hidden border border-gray-500"
+              className="w-full h-14 px-6 text-gray-600 overflow-hidden border border-gray-300"
               onChange={(e) => setCode(e.target.value)}
             />
           </div>
         </div>
 
-        <div className="flex gap-x-4 items-center relative overflow-y-auto pt-10 border border-orange-300 mt-6 rounded-xl p-6 lg:h-[8rem] h-[6rem]">
+        <div className="flex gap-x-4 items-center relative overflow-y-auto pt-10 border border-orange-300 mt-6 rounded-xl py-6 px-4 lg:h-[8rem] h-[7rem]">
+          <p className="absolute top-2 text-xs text-gray-400">images</p>
           <div>
             <label
               htmlFor="fileInput"
-              className="flex justify-center items-center border-2 lg:h-14 h-10 lg:w-20 w-10 border-orange-200 rounded p-2 cursor-pointer">
-              <BsPlus className="text-5xl text-orange-200" />
+              className="flex justify-center items-center lg:h-14 h-12 lg:w-20 w-12 bg-orange-50 rounded p-2 cursor-pointer">
+              <BsPlus className="text-5xl text-gray-400" />
               <input
                 type="file"
                 id="fileInput"
@@ -270,7 +294,7 @@ const GiftcardSellForm = ({ data }: any) => {
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 px-8 pb-4 fixed bottom-0 right-0 left-0 z-10 bg-white">
           {isRedirecting ? (
             <Button
               disabled={isChecked}
@@ -283,18 +307,20 @@ const GiftcardSellForm = ({ data }: any) => {
           ) : (
             <Button
               disabled={isChecked}
-              className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-              {isLoading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <ClipLoader size={20} color="#fff" />
-                  {<span className="">Loading...</span>}
-                </span>
-              ) : (
-                <>
-                  <span className="font-bold">Continue</span>
-                </>
-              )}
-              <FaLongArrowAltRight className="ml-auto text-2xl" />
+              className="w-full py-7 text-center rounded-full bg-[#F9A21B] hover:bg-[#ffb151] px-6">
+              <div className="text-center mx-auto w-full">
+                {isLoading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <ClipLoader size={20} color="#fff" />
+                    {<span className="">Loading...</span>}
+                  </span>
+                ) : (
+                  <div className="text-center">
+                    <span className="font-bold">Continue</span>
+                  </div>
+                )}
+              </div>
+              <IoIosArrowRoundForward className="ml-auto text-3xl" />
             </Button>
           )}
         </div>

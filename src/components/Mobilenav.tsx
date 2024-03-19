@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { RiCloseLine } from "react-icons/ri";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

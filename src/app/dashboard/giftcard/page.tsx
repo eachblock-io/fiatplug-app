@@ -1,15 +1,12 @@
 import MaxWidth from "@/components/MaxWidth";
 import React from "react";
 import { Card } from "@/components/ui/card";
-import giftcard from "@/public/cards/Greendot.png";
-import amazoncard from "@/public/cards/Amazon.jpg";
-import steamcard from "@/public/cards/steam.jpg";
-import RazorGoldcard from "@/public/cards/RazorGold.png";
 import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { FaArrowLeft } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
+import { Button } from "@/components/ui/button";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 async function getGiftcard() {
   const cookieStore = cookies();
@@ -32,11 +29,11 @@ const GiftcardPage = async () => {
 
   const [giftcards] = await Promise.all([giftcardsPromise]);
   return (
-    <section className="lg:pt-10 py-[6rem] overflow-hidden">
+    <section className="lg:pt-10 pt-7 pb-[6rem] overflow-hidden">
       <MaxWidth>
         <div className="title">
           <Link href="/dashboard" className="text-2xl">
-            <FaArrowLeft />
+            <IoIosArrowRoundBack className="text-4xl" />
           </Link>
           <h1 className="lg:text-2xl text-2xl font-bold mt-6">
             Sell Gift Card
@@ -77,6 +74,15 @@ const GiftcardPage = async () => {
           ))}
         </section>
       </MaxWidth>
+
+      <div className="mt-6 px-8 py-3 lg:relative fixed bottom-0 right-0 left-0 text-center border-none z-20 bg-white">
+        <p className="mb-4">Can’t find gift card?</p>
+        <Link href="/dashboard/profile/support">
+          <Button className="lg:w-auto w-full py-7 text-center rounded-full bg-[#F9A21B] hover:bg-[#ffb151] px-6">
+            Contact support
+          </Button>
+        </Link>
+      </div>
     </section>
   );
 };

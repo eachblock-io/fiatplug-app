@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoIosArrowForward } from "react-icons/io";
 import { cookies } from "next/headers";
+import Mobilenav from "@/components/Mobilenav";
 
 async function getPoint() {
   const cookieStore = cookies();
@@ -52,6 +53,7 @@ const AccountPage = async () => {
           <h2 className="font-semibold lg:text-xl text-lg">Transaction</h2>
         </div> */}
       </div>
+      <Mobilenav />
     </section>
   );
 };

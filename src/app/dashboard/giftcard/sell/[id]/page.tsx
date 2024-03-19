@@ -24,7 +24,7 @@ const SellGiftcardPage = async ({ params }: any) => {
   const [offer] = await Promise.all([offerPromise]);
 
   return (
-    <div className="lg:pt-4 pt-[4rem]">
+    <div className="lg:pt-4 ">
       <GiftcardSellForm data={offer} />
     </div>
   );
