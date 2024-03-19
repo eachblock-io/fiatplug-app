@@ -35,7 +35,7 @@ const cardsData = [
 
 export function CryptoCarousel() {
   return (
-    <section>
+    <section className=" w-full">
       <Carousel
         className="w-full"
         plugins={[
@@ -60,8 +60,8 @@ export function CryptoCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        {/* <CarouselPrevious />
+        <CarouselNext /> */}
       </Carousel>
     </section>
   );

@@ -91,28 +91,27 @@ const GiftcardBody = ({ cardInfo }: any) => {
 
   return (
     <div className="flex lg:flex-row flex-col-reverse gap-8">
-      {cardInfo?.length > 0 ? (
+      {cardInfo ? (
         <div className="offers w-full mb-10">
-          <div className="currencies mb-6 flex lg:space-x-4 space-x-3">
+          <div className="currencies mb-6 flex lg:space-x-4 space-x-6">
             {currencies.map((currency: Currency) => {
               return (
-                <Button
-                  variant="ghost"
+                <p
                   key={currency?.id}
                   onClick={() =>
                     handleCurrencyClick(currency?.id, currency.attributes?.code)
                   }
-                  className={`font-bold lg:text-sm text-xs ${
+                  className={`font-semibold text-sm uppercase ${
                     selectedCurrency === currency.attributes?.code
-                      ? "border-b-4 border-orange-600 rounded-none text-gray-800"
+                      ? "border-b-4 border-orange-400 rounded-none text-gray-800"
                       : ""
                   }`}>
                   {currency.attributes?.code}
-                </Button>
+                </p>
               );
             })}
           </div>
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-4 gap-y-4">
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-4 gap-y-4 mt-6">
             {filteredOffers?.map((data: any) => (
               <Link
                 href={`/dashboard/giftcard/sell/${data?.id}`}

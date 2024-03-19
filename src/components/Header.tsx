@@ -11,12 +11,17 @@ const Header = ({ data }: any) => {
   const [toggle, setToggle] = useState(false);
   const [chats, setChats] = useState<any>([]);
   const [currentMessage, setCurrentMessage] = useState<any>(null);
+  const [user, setUser] = useState<any>();
 
   const handleToggleNotify = () => {
     setToggle(!toggle);
   };
 
   useEffect(() => {
+    if (window != undefined) {
+      const userData: any = localStorage.getItem("userData");
+      setUser(JSON.parse(userData));
+    }
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
       cluster: "mt1",
     });
@@ -69,15 +74,15 @@ const Header = ({ data }: any) => {
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center space-x-2 lg:hidden">
           <Avatar className="p-0 m-0">
-            <AvatarImage src={data?.attributes?.profile_picture} />
+            <AvatarImage src={user?.attributes?.profile_picture} />
             <AvatarFallback className="font-bold">
-              {data?.attributes?.first_name[0]}
-              {data?.attributes?.last_name[0]}
+              {user?.attributes?.first_name[0]}
+              {user?.attributes?.last_name[0]}
             </AvatarFallback>
           </Avatar>
           <div>
             <p className="text-sm font-bold">
-              Hi, {data?.attributes?.first_name}
+              Hi, {user?.attributes?.first_name}
             </p>
           </div>
         </DropdownMenuTrigger>
@@ -94,7 +99,7 @@ const Header = ({ data }: any) => {
         </DropdownMenuContent> */}
       </DropdownMenu>
       <h2 className="font-bold lg:block hidden">
-        Hi, {data?.attributes?.first_name}
+        Hi, {user?.attributes?.first_name}
       </h2>
       <NotificationDropdown />
     </div>

@@ -1,5 +1,7 @@
+import Header from "@/components/Header";
 import HomeScreen from "@/components/HomeScreen";
 import MaxWidth from "@/components/MaxWidth";
+import Mobilenav from "@/components/Mobilenav";
 import { cookies } from "next/headers";
 
 async function getGiftcard() {
@@ -70,14 +72,20 @@ export default async function AccountPage() {
   ]);
 
   return (
-    <section className="lg:pt-10 pt-[5rem] pb-20 lg:pb-20 overflow-hidden">
-      <MaxWidth>
-        <HomeScreen
-          data={giftcards}
-          sellOffers={sellOffers?.data}
-          buyOffers={buyOffers?.data}
-        />
-      </MaxWidth>
-    </section>
+    <>
+      <div className="lg:hidden flex">
+        <Header />
+      </div>
+      <section className="lg:pt-10 pt-[5rem] pb-20 lg:pb-20 overflow-hidden">
+        <MaxWidth>
+          <HomeScreen
+            data={giftcards}
+            sellOffers={sellOffers?.data}
+            buyOffers={buyOffers?.data}
+          />
+        </MaxWidth>
+      </section>
+      <Mobilenav />
+    </>
   );
 }

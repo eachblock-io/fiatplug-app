@@ -25,7 +25,7 @@ interface OfferCardProps {
 
 const GiftcardOffer: React.FC<OfferCardProps> = ({ data }) => {
   return (
-    <Card className="lg:p-6 p-4 hover:shadow-xl flex items-center justify-between">
+    <Card className="lg:p-6 p-4 shadow flex items-center justify-between">
       <div className="info">
         <div className="user flex items-center">
           <Avatar className="p-0 m-0">
@@ -56,12 +56,12 @@ const GiftcardOffer: React.FC<OfferCardProps> = ({ data }) => {
       </div>
       <div className="btn">
         <p className="flex items-center text-sm">
-          <IoIosTimer /> {data?.attributes?.duration}mins
+          <IoIosTimer /> {data?.attributes?.max_duration} mins
         </p>
-        <p className="border border-orange-400 text-orange-400 py-1 px-2 text-sm my-2 rounded-md ">
+        <p className="border border-orange-400 text-orange-400 py-1 px-3 text-xs my-2 rounded-md ">
           E-codes
         </p>
-        <button className="w-full py-2 text-white rounded-lg text-sm px-3 bg-orange-400">
+        <button className="w-full py-1 text-white rounded-lg text-xs px-3 bg-orange-400">
           Sell
         </button>
       </div>
