@@ -8,6 +8,7 @@ interface OfferCardProps {
   data: {
     attributes: {
       rate: number;
+      max_duration: string;
       min_limit: number;
       max_limit: number;
       duration: number;
