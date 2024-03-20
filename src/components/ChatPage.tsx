@@ -170,7 +170,7 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
             )}
           </div>
         </div>
-        <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pb-20 pt-20  pr-10 pl-10 bg-white">
+        <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pb-20 pt-28  pr-10 pl-10 bg-white">
           <ChatBoardScreen data={messages} />
           {triggerUserModal ? (
             <div>

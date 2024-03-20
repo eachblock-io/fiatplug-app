@@ -39,7 +39,7 @@ const OrderWrapper = ({ data }: any) => {
               />
             ))}
           </div>
-          {data && (
+          {/* {data && (
             <div>
               {displayCount < data?.length ? (
                 <button
@@ -55,7 +55,7 @@ const OrderWrapper = ({ data }: any) => {
                 </button>
               )}
             </div>
-          )}
+          )} */}
         </>
       )}
 
