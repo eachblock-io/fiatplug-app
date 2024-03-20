@@ -5,7 +5,7 @@ import Image from "next/image";
 import { IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
 
-const KycCard = () => {
+const KYCCard = () => {
   const [user, setUser] = useState<any>();
   useEffect(() => {
     if (window != undefined) {
@@ -39,4 +39,4 @@ const KycCard = () => {
   );
 };
 
-export default KycCard;
+export default KYCCard;
