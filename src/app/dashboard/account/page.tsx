@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 import Mobilenav from "@/components/Mobilenav";
 import Header from "@/components/Header";
 import emptytran from "@/public/empty-trans.png";
-import KYCCard from "@/components/KYCCard";
+import VerifedCard from "@/components/VerifedCard";
 
 async function getPoint() {
   const cookieStore = cookies();
@@ -39,7 +39,7 @@ const AccountPage = async () => {
           <AccountCard data={points} />
 
           {/* <KycCard /> */}
-          <KYCCard />
+          <VerifedCard />
           <div className="border shadow-lg lg:p-8 p-6 rounded-[2rem] bg-white mt-6">
             <h2 className="font-semibold lg:text-xl text-lg">Transaction</h2>
             <div className="flex items-center justify-center py-20">

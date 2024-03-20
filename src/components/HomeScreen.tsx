@@ -13,7 +13,7 @@ import { handleOpen } from "@/redux/features/toggleSlice";
 import fetchToken from "@/lib/auth";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CurrencyCarousel } from "./ui/CurrencyCarousel";
-import KYCCard from "./KYCCard";
+import VerifedCard from "./VerifedCard";
 
 const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
   const dispatch = useAppDispatch();
@@ -319,7 +319,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
       </section>
 
       {/* <KycCard /> */}
-      <KYCCard />
+      <VerifedCard />
 
       <div className="mt-4">
         <CryptoCarousel />
