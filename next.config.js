@@ -19,6 +19,7 @@ const nextConfig = {
     domains: [
       'api.fiatplug.co',
       // 'staging-api.fiatplug.co',
+      'upload.wikimedia.org'
     ],
   },
 }
