@@ -19,7 +19,7 @@ const KycCard = () => {
   }
 
   return (
-    <>
+    <div>
       <Link
         href="/dashboard/kyc"
         className="bg-white lg:w-10/12 w-12/12 mx-auto border lg:px-8 px-6 py-3 mt-4 lg:py-4 flex gap-x-4 items-center justify-between rounded-xl mb-4 ">
@@ -35,7 +35,7 @@ const KycCard = () => {
           </div>
         </div>
       </Link>
-    </>
+    </div>
   );
 };
 
