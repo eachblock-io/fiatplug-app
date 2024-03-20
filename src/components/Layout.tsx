@@ -86,8 +86,8 @@ const Layout = ({
 
   return (
     <section className="flex sm:h-screen h-screen w-full overflow-hidden">
-      <Sidenav data={user?.attributes} />
-      <main className="w-full relative overflow-y-auto">
+      <Sidenav />
+      <main className="w-full relative overflow-y-auto ">
         <div className="lg:flex hidden">
           <Header data={user} />
         </div>

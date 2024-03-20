@@ -13,6 +13,8 @@ import img5 from "@/public/icons/faq.svg";
 import img6 from "@/public/icons/logout.svg";
 import Image from "next/image";
 import LogoutModal from "@/components/LogoutModal";
+import Mobilenav from "@/components/Mobilenav";
+import { MdDelete } from "react-icons/md";
 
 async function getUser() {
   const cookieStore = cookies();
@@ -36,11 +38,11 @@ const ProfilePage = async () => {
   const userPromise = getUser();
   const [user] = await Promise.all([userPromise]);
   return (
-    <section className="lg:pt-0 pt-[4rem]">
-      <div className="header bg-black lg:h-40 h-28 flex items-center justify-start ">
+    <section className="lg:pt-0">
+      <div className="header bg-[#202020] lg:h-40 h-52 flex items-center ">
         <Link
           href="/dashboard/profile/settings"
-          className="lg:w-8/12 w-10/12 mx-auto flex items-center justify-between cursor-pointer">
+          className="lg:w-8/12 w-10/12 mx-auto mt-14 flex items-center justify-between cursor-pointer">
           <div className="flex items-center gap-x-3">
             <Avatar className="p-0 m-0 lg:w-24 lg:h-24 w-14 h-14 border border-gray-600">
               <AvatarImage
@@ -53,17 +55,17 @@ const ProfilePage = async () => {
               </AvatarFallback>
             </Avatar>
             <div>
-              <h2 className="font-bold lg:text-lg text-xs text-white">
+              <h2 className="lg:text-lg text-base text-white">
                 {user?.attributes?.first_name} {user?.attributes?.last_name}
               </h2>
-              <p className="text-gray-100">Jolly just come</p>
+              <p className="text-gray-100 text-xs">Jolly just come</p>
             </div>
           </div>
           <IoIosArrowForward className="text-white lg:text-4xl text-2xl" />
         </Link>
       </div>
 
-      <div className="nav-list lg:w-8/12 w-10/12 mx-auto mt-10">
+      <div className="nav-list lg:w-8/12 w-10/12 space-y-4 mx-auto mt-6">
         <Link
           href="/dashboard/profile/level"
           className="flex justify-between items-center transition-all hover:bg-orange-50 py-4 px-4 rounded-lg">
@@ -75,7 +77,7 @@ const ProfilePage = async () => {
               height={25}
               layout="fixed"
             />
-            <p className="font-semibold lg:text-lg text-sm">User level</p>
+            <p className="font-semibold lg:text-lg text-base">User level</p>
           </div>
           <TiArrowRight className="text-3xl font-bold text-gray-600 " />
         </Link>
@@ -90,7 +92,7 @@ const ProfilePage = async () => {
               height={25}
               layout="fixed"
             />
-            <p className="font-semibold lg:text-lg text-sm">Referral</p>
+            <p className="font-semibold lg:text-lg text-base">Referral</p>
           </div>
           <TiArrowRight className="text-3xl font-bold text-gray-600 " />
         </Link>
@@ -105,7 +107,7 @@ const ProfilePage = async () => {
               height={25}
               layout="fixed"
             />
-            <p className="font-semibold lg:text-lg text-sm">Security</p>
+            <p className="font-semibold lg:text-lg text-base">Security</p>
           </div>
           <TiArrowRight className="text-3xl font-bold text-gray-600" />
         </Link>
@@ -120,7 +122,7 @@ const ProfilePage = async () => {
               height={25}
               layout="fixed"
             />
-            <p className="font-semibold lg:text-lg text-sm">Contact Support</p>
+            <p className="font-semibold lg:text-lg text-base">Contact Support</p>
           </div>
 
           <TiArrowRight className="text-3xl font-bold text-gray-600" />
@@ -136,7 +138,7 @@ const ProfilePage = async () => {
               height={25}
               layout="fixed"
             />
-            <p className="font-semibold lg:text-lg text-sm">FAQ</p>
+            <p className="font-semibold lg:text-lg text-base">FAQ</p>
           </div>
 
           <TiArrowRight className="text-3xl font-bold text-gray-600" />
@@ -160,16 +162,16 @@ const ProfilePage = async () => {
         </LogoutModal>
         <Button
           variant="ghost"
-          className="flex w-full justify-between items-center hover:bg-orange-50 lg:mt-8 mt-8 pt-8 px-4 rounded-lg">
+          className="flex w-full justify-between items-center hover:bg-orange-50 lg:mt-8 mt-10 pt-8 px-4 rounded-lg">
           <div className="flex items-center space-x-10">
-            <p className="font-semibold lg:text-md text-sm text-red-400">
+            <MdDelete className="text-red-600 h-6 w-6" />
+            <p className="font-semibold lg:text-md text-sm text-red-600">
               Delete Account
             </p>
           </div>
-
-          <TiArrowRight className="text-3xl font-bold text-gray-600" />
         </Button>
       </div>
+      <Mobilenav />
     </section>
   );
 };

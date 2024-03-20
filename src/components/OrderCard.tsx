@@ -15,14 +15,15 @@ const OrderCard = ({ data, onOrderClick }: any) => {
           onClick={handleOrderClick}
           className="border hover:bg-orange-50 flex items-center cursor-pointer justify-between shadow-md rounded-lg py-4 lg:px-10 px-5">
           <div>
-            <span className="bg-gray-200 py-2 px-4 rounded-full text-center text-xs">
-              Giftcard
-            </span>
             <p className="lg:text-md text-sm mt-4">
               Status:{" "}
               <span className="font-medium capitalize text-orange-800">
                 {data?.display_data?.status}
               </span>
+            </p>
+            <p className="text-gray-500 mt-2 flex items-center gap-x-1 lg:text-md text-xs ">
+              <div className="lg:w-3 w-2 lg:h-3 h-2 rounded-full bg-green-700"></div>
+              Your card is being received
             </p>
             {data?.other_details?.card_received && (
               <p className="text-gray-500 mt-2 flex items-center gap-x-1 lg:text-md text-sm ">

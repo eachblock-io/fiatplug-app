@@ -245,8 +245,8 @@ const ChatPage = () => {
         </div>
 
         {activeUser ? (
-          <div className="chats w-full h-[100vh] relative">
-            <div className="inputs z-10 px-8 py-3 shadow lg:h-[8vh] h-[6vh] bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
+          <div className="lg:relative fixed top-0 bottom-0 chats w-full h-screen">
+            <div className="inputs z-10 px-8 py-3 shadow h-[10vh] bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
               <div className="flex items-center gap-2">
                 <IoIosArrowBack
                   onClick={() => setActiveUser("")}
@@ -267,7 +267,7 @@ const ChatPage = () => {
               </div>
             </div>
             <div>
-              <ScrollArea className="lg:h-[75vh] h-[80vh] lg:pb-0 pt-16 pr-10 pl-10 pb-28">
+              <ScrollArea className="h-[78vh] lg:pb-0 pt-28 pr-10 pl-10 pb-28">
                 <ChatBoardScreen data={messages} />
                 {triggerUserModal ? (
                   <div>
@@ -398,7 +398,7 @@ const ChatPage = () => {
           </div>
         )}
       </div>
-      <Mobilenav />
+      {activeUser ? null : <Mobilenav />}
     </>
   );
 };

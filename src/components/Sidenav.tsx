@@ -21,7 +21,7 @@ interface LinkItem {
   icon: any;
 }
 
-export function Sidenav({ data }: any) {
+export function Sidenav() {
   const pathname = usePathname();
 
   const links: LinkItem[] = [
@@ -91,7 +91,7 @@ export function Sidenav({ data }: any) {
     <div
       className={`lg:h-screen lg:w-[20rem] bg-white border-r border-gray-300 shadow-sm transform translate-x-[-100%] lg:translate-x-0 lg:relative absolute left-0 p-6 transition ease-in-out duration-100`}>
       <Image src={Logo} width="200" alt="Logo" className="w-[100px]" />
-      <div className="profile flex items-center space-x-6 mt-8 w-full ">
+      {/* <div className="profile flex items-center space-x-6 mt-8 w-full ">
         <div className="flex items-center space-x-4 border py-2 px-4 w-full rounded-lg">
           <Avatar className="p-0 m-0">
             <AvatarImage src={data?.profile_picture} />
@@ -109,7 +109,7 @@ export function Sidenav({ data }: any) {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
       <nav className="mt-8 space-y-2">
         {links?.map((data) => (
           <Link

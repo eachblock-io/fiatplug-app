@@ -158,7 +158,7 @@ const SettingsForm = ({ user }: any) => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <div className="">
+        <div className="lg:relative lg:p-0 fixed bottom-0 right-0 left-0 w-full px-6 pb-8">
           <Button className="w-full bg-[#F9A21B] hover:bg-[#F9A21B] text-lg font-demibold rounded-full py-8 mt-10">
             {loading ? "Saving... " : "Save"}
           </Button>

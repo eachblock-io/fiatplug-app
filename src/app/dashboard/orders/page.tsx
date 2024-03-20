@@ -1,6 +1,7 @@
 import React from "react";
 import { cookies } from "next/headers";
 import OrderWrapper from "@/components/OrderWrapper";
+import Mobilenav from "@/components/Mobilenav";
 
 async function getOrders() {
   const cookieStore = cookies();
@@ -24,12 +25,15 @@ async function getOrders() {
 const OrdersPage = async () => {
   const orders = await getOrders();
   return (
-    <section className="w-full lg:pt-[3rem] pt-[5rem] flex items-center justify-center">
-      <div className="orders-section relative mt-4 lg:w-8/12 w-11/12 ">
-        <h1 className="font-semibold lg:text-2xl text-xl">Orders</h1>
-        <OrderWrapper data={orders?.data} />
-      </div>
-    </section>
+    <>
+      <section className="w-full lg:pt-[3rem] pt-[5rem] flex items-center justify-center">
+        <div className="orders-section relative mt-4 lg:w-8/12 w-11/12 ">
+          <h1 className="font-semibold text-2xl">Orders</h1>
+          <OrderWrapper data={orders?.data} />
+        </div>
+      </section>
+      <Mobilenav />
+    </>
   );
 };
 

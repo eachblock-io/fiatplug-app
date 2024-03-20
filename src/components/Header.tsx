@@ -1,11 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { IoNotifications } from "react-icons/io5";
 import { NotificationDropdown } from "./NotificationDropdown";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import Pusher from "pusher-js";
 import Notify from "@/lib/utils";
+import Link from "next/link";
 
 const Header = ({ data }: any) => {
   const [toggle, setToggle] = useState(false);
@@ -71,33 +70,22 @@ const Header = ({ data }: any) => {
 
   return (
     <div className="flex justify-between items-center lg:sticky fixed top-0 bg-white lg:px-14 px-6 pt-2 mx-auto h-[8vh] z-20 w-full">
-      <DropdownMenu>
-        <DropdownMenuTrigger className="flex items-center space-x-2 lg:hidden">
-          <Avatar className="p-0 m-0">
-            <AvatarImage src={user?.attributes?.profile_picture} />
-            <AvatarFallback className="font-bold">
-              {user?.attributes?.first_name[0]}
-              {user?.attributes?.last_name[0]}
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="text-sm font-bold">
-              Hi, {user?.attributes?.first_name}
-            </p>
-          </div>
-        </DropdownMenuTrigger>
-        {/* <DropdownMenuContent>
-          <DropdownMenuItem>
-            <Button
-              onSubmit={handleCheckLogout}
-              variant="ghost"
-              className="flex w-full items-center justify-start hover:font-semibold space-x-2 text-gray-600 hover:bg-gray-100 py-3 px-2 rounded-xl transition-all">
-              <TbLogout className="text-2xl text-gray-500 hover:text-zinc-800" />
-              <p>Logout</p>
-            </Button>
-          </DropdownMenuItem>
-        </DropdownMenuContent> */}
-      </DropdownMenu>
+      <Link
+        href="/dashboard/profile"
+        className="flex items-center space-x-2 lg:hidden">
+        <Avatar className="p-0 m-0">
+          <AvatarImage src={user?.attributes?.profile_picture} />
+          <AvatarFallback className="font-bold">
+            {user?.attributes?.first_name[0]}
+            {user?.attributes?.last_name[0]}
+          </AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="text-sm font-bold">
+            Hi, {user?.attributes?.first_name}
+          </p>
+        </div>
+      </Link>
       <h2 className="font-bold lg:block hidden">
         Hi, {user?.attributes?.first_name}
       </h2>
