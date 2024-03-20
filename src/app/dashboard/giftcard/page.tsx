@@ -7,7 +7,6 @@ import { cookies } from "next/headers";
 import { CiSearch } from "react-icons/ci";
 import { Button } from "@/components/ui/button";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import KycModal from "@/components/KycModal";
 
 async function getGiftcard() {
   const cookieStore = cookies();
@@ -31,7 +30,6 @@ const GiftcardPage = async () => {
   const [giftcards] = await Promise.all([giftcardsPromise]);
   return (
     <section className="lg:pt-10 pt-7 pb-[6rem] overflow-hidden">
-      <KycModal />
       <MaxWidth>
         <div className="title">
           <Link href="/dashboard" className="text-2xl">

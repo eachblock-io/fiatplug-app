@@ -12,6 +12,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { handleOpen } from "@/redux/features/toggleSlice";
 import fetchToken from "@/lib/auth";
 import ClipLoader from "react-spinners/ClipLoader";
+import kycImg from "@/public/kyc.svg";
+import { IoIosArrowForward } from "react-icons/io";
 import { CurrencyCarousel } from "./ui/CurrencyCarousel";
 import VerifedCard from "./VerifedCard";
 
@@ -318,7 +320,6 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
         </div>
       </section>
 
-      {/* <KycCard /> */}
       <VerifedCard />
 
       <div className="mt-4">
