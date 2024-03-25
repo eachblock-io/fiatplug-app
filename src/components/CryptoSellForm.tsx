@@ -101,6 +101,7 @@ const CryptoSellForm = ({ data }: any) => {
       merchant_id: data?.data?.relationships?.user?.id,
       crypto_offer_id: data?.data?.id,
       type: "sell",
+      wallet_address: address,
       total_amount: ngnAmount,
     };
 
@@ -164,55 +165,84 @@ const CryptoSellForm = ({ data }: any) => {
         <div className="my-8">
           <CryptoCarousel />
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className="lg:w-5/12 w-10/12 mx-auto pb-[9rem] mt-8">
-          <div>
-            <div className="relative flex items-center">
-              <Input
-                type="text"
-                value={amount}
-                placeholder="Enter Amount"
-                className="w-full h-14 px-6 text-gray-600 overflow-hidden border border-gray-300"
-                onChange={handleInputChange}
-              />
-              <span className="ml-[-3rem] lg:text-sm text-xs">USD</span>
+        <div className="lg:w-5/12 w-10/12 mx-auto pb-[9rem] mt-8">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <div className="relative flex items-center">
+                <Input
+                  type="text"
+                  value={amount}
+                  placeholder="Enter Amount"
+                  className="w-full h-14 px-6 text-gray-600 overflow-hidden border border-gray-300"
+                  onChange={handleInputChange}
+                />
+                <span className="ml-[-3rem] lg:text-sm text-xs">USD</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-gray-500 text-xs mt-1">
+                  Rate:{" "}
+                  <span className="text-xs">
+                    {formatCurrency(data?.data?.attributes?.rate)}
+                  </span>
+                </p>
+                <small className="text-gray-500 text-xs mt-1">
+                  Limit:{" "}
+                  <span className="text-xs">
+                    {formatCurrency(data?.data?.attributes?.min_amount)} -{" "}
+                    {formatCurrency(data?.data?.attributes?.max_amount)}
+                  </span>
+                </small>
+              </div>
             </div>
+            <h2 className="lg:text-md text-xs font-semibold mt-8 mb-1">
+              Trading Info
+            </h2>
+
             <div className="flex items-center justify-between">
-              <p className="text-gray-500 text-xs mt-1">
-                Rate:{" "}
-                <span className="text-xs">
-                  {formatCurrency(data?.data?.attributes?.rate)}
-                </span>
+              <p className="lg:text-md text-xs">Amount in Naira</p>
+              <p className="lg:text-md text-xs font-semibold">
+                {formatCurrency(ngnAmount)} NGN
               </p>
-              <small className="text-gray-500 text-xs mt-1">
-                Limit:{" "}
-                <span className="text-xs">
-                  {formatCurrency(data?.data?.attributes?.min_amount)} -{" "}
-                  {formatCurrency(data?.data?.attributes?.max_amount)}
-                </span>
-              </small>
             </div>
-          </div>
-          <h2 className="lg:text-md text-xs font-semibold mt-8 mb-1">
-            Trading Info
-          </h2>
 
-          <div className="flex items-center justify-between">
-            <p className="lg:text-md text-xs">Amount in Naira</p>
-            <p className="lg:text-md text-xs font-semibold">
-              {formatCurrency(ngnAmount)} NGN
-            </p>
-          </div>
+            <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-4 px-6 shadow-md rounded-lg">
+              <p className="font-medium text-sm">Point Earned</p>
+              <p className="font-bold flex items-center text-sm">
+                <Image src={coinImg} alt="coin" width="17" className="mr-1" />
+                {point ? point : `0.00`}
+              </p>
+            </div>
 
-          <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-4 px-6 shadow-md rounded-lg">
-            <p className="font-medium text-sm">Point Earned</p>
-            <p className="font-bold flex items-center text-sm">
-              <Image src={coinImg} alt="coin" width="17" className="mr-1" />
-              {point ? point : `0.00`}
-            </p>
-          </div>
-
+            <div className="mt-6 px-8 pb-8 fixed bottom-0 right-0 left-0 z-10 bg-white">
+              {isRedirecting ? (
+                <Button
+                  disabled={isChecked}
+                  className="w-full mt-8 py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                  <span className="flex items-center justify-center gap-2">
+                    <ClipLoader size={20} color="#fff" />
+                    {<span className="">Redirecting... please wait</span>}
+                  </span>
+                </Button>
+              ) : (
+                <Button
+                  disabled={isChecked}
+                  type="submit"
+                  className="w-full mt-8 py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <ClipLoader size={20} color="#fff" />
+                      {<span className="">Loading...</span>}
+                    </span>
+                  ) : (
+                    <>
+                      <span className="font-bold">Continue</span>
+                    </>
+                  )}
+                  <FaLongArrowAltRight className="ml-auto text-2xl" />
+                </Button>
+              )}
+            </div>
+          </form>
           <div className="pt-4">
             <p className="text-gray-900 lg:text-sm text-xs mb-2">
               Copy wallet address to send{" "}
@@ -243,7 +273,7 @@ const CryptoSellForm = ({ data }: any) => {
                     )}
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Copy wallet Address</p>
+                    <p className="text-xs">Copy address</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -257,36 +287,7 @@ const CryptoSellForm = ({ data }: any) => {
               in irreversible transactions.
             </p>
           </div>
-
-          <div className="mt-6 px-8 pb-8 fixed bottom-0 right-0 left-0 z-10 bg-white">
-            {isRedirecting ? (
-              <Button
-                disabled={isChecked}
-                className="w-full mt-8 py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-                <span className="flex items-center justify-center gap-2">
-                  <ClipLoader size={20} color="#fff" />
-                  {<span className="">Redirecting... please wait</span>}
-                </span>
-              </Button>
-            ) : (
-              <Button
-                disabled={isChecked}
-                className="w-full mt-8 py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
-                {isLoading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <ClipLoader size={20} color="#fff" />
-                    {<span className="">Loading...</span>}
-                  </span>
-                ) : (
-                  <>
-                    <span className="font-bold">Continue</span>
-                  </>
-                )}
-                <FaLongArrowAltRight className="ml-auto text-2xl" />
-              </Button>
-            )}
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );

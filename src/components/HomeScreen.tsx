@@ -49,7 +49,6 @@ const HomeScreen = ({ data }: any) => {
   // Fetch sell offers
   const handleFetchSellOffers = async (id: any) => {
     setActiveSellCurr(id);
-    console.log("SellID:", id);
     try {
       setLoading(true);
       const data = await fetchToken();
@@ -66,7 +65,6 @@ const HomeScreen = ({ data }: any) => {
 
       const sellOffers = await res.json();
       setCurrentSellOffers(sellOffers?.data?.offers);
-      console.log("Sell:", sellOffers?.data?.offers);
     } catch {
       setLoading(false);
     } finally {
@@ -77,7 +75,6 @@ const HomeScreen = ({ data }: any) => {
   // Fetch buy offers
   const handleFetchBuyOffers = async (id: any) => {
     setActiveCurr(id);
-    console.log("BuyID:", id);
     try {
       setLoading(true);
       const data = await fetchToken();
@@ -94,7 +91,6 @@ const HomeScreen = ({ data }: any) => {
 
       const buyOffers = await res.json();
       setCurrentBuyOffers(buyOffers?.data?.offers);
-      console.log("Buy:", buyOffers);
     } catch {
       setLoading(false);
     } finally {
@@ -222,21 +218,10 @@ const HomeScreen = ({ data }: any) => {
                   {/* Buy Currencies list */}
                   <div className="flex items-center lg:space-x-10 space-x-4">
                     <CurrencyCarousel
-                      data={buyOffers?.currencies}
-                      onClick={handleFetchBuyOffers}
-                      activeCurr={activeCurr}
+                      data={sellOffers?.currencies}
+                      onClick={handleFetchSellOffers}
+                      activeCurr={activeSellCurr}
                     />
-                    {/* {buyOffers?.currencies?.map((data: any) => (
-                      <button
-                        key={data?.id}
-                        onClick={() => handleFetchBuyOffers(data?.id)}
-                        className={`font-semibold text-gray-600 lg:text-md text-sm ${
-                          activeCurr === data?.id &&
-                          `border-b border-orange-500`
-                        }`}>
-                        {data?.attributes?.symbol}
-                      </button>
-                    ))} */}
                   </div>
                   <h1 className="font-semibold lg:text-2xl text-lg mb-4 mt-3 lg:mt-10">
                     Available offers
@@ -249,9 +234,9 @@ const HomeScreen = ({ data }: any) => {
                       </div>
                     ) : (
                       <>
-                        {currentBuyOffers?.length > 0 ? (
+                        {currentSellOffers?.length > 0 ? (
                           <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-4">
-                            {currentBuyOffers?.map((data: any) => (
+                            {currentSellOffers?.map((data: any) => (
                               <Link
                                 href={`/dashboard/crypto/buy/${data?.id}`}
                                 key={data?.id}>
@@ -276,23 +261,12 @@ const HomeScreen = ({ data }: any) => {
                   {/*  Sell Currency */}
                   <div className="flex items-center lg:space-x-10 space-x-4 mb-4">
                     <CurrencyCarousel
-                      data={sellOffers?.currencies}
-                      onClick={handleFetchSellOffers}
+                      data={buyOffers?.currencies}
+                      onClick={handleFetchBuyOffers}
                       activeCurr={activeCurr}
                     />
-                    {/* {sellOffers?.currencies?.map((data: any) => (
-                      <button
-                        key={data?.id}
-                        onClick={() => handleFetchSellOffers(data?.id)}
-                        className={`font-bold text-gray-600 lg:text-md text-sm ${
-                          activeSellCurr === data?.id &&
-                          `border-b border-orange-500`
-                        }`}>
-                        {data?.attributes?.symbol}
-                      </button>
-                    ))} */}
                   </div>
-                  <h1 className="font-semibold lg:text-2xl text-lg mb-4 lg:mt-10">
+                  <h1 className="font-semibold lg:text-2xl text-base mb-4 mt-6 lg:mt-10">
                     Available offers
                   </h1>
                   <>
@@ -303,9 +277,9 @@ const HomeScreen = ({ data }: any) => {
                       </div>
                     ) : (
                       <>
-                        {currentSellOffers?.length > 0 ? (
+                        {currentBuyOffers?.length > 0 ? (
                           <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-4">
-                            {currentSellOffers?.map((data: any) => (
+                            {currentBuyOffers?.map((data: any) => (
                               <Link
                                 href={`/dashboard/crypto/sell/${data?.id}`}
                                 key={data?.id}>

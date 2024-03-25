@@ -33,6 +33,7 @@ export default async function AccountPage() {
       <section className="lg:pt-10 pt-[5rem] pb-20 lg:pb-20 overflow-hidden">
         <MaxWidth>
           <HomeScreen data={giftcards} />
+          {/* <HomeScreenClone data={giftcards} /> */}
         </MaxWidth>
       </section>
       <Mobilenav />
