@@ -294,7 +294,7 @@ const GiftcardSellForm = ({ data }: any) => {
           </div>
         </div>
 
-        <div className="mt-6 px-8 pb-4 fixed bottom-0 right-0 left-0 z-10 bg-white">
+        <div className="mt-6 px-8 pb-8 fixed bottom-0 right-0 left-0 z-10 bg-white">
           {isRedirecting ? (
             <Button
               disabled={isChecked}
