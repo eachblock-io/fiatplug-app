@@ -20,7 +20,7 @@ const RedeemModal = ({ openModal, setModal }: any) => {
             </div>
             <div className="bg-white pt-8 pb-16 lg:px-14 px-10 rounded-[1rem]">
               <div className="mb-16">
-                <Link href="/dashboard/account/redeem/points" className="mb-20">
+                <Link href="/dashboard/account" className="mb-20">
                   <h2 className="font-semibold lg:text-xl text-lg">
                     Redeem to Airtime 📲{" "}
                   </h2>
@@ -30,7 +30,7 @@ const RedeemModal = ({ openModal, setModal }: any) => {
                   </p>
                 </Link>
               </div>
-              <Link href="/dashboard/account/redeem/cash">
+              <Link href="/dashboard/account">
                 <h2 className="font-semibold lg:text-xl text-lg">
                   Redeem to Cash 💸
                 </h2>

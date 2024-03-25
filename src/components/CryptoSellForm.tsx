@@ -19,6 +19,9 @@ import { formatCurrency } from "@/utils";
 import fetchToken from "@/lib/auth";
 import AddBankPage from "./AddBank";
 import ChatPage from "./ChatPage";
+import Link from "next/link";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { CryptoCarousel } from "./ui/CryptoCarousel";
 
 const CryptoSellForm = ({ data }: any) => {
   const [openBank, setOpenBank] = useState(false);
@@ -136,7 +139,7 @@ const CryptoSellForm = ({ data }: any) => {
   };
 
   return (
-    <>
+    <div className=" lg:mt-0  mt-8">
       <AddBankPage
         data={transID}
         type="crypto_transaction"
@@ -151,16 +154,26 @@ const CryptoSellForm = ({ data }: any) => {
           userData={data?.data?.relationships?.user}
         />
       )}
-      <div className="lg:w-5/12 w-10/12 mx-auto">
-        <h1 className="font-bold lg:text-2xl text-lg mb-6">Sell Crypto</h1>
-        <form onSubmit={handleSubmit}>
+      <div className="relative">
+        <Link href={`/dashboard/`}>
+          <IoIosArrowRoundBack className="absolute left-4 top-0 text-3xl" />
+        </Link>
+        <h1 className="font-semibold lg:text-2xl text-lg text-center mb-4">
+          Sell Crypto
+        </h1>
+        <div className="my-8">
+          <CryptoCarousel />
+        </div>
+        <form
+          onSubmit={handleSubmit}
+          className="lg:w-5/12 w-10/12 mx-auto pb-[9rem] mt-8">
           <div>
             <div className="relative flex items-center">
               <Input
                 type="text"
                 value={amount}
                 placeholder="Enter Amount"
-                className="w-full lg:h-12 h-10 px-4 border border-gray-500"
+                className="w-full h-14 px-6 text-gray-600 overflow-hidden border border-gray-300"
                 onChange={handleInputChange}
               />
               <span className="ml-[-3rem] lg:text-sm text-xs">USD</span>
@@ -181,16 +194,18 @@ const CryptoSellForm = ({ data }: any) => {
               </small>
             </div>
           </div>
-          <h2 className="lg:text-md text-xs font-semibold mt-4 mb-1">
+          <h2 className="lg:text-md text-xs font-semibold mt-8 mb-1">
             Trading Info
           </h2>
+
           <div className="flex items-center justify-between">
             <p className="lg:text-md text-xs">Amount in Naira</p>
             <p className="lg:text-md text-xs font-semibold">
               {formatCurrency(ngnAmount)} NGN
             </p>
           </div>
-          <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-3 px-6 shadow-md rounded-lg">
+
+          <div className="points flex items-center justify-between mb-2 mt-4 bg-[#FFF8ED] py-4 px-6 shadow-md rounded-lg">
             <p className="font-medium text-sm">Point Earned</p>
             <p className="font-bold flex items-center text-sm">
               <Image src={coinImg} alt="coin" width="17" className="mr-1" />
@@ -198,7 +213,7 @@ const CryptoSellForm = ({ data }: any) => {
             </p>
           </div>
 
-          <div className="pt-2">
+          <div className="pt-4">
             <p className="text-gray-900 lg:text-sm text-xs mb-2">
               Copy wallet address to send{" "}
               {data?.data?.attributes?.currency?.symbol}
@@ -209,7 +224,7 @@ const CryptoSellForm = ({ data }: any) => {
                 readOnly
                 value={address}
                 placeholder="Enter Amount"
-                className="w-full h-12 px-6 text-gray-600 font-medium overflow-hidden border border-gray-500"
+                className="w-full h-14 px-6 text-gray-600 font-medium overflow-hidden border border-gray-500"
                 onChange={handleInputChange}
               />
               <TooltipProvider>
@@ -243,11 +258,11 @@ const CryptoSellForm = ({ data }: any) => {
             </p>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-6 px-8 pb-8 fixed bottom-0 right-0 left-0 z-10 bg-white">
             {isRedirecting ? (
               <Button
                 disabled={isChecked}
-                className="w-full mt-8 lg:py-7 py-5 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                className="w-full mt-8 py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
                 <span className="flex items-center justify-center gap-2">
                   <ClipLoader size={20} color="#fff" />
                   {<span className="">Redirecting... please wait</span>}
@@ -256,7 +271,7 @@ const CryptoSellForm = ({ data }: any) => {
             ) : (
               <Button
                 disabled={isChecked}
-                className="w-full mt-8 lg:py-7 py-5 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
+                className="w-full mt-8 py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
                     <ClipLoader size={20} color="#fff" />
@@ -273,7 +288,7 @@ const CryptoSellForm = ({ data }: any) => {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

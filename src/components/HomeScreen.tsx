@@ -12,23 +12,30 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { handleOpen } from "@/redux/features/toggleSlice";
 import fetchToken from "@/lib/auth";
 import ClipLoader from "react-spinners/ClipLoader";
-import kycImg from "@/public/kyc.svg";
-import { IoIosArrowForward } from "react-icons/io";
 import { CurrencyCarousel } from "./ui/CurrencyCarousel";
 import VerifedCard from "./VerifedCard";
+import useBuyOffers from "@/hooks/useBuyOffers";
+import useSellOffers from "@/hooks/useSellOffers";
 
-const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
+const HomeScreen = ({ data }: any) => {
+  const { buyOffers, buyLoading } = useBuyOffers();
+  const { sellOffers, sellLoading } = useSellOffers();
   const dispatch = useAppDispatch();
   const active = useAppSelector((state) => state.toggle.value);
   const [isActive, setIsActive] = useState(false);
+
+  // Current buy and sell offers
   const [currentBuyOffers, setCurrentBuyOffers] = useState(buyOffers?.offers);
   const [currentSellOffers, setCurrentSellOffers] = useState(
     sellOffers?.offers
   );
+
+  // Active Buy and sell currency
   const [activeCurr, setActiveCurr] = useState(buyOffers?.currencies[0]?.id);
   const [activeSellCurr, setActiveSellCurr] = useState(
     sellOffers?.currencies[0]?.id
   );
+
   const [loading, setLoading] = useState(false);
 
   const handleToggle = () => {
@@ -42,6 +49,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
   // Fetch sell offers
   const handleFetchSellOffers = async (id: any) => {
     setActiveSellCurr(id);
+    console.log("SellID:", id);
     try {
       setLoading(true);
       const data = await fetchToken();
@@ -56,8 +64,9 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
         }
       );
 
-      const buyOffers = await res.json();
-      setCurrentSellOffers(buyOffers?.data?.offers);
+      const sellOffers = await res.json();
+      setCurrentSellOffers(sellOffers?.data?.offers);
+      console.log("Sell:", sellOffers?.data?.offers);
     } catch {
       setLoading(false);
     } finally {
@@ -68,6 +77,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
   // Fetch buy offers
   const handleFetchBuyOffers = async (id: any) => {
     setActiveCurr(id);
+    console.log("BuyID:", id);
     try {
       setLoading(true);
       const data = await fetchToken();
@@ -84,6 +94,7 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
 
       const buyOffers = await res.json();
       setCurrentBuyOffers(buyOffers?.data?.offers);
+      console.log("Buy:", buyOffers);
     } catch {
       setLoading(false);
     } finally {
@@ -265,8 +276,8 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                   {/*  Sell Currency */}
                   <div className="flex items-center lg:space-x-10 space-x-4 mb-4">
                     <CurrencyCarousel
-                      data={buyOffers?.currencies}
-                      onClick={handleFetchBuyOffers}
+                      data={sellOffers?.currencies}
+                      onClick={handleFetchSellOffers}
                       activeCurr={activeCurr}
                     />
                     {/* {sellOffers?.currencies?.map((data: any) => (
