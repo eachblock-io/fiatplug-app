@@ -204,7 +204,7 @@ const AddBankPage = ({
                       )}
                     />
                   </div>
-                  <div className="mt-6 px-8 pb-4 fixed bottom-0 right-0 left-0 z-10 bg-white">
+                  <div className="mt-6 px-8 pb-8 fixed bottom-0 right-0 left-0 z-10 bg-white">
                     {isRedirecting ? (
                       <Button className="w-full py-7 rounded-full bg-[#F9A21B] hover:bg-[#ffb151] flex items-center px-6">
                         <span className="flex items-center justify-center gap-2">
@@ -223,7 +223,9 @@ const AddBankPage = ({
                           ) : (
                             <div className="text-center">
                               <span className="font-semibold">
-                                Sell gift card
+                                {type == "crypto_transaction"
+                                  ? "Sell Crypto"
+                                  : "Sell gift card"}
                               </span>
                             </div>
                           )}

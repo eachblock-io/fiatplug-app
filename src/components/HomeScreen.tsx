@@ -12,23 +12,30 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { handleOpen } from "@/redux/features/toggleSlice";
 import fetchToken from "@/lib/auth";
 import ClipLoader from "react-spinners/ClipLoader";
-import kycImg from "@/public/kyc.svg";
-import { IoIosArrowForward } from "react-icons/io";
 import { CurrencyCarousel } from "./ui/CurrencyCarousel";
 import VerifedCard from "./VerifedCard";
+import useBuyOffers from "@/hooks/useBuyOffers";
+import useSellOffers from "@/hooks/useSellOffers";
 
-const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
+const HomeScreen = ({ data }: any) => {
+  const { buyOffers, buyLoading } = useBuyOffers();
+  const { sellOffers, sellLoading } = useSellOffers();
   const dispatch = useAppDispatch();
   const active = useAppSelector((state) => state.toggle.value);
   const [isActive, setIsActive] = useState(false);
+
+  // Current buy and sell offers
   const [currentBuyOffers, setCurrentBuyOffers] = useState(buyOffers?.offers);
   const [currentSellOffers, setCurrentSellOffers] = useState(
     sellOffers?.offers
   );
+
+  // Active Buy and sell currency
   const [activeCurr, setActiveCurr] = useState(buyOffers?.currencies[0]?.id);
   const [activeSellCurr, setActiveSellCurr] = useState(
     sellOffers?.currencies[0]?.id
   );
+
   const [loading, setLoading] = useState(false);
 
   const handleToggle = () => {
@@ -56,8 +63,8 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
         }
       );
 
-      const buyOffers = await res.json();
-      setCurrentSellOffers(buyOffers?.data?.offers);
+      const sellOffers = await res.json();
+      setCurrentSellOffers(sellOffers?.data?.offers);
     } catch {
       setLoading(false);
     } finally {
@@ -211,21 +218,10 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                   {/* Buy Currencies list */}
                   <div className="flex items-center lg:space-x-10 space-x-4">
                     <CurrencyCarousel
-                      data={buyOffers?.currencies}
-                      onClick={handleFetchBuyOffers}
-                      activeCurr={activeCurr}
+                      data={sellOffers?.currencies}
+                      onClick={handleFetchSellOffers}
+                      activeCurr={activeSellCurr}
                     />
-                    {/* {buyOffers?.currencies?.map((data: any) => (
-                      <button
-                        key={data?.id}
-                        onClick={() => handleFetchBuyOffers(data?.id)}
-                        className={`font-semibold text-gray-600 lg:text-md text-sm ${
-                          activeCurr === data?.id &&
-                          `border-b border-orange-500`
-                        }`}>
-                        {data?.attributes?.symbol}
-                      </button>
-                    ))} */}
                   </div>
                   <h1 className="font-semibold lg:text-2xl text-lg mb-4 mt-3 lg:mt-10">
                     Available offers
@@ -238,9 +234,9 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       </div>
                     ) : (
                       <>
-                        {currentBuyOffers?.length > 0 ? (
+                        {currentSellOffers?.length > 0 ? (
                           <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-4">
-                            {currentBuyOffers?.map((data: any) => (
+                            {currentSellOffers?.map((data: any) => (
                               <Link
                                 href={`/dashboard/crypto/buy/${data?.id}`}
                                 key={data?.id}>
@@ -269,19 +265,8 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       onClick={handleFetchBuyOffers}
                       activeCurr={activeCurr}
                     />
-                    {/* {sellOffers?.currencies?.map((data: any) => (
-                      <button
-                        key={data?.id}
-                        onClick={() => handleFetchSellOffers(data?.id)}
-                        className={`font-bold text-gray-600 lg:text-md text-sm ${
-                          activeSellCurr === data?.id &&
-                          `border-b border-orange-500`
-                        }`}>
-                        {data?.attributes?.symbol}
-                      </button>
-                    ))} */}
                   </div>
-                  <h1 className="font-semibold lg:text-2xl text-lg mb-4 lg:mt-10">
+                  <h1 className="font-semibold lg:text-2xl text-base mb-4 mt-6 lg:mt-10">
                     Available offers
                   </h1>
                   <>
@@ -292,9 +277,9 @@ const HomeScreen = ({ data, sellOffers, buyOffers }: any) => {
                       </div>
                     ) : (
                       <>
-                        {currentSellOffers?.length > 0 ? (
+                        {currentBuyOffers?.length > 0 ? (
                           <div className="grid lg:grid-cols-3 grid-cols-1 gap-x-4 gap-y-4">
-                            {currentSellOffers?.map((data: any) => (
+                            {currentBuyOffers?.map((data: any) => (
                               <Link
                                 href={`/dashboard/crypto/sell/${data?.id}`}
                                 key={data?.id}>

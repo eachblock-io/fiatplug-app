@@ -34,6 +34,8 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
   const [roomID, setRoomID] = useState("");
   const [triggerModal, setTriggerModal] = useState<any>([]);
 
+  console.log(chatRoomID);
+
   useEffect(() => {
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
       cluster: "mt1",
