@@ -1,26 +1,22 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { IoCloseCircleSharp } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa6";
-import { Input } from "@/components/ui/input";
-import magicStar from "../../../public/magic_star_.png";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import LabelInput from "@/components/forms/LabelInput";
 import fetchToken from "@/lib/auth";
 import toast from "react-hot-toast";
-import EnterPin from "@/components/EnterPin";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 const RedeemPointsAirtime = () => {
+  const { push } = useRouter();
   const [accountNumber, setAccountNumber] = useState();
   const [bank, setBank] = useState();
   const [amount, setAmount] = useState<any>("");
   const [accountName, setAccountName] = useState();
   const [point, setPoint] = useState<any>("");
   const [isLoading, setIsLoading] = useState(false);
-  const [openModal, setOpenModal] = useState(true);
 
   useEffect(() => {
     getPoint();
@@ -73,7 +69,7 @@ const RedeemPointsAirtime = () => {
         toast.error(resdata?.message);
       }
       if (resdata?.status == "success") {
-        setOpenModal(true);
+        push("/dashboard/account/cash/pin")
       }
     } catch (error) {
       console.log(error);
@@ -82,16 +78,11 @@ const RedeemPointsAirtime = () => {
     }
   };
 
-  const handleSubmitPin = async () => {
-    // handleSubmit();
-  };
-
   return (
     <section>
-      <EnterPin openModal={openModal} setModal={setOpenModal} />
       <div className="lg:w-5/12 w-10/12 mx-auto pb-10 lg:mt-8 mt-20">
         <div className="mb-6 mt-6">
-          <Link href="/dashboard/account/cash">
+          <Link href="/dashboard/account">
             <IoIosArrowRoundBack className="text-4xl" />
           </Link>
         </div>

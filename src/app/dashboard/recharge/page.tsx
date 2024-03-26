@@ -25,7 +25,11 @@ const RechargePage = () => {
     if (selectedOption) {
       if (window != undefined) {
         localStorage.setItem("billing_type", selectedOption);
-        push("/dashboard/recharge/airtime");
+        if (selectedOption === "data") {
+          push("/dashboard/recharge/data");
+        } else if (selectedOption === "airtime") {
+          push("/dashboard/recharge/airtime");
+        }
       }
     } else {
       alert("Please select an option before submitting.");
@@ -57,11 +61,7 @@ const RechargePage = () => {
             <Label
               htmlFor="data"
               className="flex items-center space-x-2 border border-gray-400 p-4 rounded-lg">
-              <RadioGroupItem
-                value="data"
-                onClick={handleSaveData}
-                id="data"
-              />
+              <RadioGroupItem value="data" onClick={handleSaveData} id="data" />
               <p className="text-gray-500">Mobile Data</p>
             </Label>
           </RadioGroup>

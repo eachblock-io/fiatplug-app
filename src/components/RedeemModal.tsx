@@ -19,7 +19,7 @@ const RedeemModal = ({ openModal, setModal }: any) => {
               </p>
             </div>
             <div className="bg-white pt-8 pb-16 lg:px-14 px-10 rounded-[1rem]">
-              <div className="mb-16">
+              {/* <div className="mb-16">
                 <Link href="/dashboard/account/redeem" className="mb-20">
                   <h2 className="font-semibold lg:text-xl text-lg">
                     Redeem to Airtime 📲{" "}
@@ -27,11 +27,8 @@ const RedeemModal = ({ openModal, setModal }: any) => {
                   <p className="text-sm">
                     Instantly redeem points as airtime to your phone.
                   </p>
-                  {/* <p className="text-orange-600 text-xs mt-2">
-                    Min. Points: 200
-                  </p> */}
                 </Link>
-              </div>
+              </div> */}
               <Link href="/dashboard/account/cash">
                 <h2 className="font-semibold lg:text-xl text-lg">
                   Redeem to Cash 💸
@@ -39,7 +36,6 @@ const RedeemModal = ({ openModal, setModal }: any) => {
                 <p className="text-sm">
                   Instantly redeem points directly to your bank account.
                 </p>
-                {/* <p className="text-orange-600 text-xs mt-2">Min. Points: 500</p> */}
               </Link>
             </div>
           </div>
