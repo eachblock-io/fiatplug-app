@@ -13,7 +13,6 @@ import airtel from "@/publicairtel.png";
 import glo from "@/publicglo.png";
 import mobile from "@/public9-mobile.png";
 import { FaCheck } from "react-icons/fa6";
-import EnterPin from "@/components/EnterPin";
 import Success from "@/components/Success";
 
 const RedeemPoint = () => {
@@ -201,11 +200,6 @@ const RedeemPoint = () => {
             <FaArrowRight className="text-white absolute right-4" />
           </Button>
         </form>
-        <EnterPin
-          openModal={openModal}
-          setModal={setModal}
-          handleSuccessModal={handleSuccessModal}
-        />
         <Success
           openSuccessModal={openSuccessModal}
           setSuccessModal={setSuccessModal}
