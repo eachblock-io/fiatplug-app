@@ -18,7 +18,7 @@ import { CryptoCarousel } from "./ui/CryptoCarousel";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 const CryptoBuyForm = ({ data }: any) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [openChat, setOpenChat] = useState(false);
   const [completeModal, setCompleteModal] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);

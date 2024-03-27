@@ -5,7 +5,6 @@ import { FaArrowRight } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { RiBankLine } from "react-icons/ri";
 import Image from "next/image";
-import EnterPin from "@/components/EnterPin";
 import Success from "@/components/Success";
 
 const RedeemCash = () => {
@@ -106,11 +105,6 @@ const RedeemCash = () => {
             <FaArrowRight className="text-white absolute right-4" />
           </Button>
         </form>
-        <EnterPin
-          openModal={openModal}
-          setModal={setModal}
-          handleSuccessModal={handleSuccessModal}
-        />
         <Success
           openSuccessModal={openSuccessModal}
           setSuccessModal={setSuccessModal}

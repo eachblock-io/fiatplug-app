@@ -23,8 +23,10 @@ import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
 import toast from "react-hot-toast";
 import ChatBoardScreen from "./ChatBoardScreen";
+import { useRouter } from "next/navigation";
 
 const ChatPage = ({ userData, chatRoomID }: any) => {
+  const { push } = useRouter();
   const [messages, setMessages] = useState<any>([]);
   const [chats, setChats] = useState<any>();
   const [loadingChats, setLoadingChats] = useState<any>(false);
@@ -33,8 +35,9 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
   const [messageToSend, setMessageToSend] = useState("");
   const [roomID, setRoomID] = useState("");
   const [triggerModal, setTriggerModal] = useState<any>([]);
+   const [loading, setLoading] = useState<any>(false);
 
-  console.log(chatRoomID);
+  
 
   useEffect(() => {
     const pusher = new Pusher(`${process.env.NEXT_PUBLIC_PUSHER_APP_KEY}`, {
@@ -114,37 +117,70 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
     }
   };
 
-  const handlePaidStatus = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    try {
-      const token = await fetchToken();
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/orders/${userData?.id}`,
-        {
-          payment_recieved: true,
-        },
-        {
-          headers: {
-            "Content-Type": `application/json`,
-            Authorization: `Bearer ${token?.data?.token}`,
-          },
-        }
-      );
-      toast.success("Payment confirmed ✅");
-    } catch (error) {}
-  };
-
   function getTriggerUserModal(arr: string | any[]) {
     if (arr.length === 0) {
       return null; // Return null if the array is empty
     } else {
       const lastObject = arr[arr.length - 1]; // Get the last object in the array
-      return lastObject.trigger_user_modal; // Return the value of the trigger_user_modal property
+      // setLatestTrans(lastObject);
+      return {
+        triggerStatus: lastObject?.trigger_user_modal,
+        latestTrans: lastObject?.attributes?.latest_transaction,
+      }; // Return the value of the trigger_user_modal property
     }
   }
 
   const triggerUserModal = getTriggerUserModal(triggerModal);
+
+  const handlePaidStatus = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const token = await fetchToken();
+      if (triggerUserModal?.latestTrans?.type === "crypto_transaction") {
+        const { data } = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-order-status`,
+          {
+            id: triggerUserModal?.latestTrans?.attribute?.order_id,
+            type: triggerUserModal?.latestTrans?.type,
+            confirm_recieved: true,
+          },
+          {
+            headers: {
+              "Content-Type": `application/json`,
+              Authorization: `Bearer ${token?.data?.token}`,
+            },
+          }
+        );
+
+        if (data?.status == "success") {
+          push("/dashboard/feedback");
+          toast.success("Payment confirmed ✅");
+        }
+      } else {
+        const { data } = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-order-status`,
+          {
+            id: triggerUserModal?.latestTrans?.attribute?.order_id,
+            type: triggerUserModal?.latestTrans?.type,
+            payment_recieved: true,
+          },
+          {
+            headers: {
+              "Content-Type": `application/json`,
+              Authorization: `Bearer ${token?.data?.token}`,
+            },
+          }
+        );
+        if (data?.status == "success") {
+          push("/dashboard/feedback");
+          toast.success("Payment confirmed ✅");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="h-[100vh] lg:h-[92vh] lg:absolute fixed bottom-0 top-0 right-0 left-0 w-full z-20 bg-white overflow-hidden">
@@ -174,11 +210,11 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
         </div>
         <ScrollArea className="lg:h-[80vh] h-[80vh] lg:pb-0 pb-20 pt-28  pr-10 pl-10 bg-white">
           <ChatBoardScreen data={messages} />
-          {triggerUserModal ? (
-            <div>
+          {triggerUserModal?.triggerStatus ? (
+            <div className="">
               <form
                 onSubmit={handlePaidStatus}
-                className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[8rem] ">
+                className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[6rem] ">
                 <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
                   <div>
                     <MdError className="g:text-2xl text-lg text-orange-400" />
@@ -189,7 +225,11 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
                   </p>
                 </div>
                 <div className="flex space-x-3 mt-6 mb-8">
-                  <Checkbox id="terms" className="lg:h-6 lg:w-6 h-4 w-4" />
+                  <Checkbox
+                    id="terms"
+                    required
+                    className="lg:h-6 lg:w-6 h-4 w-4"
+                  />
                   <label
                     htmlFor="terms"
                     className="g:text-sm text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
@@ -197,8 +237,10 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
                     confirm the order as completed.
                   </label>
                 </div>
-                <Button className="bg-orange-400 hover:bg-orange-500 lg:h-14 h-10 font-normal text-white rounded-full text-center px-10">
-                  Confirm order as paid
+                <Button
+                  type="submit"
+                  className="bg-orange-400 hover:bg-orange-500 lg:h-14 h-10 font-normal text-white rounded-full text-center px-10">
+                  {loading ? "Confirming..." : "Confirm order as paid"}
                 </Button>
               </form>
             </div>
