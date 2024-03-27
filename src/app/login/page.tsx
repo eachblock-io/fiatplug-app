@@ -96,7 +96,7 @@ const LoginPage = () => {
                   </label>
                 </div>
                 <Link
-                  href="/forgetpassword"
+                  href="/login"
                   className="lg:text-sm text-xs text-orange-400 font-semibold">
                   Forgot Password?
                 </Link>
