@@ -7,6 +7,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { LuShieldCheck } from "react-icons/lu";
 import coinIcon from "@/public/coin.png";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 const Preview = ({ open, setOpen, data }: any) => {
   const cancelButtonRef = useRef(null);
@@ -68,6 +70,19 @@ const Preview = ({ open, setOpen, data }: any) => {
                           <p>Data Plan</p>
                           <p className="font-semibold">MTN</p>
                         </div>
+                      </div>
+
+                      <div className="mt-6 px-8 pb-8 fixed bottom-0 right-0 left-0 z-10 bg-white">
+                        <Button
+                          type="submit"
+                          className={`w-full py-7 text-center rounded-full bg-[#F9A21B] hover:bg-[#ffb151] px-6`}>
+                          <div className="text-center mx-auto w-full">
+                            <div className="text-center">
+                              <span className="font-semibold">Contiune</span>
+                            </div>
+                          </div>
+                          <IoIosArrowRoundForward className="ml-auto text-3xl" />
+                        </Button>
                       </div>
                     </div>
                   </div>
