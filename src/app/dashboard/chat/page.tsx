@@ -199,7 +199,7 @@ const ChatPage = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-order-status`,
           {
             id: triggerUserModal?.latestTrans?.attribute?.order_id,
-            type: triggerUserModal?.latestTrans?.type,
+            type: "gift_card_transaction",
             payment_recieved: true,
           },
           {
