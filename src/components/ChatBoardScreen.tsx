@@ -21,7 +21,7 @@ const ChatBoardScreen = ({ data }: any) => {
   }, []);
 
   return (
-    <>
+    <div className="">
       {data?.map((message: any, i: any) => {
         const currentUser = message?.user?.id == user?.id;
         return (
@@ -50,7 +50,7 @@ const ChatBoardScreen = ({ data }: any) => {
         );
       })}
       <div ref={divRef}></div>
-    </>
+    </div>
   );
 };
 

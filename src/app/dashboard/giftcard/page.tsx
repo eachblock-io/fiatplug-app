@@ -56,7 +56,7 @@ const GiftcardPage = async () => {
         <section className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 lg:gap-8 gap-4 lg:mt-20 mt-10 mb-20">
           {giftcards?.data?.map((data: any) => (
             <Link key={data?.id} href={`/dashboard/giftcard/${data?.id}`}>
-              <div className="p-1 bg-[#FFFAF1]">
+              <div className="p-3 bg-[#fff9ef] rounded-lg">
                 <Card className="lg:h-40 h-24 relative w-full rounded-lg flex aspect-square items-center justify-center lg:p-6 bg-[#FFFAF1] ">
                   <Image
                     src={data?.attributes?.image}

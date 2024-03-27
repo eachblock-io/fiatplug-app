@@ -26,11 +26,14 @@ import moment from "moment";
 import Mobilenav from "@/components/Mobilenav";
 import { CiSearch } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 const ChatPage = () => {
+  const { push } = useRouter();
   const [messages, setMessages] = useState<any>([]);
   const [chats, setChats] = useState<any>();
   const [loadingChats, setLoadingChats] = useState<any>(false);
+  const [loading, setLoading] = useState<any>(false);
   const [activeUser, setActiveUser] = useState<any>();
   const [active, setActive] = useState<any>();
   const [messageToSend, setMessageToSend] = useState("");
@@ -151,38 +154,70 @@ const ChatPage = () => {
     }
   };
 
-  const handlePaidStatus = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Paddy!!!!");
-
-    try {
-      const token = await fetchToken();
-      // const { data } = await axios.post(
-      //   `${process.env.NEXT_PUBLIC_API_URL}/orders/${}`,
-      //   {
-      //     payment_recieved: true,
-      //   },
-      //   {
-      //     headers: {
-      //       "Content-Type": `application/json`,
-      //       Authorization: `Bearer ${token?.data?.token}`,
-      //     },
-      //   }
-      // );
-      toast.success("Payment confirmed ✅");
-    } catch (error) {}
-  };
-
   function getTriggerUserModal(arr: string | any[]) {
     if (arr.length === 0) {
       return null; // Return null if the array is empty
     } else {
       const lastObject = arr[arr.length - 1]; // Get the last object in the array
-      return lastObject.trigger_user_modal; // Return the value of the trigger_user_modal property
+      // setLatestTrans(lastObject);
+      return {
+        triggerStatus: lastObject?.trigger_user_modal,
+        latestTrans: lastObject?.attributes?.latest_transaction,
+      }; // Return the value of the trigger_user_modal property
     }
   }
 
   const triggerUserModal = getTriggerUserModal(triggerModal);
+
+  const handlePaidStatus = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const token = await fetchToken();
+      if (triggerUserModal?.latestTrans?.type === "crypto_transaction") {
+        const { data } = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-order-status`,
+          {
+            id: triggerUserModal?.latestTrans?.attribute?.order_id,
+            type: triggerUserModal?.latestTrans?.type,
+            confirm_recieved: true,
+          },
+          {
+            headers: {
+              "Content-Type": `application/json`,
+              Authorization: `Bearer ${token?.data?.token}`,
+            },
+          }
+        );
+
+        if (data?.status == "success") {
+          push("/dashboard/feedback");
+          toast.success("Payment confirmed ✅");
+        }
+      } else {
+        const { data } = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-order-status`,
+          {
+            id: triggerUserModal?.latestTrans?.attribute?.order_id,
+            type: "gift_card_transaction",
+            payment_recieved: true,
+          },
+          {
+            headers: {
+              "Content-Type": `application/json`,
+              Authorization: `Bearer ${token?.data?.token}`,
+            },
+          }
+        );
+        if (data?.status == "success") {
+          push("/dashboard/feedback");
+          toast.success("Payment confirmed ✅");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -245,7 +280,7 @@ const ChatPage = () => {
         </div>
 
         {activeUser ? (
-          <div className="lg:relative fixed top-0 bottom-0 chats w-full h-screen">
+          <div className="lg:relative fixed top-0  bottom-0 chats w-full h-[100vh]">
             <div className="inputs z-10 px-8 py-3 shadow h-[10vh] bg-white absolute top-0 right-0 left-0 w-full flex items-center justify-start ">
               <div className="flex items-center gap-2">
                 <IoIosArrowBack
@@ -266,43 +301,44 @@ const ChatPage = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <ScrollArea className="h-[78vh] lg:pb-0 pt-28 pr-10 pl-10 pb-28">
-                <ChatBoardScreen data={messages} />
-                {triggerUserModal ? (
-                  <div>
-                    <form
-                      onSubmit={handlePaidStatus}
-                      className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[8rem] ">
-                      <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
-                        <div>
-                          <MdError className="g:text-2xl text-lg text-orange-400" />
-                        </div>
-                        <p className="lg:text-sm text-xs text-gray-600">
-                          Only input a valid crypto address. Incorrect addresses
-                          may result in irreversible transactions.
-                        </p>
+            <ScrollArea className="h-[100vh] lg:pb-0 pt-28 pr-10 pl-10 pb-28">
+              <ChatBoardScreen data={messages} />
+              {triggerUserModal?.triggerStatus ? (
+                <div className="">
+                  <form
+                    onSubmit={handlePaidStatus}
+                    className=" p-3 lg:w-6/12 lg:ml-auto mx-auto w-full pt-[4rem] pb-[6rem] ">
+                    <div className="bg-gray-200 py-4 px-4 flex space-x-2 mt-4">
+                      <div>
+                        <MdError className="g:text-2xl text-lg text-orange-400" />
                       </div>
-                      <div className="flex space-x-3 mt-6 mb-8">
-                        <Checkbox
-                          id="terms"
-                          className="lg:h-6 lg:w-6 h-4 w-4"
-                        />
-                        <label
-                          htmlFor="terms"
-                          className="g:text-sm text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          I have recieved the correct amount to my bank. And I
-                          hereby confirm the order as completed.
-                        </label>
-                      </div>
-                      <Button className="bg-orange-400 hover:bg-orange-500 lg:h-14 h-10 font-normal text-white rounded-full text-center px-10">
-                        Confirm order as paid
-                      </Button>
-                    </form>
-                  </div>
-                ) : null}
-              </ScrollArea>
-            </div>
+                      <p className="lg:text-sm text-xs text-gray-600">
+                        Only input a valid crypto address. Incorrect addresses
+                        may result in irreversible transactions.
+                      </p>
+                    </div>
+                    <div className="flex space-x-3 mt-6 mb-8">
+                      <Checkbox
+                        id="terms"
+                        required
+                        className="lg:h-6 lg:w-6 h-4 w-4"
+                      />
+                      <label
+                        htmlFor="terms"
+                        className="g:text-sm text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                        I have recieved the correct amount to my bank. And I
+                        hereby confirm the order as completed.
+                      </label>
+                    </div>
+                    <Button
+                      type="submit"
+                      className="bg-orange-400 hover:bg-orange-500 lg:h-14 h-10 font-normal text-white rounded-full text-center px-10">
+                      {loading ? "Confirming..." : "Confirm order as paid"}
+                    </Button>
+                  </form>
+                </div>
+              ) : null}
+            </ScrollArea>
             {/* Type message input */}
             <div className="inputs h-[12vh] px-4 border bg-white absolute bottom-0 right-0 left-0 w-full flex items-center justify-center ">
               <form

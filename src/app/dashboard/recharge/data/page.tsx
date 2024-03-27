@@ -23,6 +23,7 @@ import {
 import { formatCurrency } from "@/utils";
 import { Label } from "@/components/ui/label";
 import Preview from "./@preview/page";
+import Enterpin from "./@enterpin/page";
 
 const DataPage = () => {
   const [open, setOpen] = useState(false);
@@ -130,7 +131,7 @@ const DataPage = () => {
 
   return (
     <section className="h-screen w-10/12 mx-auto relative mt-20">
-      <Preview open={open} setOpen={setOpen} data={previewData} />
+      <Enterpin open={open} setOpen={setOpen} data={previewData} />
       <Link href="/dashboard" className="text-2xl">
         <IoIosArrowRoundBack className="absolute left-0 top-0 text-4xl" />
       </Link>
