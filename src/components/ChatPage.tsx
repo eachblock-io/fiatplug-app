@@ -162,7 +162,7 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
           `${process.env.NEXT_PUBLIC_API_URL}/mobile/update-order-status`,
           {
             id: triggerUserModal?.latestTrans?.attribute?.order_id,
-            type: triggerUserModal?.latestTrans?.type,
+            type: "gift_card_transaction",
             payment_recieved: true,
           },
           {
@@ -179,6 +179,7 @@ const ChatPage = ({ userData, chatRoomID }: any) => {
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
